@@ -4,6 +4,7 @@ import authLocalService from "../services/authLocal.service";
 import jwt from 'jsonwebtoken';
 import bcrypt from "bcrypt";
 import {logger} from "../helpers/loggers";
+import {findOrCreateUser} from "../services/oauth.service";
 
 
 const MAX_ATTEMPTS = 5; // Nombre maximal de tentatives
@@ -37,6 +38,7 @@ const authLocalController = {
                 if (user.authLocal.failedAttempts + 1 >= MAX_ATTEMPTS) {
                     logger.warn(`L'utilisateur: ${user.id} a dépassé le nombre maximal de tentatives de connexion. Verrouillage du compte`);
                     await authLocalService.blockUser(user.id, new Date(Date.now() + LOCK_TIME));
+                    await userService.sendEmailBlockAccount(user.email);
                     return res.status(400).json({ message: "Le compte est verrouillé. Veuillez réessayer plus tard" });
                 }
                 return res.status(400).json({ message: "Mot de passe incorrect" });
@@ -76,7 +78,8 @@ const authLocalController = {
 
             const salt = await bcrypt.genSalt(10);
 
-            authLocalService.addAuthLocalToUser(user.id, password, salt);
+            await authLocalService.addAuthLocalToUser(user.id, password, salt);
+            await userService.sendEmailWelcome(user.email);
             logger.info(`Utilisateur créé avec succès avec l'ID: ${user.id}`);
             res.status(201).json({ message: "Utilisateur créé avec succès", user });
         } catch (error) {

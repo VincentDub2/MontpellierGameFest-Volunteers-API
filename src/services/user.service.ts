@@ -19,7 +19,7 @@ const UserService = {
             }
         });
 
-        sendEmail(email, emailVerificationToken);
+        sendEmailVerification(email, emailVerificationToken);
         return user;
     },
 
@@ -80,11 +80,55 @@ const UserService = {
         });
         return user?.authLocal?.failedAttempts;
     }
+    ,sendEmailWelcome: async (email: string) => {
+            // Envoyer un email de vérification
+            try{
+                console.log("GMAIL_USER ",process.env.GMAIL_USER);
+                console.log("GMAIL_PASSWORD ",process.env.GMAIL_PASSWORD);
+                const transporter = nodemailer.createTransport({
+                    service: 'gmail',
+                    auth: {
+                        user: process.env.GMAIL_USER,
+                        pass: process.env.GMAIL_PASSWORD
+                    }
+                });
+                await transporter.sendMail({
+                    from: 'ur@gmail.com',
+                    to: email,
+                    subject: 'Bienvenue',
+                    text: `Bienvenue sur notre site`
+                }
+                );
+    }catch(error){
+        console.log(error);
+    }}
+    ,sendEmailBlockAccount: async (email: string) => {
+        // Envoyer un email de vérification
+        try{
+            console.log("GMAIL_USER ",process.env.GMAIL_USER);
+            console.log("GMAIL_PASSWORD ",process.env.GMAIL_PASSWORD);
+            const transporter = nodemailer.createTransport({
+                service: 'gmail',
+                auth: {
+                    user: process.env.GMAIL_USER,
+                    pass: process.env.GMAIL_PASSWORD
+                }
+            });
+            await transporter.sendMail({
+                from: 'test@gmail.com',
+                to: email,
+                subject: 'Compte bloqué',
+                text: `Votre compte a été bloqué`
+            },
+            );
+    }catch (error){
+        console.log(error);
+    }}
 };
 
 
 
-const sendEmail = async (email: string, emailVerificationToken: string) => {
+const sendEmailVerification = async (email: string, emailVerificationToken: string) => {
 
     // Envoyer un email de vérification
     try{
