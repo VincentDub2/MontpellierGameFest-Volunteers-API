@@ -1,7 +1,8 @@
 import axios from 'axios';
 import prisma from '../prisma';
-import {User} from "@prisma/client";
 import {stringify} from "ts-jest";
+import {User} from "@prisma/client";
+
 
 interface UserProfile {
     id: number;
@@ -12,7 +13,9 @@ interface UserProfile {
     refreshToken?: string; // Token de rafraîchissement OAuth (peut être null)
     name: string;
 }
+
 type Provider = 'google' | 'facebook' | 'twitter' | 'github' | 'linkedin' | 'microsoft';
+
 type Token = {
     access_token: string;
     expires_in: number;
@@ -100,14 +103,16 @@ const findOrCreateUser = async (userProfile: UserProfile,token : Token): Promise
             user = await prisma.user.create({
                 data: {
                     email,
-                    name : name,
-                    OAuthAccount: {
+                    name,
+                    emailVerified: true,
+                    authOAuth: {
                         create: {
                             providerId: 'google', // ou autre fournisseur
                             provider: 'google', // ou autre fournisseur
                             providerUserId: stringify(id), // ID utilisateur attribué par le fournisseur OAuth
                             accessToken : token.access_token, // Token d'accès, si vous le stockez
                             refreshToken : token.refresh_token, // Token de rafraîchissement, si vous le stockez
+
                             // Autres champs nécessaires pour OAuthAccount
                         },
                     },
@@ -116,6 +121,9 @@ const findOrCreateUser = async (userProfile: UserProfile,token : Token): Promise
         } catch (error) {
             console.log(error);
         }
+    }
+    if (!user) {
+        throw new Error('Impossible de créer ou de trouver un utilisateur');
     }
     return user;
 };

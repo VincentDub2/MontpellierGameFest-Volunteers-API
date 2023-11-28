@@ -9,11 +9,13 @@ generator client {
 }
 
 model User {
-  id        String   @id @default(uuid())
-  name      String
-  email     String   @unique
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id                     String   @id @default(uuid())
+  name                   String
+  email                  String   @unique
+  createdAt              DateTime @default(now())
+  updatedAt              DateTime @updatedAt
+  emailVerified          Boolean  @default(false)
+  emailVerificationToken String? // Un token unique pour la vérification d'email
 
   // Relations
   authLocal           AuthLocal?
@@ -30,7 +32,7 @@ model AuthLocal {
   salt           String
 
   userId String @unique
-  user   User   @relation(fields: [userId], references: [id])
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model AuthOAuth {
@@ -41,7 +43,7 @@ model AuthOAuth {
   accessToken    String  @db.VarChar(500)
   refreshToken   String?
   userId         String
-  user           User    @relation(fields: [userId], references: [id])
+  user           User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
 }
@@ -51,7 +53,7 @@ model PasswordResetToken {
   token  String @unique
   userId String
 
-  user      User     @relation(fields: [userId], references: [id])
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   expiresAt DateTime
   createdAt DateTime @default(now())
 

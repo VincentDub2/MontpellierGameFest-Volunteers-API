@@ -1,5 +1,7 @@
 import { Request, Response } from 'express';
-import oauthService from '../services/oauth.service'; // Assurez-vous d'implémenter ce service
+import oauthService from '../services/oauth.service';
+import jwt from "jsonwebtoken";
+import * as process from "process"; // Assurez-vous d'implémenter ce service
 
 const oauthController = {
     // Rediriger l'utilisateur vers le fournisseur OAuth
@@ -21,10 +23,16 @@ const oauthController = {
 
             const user = await oauthService.authenticateUser(provider, code as string);
 
-            // Gérer la session utilisateur ici (création de session, génération de token JWT, etc.)
-            // ...
+            if (!process.env.JWT_SECRET) {
+                throw new Error('JWT_SECRET manquant dans le fichier .env');
+            }
 
-            res.redirect('/some-redirect-uri-on-success');
+            // Générer un token JWT
+            const token = jwt.sign({ userId: user.id, email: user.email }, process.env.JWT_SECRET, { expiresIn: '1h' });
+
+            res.json({ token });
+
+
         } catch (error) {
             res.redirect('/some-redirect-uri-on-failure');
         }
