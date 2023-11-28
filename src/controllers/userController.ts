@@ -36,7 +36,7 @@ const userController = {
             logger.error(`Erreur lors de la récupération de l'utilisateur: ${error}`)
             res.status(500).json({ message: "Erreur lors de la récupération de l'utilisateur" });
         }
-    }
+    },
 }
 
 export default userController;

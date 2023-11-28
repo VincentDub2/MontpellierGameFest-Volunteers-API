@@ -27,9 +27,11 @@ model User {
 }
 
 model AuthLocal {
-  id             String @id @default(uuid())
+  id             String    @id @default(uuid())
   hashedPassword String
   salt           String
+  failedAttempts Int       @default(0)
+  lockUntil      DateTime? // Verrouillage du compte jusqu'à cette date
 
   userId String @unique
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)

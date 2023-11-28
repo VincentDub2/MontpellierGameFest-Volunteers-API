@@ -72,6 +72,13 @@ const UserService = {
         });
 
         return user;
+    },
+    getUsersFailedAttempts: async (userId: string) => {
+        const user = await prisma.user.findUnique({
+            where: { id: userId },
+            select: { authLocal: true }
+        });
+        return user?.authLocal?.failedAttempts;
     }
 };
 

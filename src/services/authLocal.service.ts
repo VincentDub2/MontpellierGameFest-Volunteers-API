@@ -56,6 +56,26 @@ const AuthLocalService = {
         });
 
         return authLocal;
+    },
+    updateFailedAttempts: async (userId: string, failedAttempts: number) => {
+        const authLocal = await prisma.authLocal.update({
+            where: { userId },
+            data: { failedAttempts }
+        });
+        return authLocal;
+    },
+    blockUser: async (userId: string,date : Date) => {
+        const user = await prisma.user.update({
+            where: { id: userId },
+            data: { authLocal: { update: { lockUntil : date } } }
+        });
+        return user;
+    },resetUserLock: async (userId: string) => {
+        const user = await prisma.user.update({
+            where: { id: userId },
+            data: { authLocal: { update: { lockUntil : null } } }
+        });
+        return user;
     }
 };
 
