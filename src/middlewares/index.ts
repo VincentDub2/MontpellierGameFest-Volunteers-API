@@ -2,7 +2,9 @@ import jwt from 'jsonwebtoken';
 import {NextFunction, Request,Response} from "express";
 import userService from '../services/user.service';
 import {User} from "@prisma/client";
-import * as constants from "constants";
+import rateLimit from "express-rate-limit";
+import {logger} from "../helpers/loggers";
+
 
 const middleware = {
     isAuthenticated : async (req : Request, res : Response, next : NextFunction) => {
@@ -58,7 +60,20 @@ const middleware = {
             return res.status(403).json({ message: "Action non autorisée" });
         }
         next();
-    }
+    },
+    // Créez une instance de limite de taux
+     limiter : rateLimit({
+        windowMs: 15 * 60 * 1000, // 15 minutes
+        limit: 100, // Limite chaque IP à 100 requêtes par `window` (ici, par 15 minutes)
+        standardHeaders: true, // Retourne les informations de limite de taux dans les headers `RateLimit-*`
+        legacyHeaders: false, // Désactive les headers `X-RateLimit-*`
+         handler: (req, res) => {
+             logger.warn("Trop de requêtes effectuées depuis cette IP, veuillez réessayer après un certain temps.");
+             res.status(429).json({
+                 message: "Trop de requêtes effectuées depuis cette IP, veuillez réessayer après un certain temps."
+             });
+         },
+    })
 };
 
 export default middleware;

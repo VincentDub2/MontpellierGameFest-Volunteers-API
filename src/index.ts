@@ -7,6 +7,7 @@ import cors from 'cors';
 import { morganMiddleware } from './helpers/loggers';
 
 import router from './router';
+import middleware from './middlewares/index';
 
 const app = express();
 
@@ -18,7 +19,7 @@ app.use(compression());
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(morganMiddleware);
-
+app.use(middleware.limiter)
 const server = http.createServer(app);
 
 server.listen(8080, () => {

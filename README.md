@@ -20,6 +20,7 @@ Securité mise en place :
 - Blocage des requetes non authentifié
 - Blocage compte apres x tentatives de connexion
 - Verification de l'email
+- limiter le nombre de requêtes et aider à prévenir les attaques DDoS
 
 L'application possede une gestion des logs qui sont enregistrés dans le dossier logs.
 Les logs sont enregistrés dans un fichier par jour.
