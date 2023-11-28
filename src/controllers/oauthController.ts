@@ -1,7 +1,8 @@
 import { Request, Response } from 'express';
 import oauthService from '../services/oauth.service';
 import jwt from "jsonwebtoken";
-import * as process from "process"; // Assurez-vous d'implémenter ce service
+import * as process from "process";
+import {logger} from "../helpers/loggers"; // Assurez-vous d'implémenter ce service
 
 const oauthController = {
     // Rediriger l'utilisateur vers le fournisseur OAuth
@@ -9,8 +10,10 @@ const oauthController = {
         try {
             const provider = req.params.provider; // Exemple: 'google', 'facebook'
             const redirectUrl = await oauthService.getRedirectUrl(provider);
+            logger.info(`Redirection de l'utilisateur vers le fournisseur OAuth: ${provider}`);
             res.redirect(redirectUrl);
         } catch (error) {
+            logger.error(`Erreur lors de la redirection de l'utilisateur vers le fournisseur OAuth: ${error}`);
             res.status(500).json({ message: "Erreur lors de la redirection vers le fournisseur OAuth" });
         }
     },
@@ -29,11 +32,10 @@ const oauthController = {
 
             // Générer un token JWT
             const token = jwt.sign({ userId: user.id, email: user.email }, process.env.JWT_SECRET, { expiresIn: '1h' });
-
+            logger.info(`Utilisateur authentifié avec succès avec le fournisseur OAuth: ${provider}`);
             res.json({ token });
-
-
         } catch (error) {
+            logger.error(`Erreur lors de la gestion de la réponse du fournisseur OAuth: ${error}`);
             res.redirect('/some-redirect-uri-on-failure');
         }
     }
