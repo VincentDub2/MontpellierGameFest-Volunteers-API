@@ -11,6 +11,11 @@ const userController = {
         try {
             const { token } = req.query; // Obtenez le token de la requête
 
+            if (!token) {
+                logger.warn("Tentative de vérification d'email avec un token vide ou null.");
+                return res.status(400).json({ message: "Token invalide" });
+            }
+
             if (typeof token !== 'string') {
                 logger.warn("Tentative de vérification d'email avec un token invalide.");
                 return res.status(400).json({ message: "Token invalide" });

@@ -5,12 +5,10 @@ import {User} from "@prisma/client";
 
 
 interface UserProfile {
-    id: number;
     email: string;
+    provider: string; // Nom du fournisseur OAuth (ex : "Google")
     providerId: string; // ID unique du fournisseur OAuth (ex : "Google")
     providerUserId: string; // ID utilisateur attribué par le fournisseur OAuth
-    accessToken: string; // Token d'accès OAuth
-    refreshToken?: string; // Token de rafraîchissement OAuth (peut être null)
     name: string;
 }
 
@@ -80,36 +78,42 @@ const fetchUserProfile = async (provider: string, accessToken: string): Promise<
                 Authorization: `Bearer ${accessToken}`,
             },
         });
-        console.log("response ",response.data);
-
-        return response.data; // Contiendra l'email, le nom, etc.
+        return  adaptGoogleProfile(response.data);
+    }
+    if (provider === "facebook") {
+        const response = await axios.get('https://graph.facebook.com/me', {
+            params: {
+                fields: ['id', 'email', 'name'].join(','),
+                access_token: accessToken,
+            },
+        });
+        return adaptFacebookProfile(response.data);
     }
     throw new Error('Fournisseur OAuth non pris en charge');
 };
 
 
 const findOrCreateUser = async (userProfile: UserProfile,token : Token): Promise<User> => {
-    const { email, providerId, providerUserId, accessToken, refreshToken,name,id} = userProfile;
 
     console.log("UserProfile ",userProfile);
 
 
     let user = await prisma.user.findUnique({
-        where: { email },
+        where: { email : userProfile.email },
     });
 
     if (!user) {
         try {
             user = await prisma.user.create({
                 data: {
-                    email,
-                    name,
+                    email : userProfile.email,
+                    name : userProfile.name,
                     emailVerified: true,
                     authOAuth: {
                         create: {
-                            providerId: 'google', // ou autre fournisseur
-                            provider: 'google', // ou autre fournisseur
-                            providerUserId: stringify(id), // ID utilisateur attribué par le fournisseur OAuth
+                            providerId: userProfile.providerId, // ou autre fournisseur
+                            provider: userProfile.provider, // ou autre fournisseur
+                            providerUserId: userProfile.providerUserId, // ID utilisateur attribué par le fournisseur OAuth
                             accessToken : token.access_token, // Token d'accès, si vous le stockez
                             refreshToken : token.refresh_token, // Token de rafraîchissement, si vous le stockez
 
@@ -127,5 +131,28 @@ const findOrCreateUser = async (userProfile: UserProfile,token : Token): Promise
     }
     return user;
 };
+
+
+function adaptGoogleProfile(googleProfile: any): UserProfile {
+    return {
+        email: googleProfile.email,
+        name: googleProfile.name,
+        provider: "google",
+        providerId: "google",
+        providerUserId: stringify(googleProfile.id),
+
+    };
+}
+
+function adaptFacebookProfile(facebookProfile: any): UserProfile {
+    return {
+        email: facebookProfile.email, // Assurez-vous que le champ existe
+        name: facebookProfile.name,
+        provider: "facebook",
+        providerId: "facebook",
+        providerUserId: stringify(facebookProfile.id),
+    };
+}
+
 export { UserProfile, oauthService, exchangeCodeForAccessToken, fetchUserProfile, findOrCreateUser };
 export default oauthService;
