@@ -1,7 +1,6 @@
 import jwt from 'jsonwebtoken';
 import {NextFunction, Request,Response} from "express";
 import userService from '../services/user.service';
-import {User} from "@prisma/client";
 import rateLimit from "express-rate-limit";
 import {logger} from "../helpers/loggers";
 

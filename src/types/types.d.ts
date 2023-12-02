@@ -10,6 +10,8 @@ declare global {
     }
 }
 
+
+
 export interface UserRequest extends express.Request {
     user?: User;
 }

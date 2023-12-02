@@ -76,6 +76,17 @@ const AuthLocalService = {
             data: { authLocal: { update: { lockUntil : null } } }
         });
         return user;
+    },
+    updateUserPassword: async (userId: string, hashedPassword: string,salt : string) => {
+        const user = await prisma.user.update({
+            where: { id: userId },
+            data: { authLocal: { update: { hashedPassword , salt} } }
+        });
+    },
+    deletePasswordResetToken: async (token: string) => {
+        await prisma.passwordResetToken.delete({
+            where: { token }
+        });
     }
 };
 

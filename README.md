@@ -15,6 +15,8 @@ Cette application web est conçue pour le cadre universitaire et destinée à la
 - \`/register\`
 - \`/currentUser\`
 - \`/verify-email\`
+- \`/reset-password\`
+- \`/update-password-with-token\`
 
 ### Détails des Routes de l'API
 
@@ -70,6 +72,8 @@ NODE_ENV='development'
 - Typescript
 - Jest
 - Nodemailer
+- Bcrypt
+- handlebars
 
 ## 🌐 Fournisseur d'Authentification
 - Google
