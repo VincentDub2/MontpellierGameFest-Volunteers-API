@@ -3,7 +3,7 @@ import userService from "../services/user.service";
 import authLocalService from "../services/authLocal.service";
 import jwt from 'jsonwebtoken';
 import bcrypt from "bcrypt";
-import {logger} from "../helpers/loggers";
+import {logger} from "../helpers/loggers.vercel";
 import {findOrCreateUser} from "../services/oauth.service";
 
 //Permet de générer un token unique

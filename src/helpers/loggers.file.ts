@@ -13,6 +13,8 @@ import 'winston-daily-rotate-file';
     * Le fichier ne dépassera pas 20Mo
     * Seuls les 14 derniers fichiers seront conservés
  */
+
+
 const fileTransport = new winston.transports.DailyRotateFile({
     filename: 'tmp' +
         '/application-%DATE%.log',
@@ -70,3 +72,4 @@ const morganMiddleware = morgan(
 );
 
 export { logger, morganMiddleware };
+

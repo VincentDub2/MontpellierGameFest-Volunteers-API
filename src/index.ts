@@ -4,7 +4,7 @@ import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import compression from 'compression';
 import cors from 'cors';
-import { morganMiddleware } from './helpers/loggers';
+import { morganMiddleware } from './helpers/loggers.vercel';
 
 import router from './router';
 import middleware from './middlewares/index';

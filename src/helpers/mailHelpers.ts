@@ -1,5 +1,5 @@
 import nodemailer from "nodemailer";
-import {logger} from "./loggers";
+import {logger} from "./loggers.vercel";
 // mail.service.ts
 import handlebars from 'handlebars';
 import fs from 'fs';

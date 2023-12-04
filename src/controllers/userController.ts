@@ -2,7 +2,7 @@ import {Request, Response} from "express";
 import userService from "../services/user.service";
 import UserService from "../services/user.service";
 import {UserRequest} from "../types/types";
-import {logger} from "../helpers/loggers";
+import {logger} from "../helpers/loggers.vercel";
 import mailHelpers from "../helpers/mailHelpers";
 
 

@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import oauthService from '../services/oauth.service';
 import jwt from "jsonwebtoken";
 import * as process from "process";
-import {logger} from "../helpers/loggers"; // Assurez-vous d'implémenter ce service
+import {logger} from "../helpers/loggers.vercel"; // Assurez-vous d'implémenter ce service
 
 const oauthController = {
     // Rediriger l'utilisateur vers le fournisseur OAuth
