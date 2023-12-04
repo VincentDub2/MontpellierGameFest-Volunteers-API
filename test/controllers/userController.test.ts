@@ -2,7 +2,7 @@
 
 import userController from "../../src/controllers/userController";
 import userService from "../../src/services/user.service";
-import { logger } from '../../src/helpers/loggers';
+
 // Ici, nous castons explicitement la fonction en jest.Mock
 const mockVerifyEmail = userService.verifyEmail as jest.Mock;
 
