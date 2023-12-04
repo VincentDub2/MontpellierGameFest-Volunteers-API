@@ -1,6 +1,7 @@
 // dans un fichier middleware, par exemple, uploadMiddleware.js
 import multer from 'multer';
 
-const upload = multer({ dest: 'tmp/' });
+const storage = multer.memoryStorage();
+const upload = multer({ storage : storage });
 
 export default upload;
