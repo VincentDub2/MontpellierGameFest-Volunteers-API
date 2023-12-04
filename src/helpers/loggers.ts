@@ -14,7 +14,7 @@ import 'winston-daily-rotate-file';
     * Seuls les 14 derniers fichiers seront conservés
  */
 const fileTransport = new winston.transports.DailyRotateFile({
-    filename: 'logs' +
+    filename: 'tmp' +
         'tmp/application-%DATE%.log',
     datePattern: 'YYYY-MM-DD',
     maxSize: '20m',
