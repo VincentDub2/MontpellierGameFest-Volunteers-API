@@ -6,8 +6,8 @@
   "scripts": {
     "start": "nodemon",
     "test": "jest",
-    "build": "tsc",
-    "vercel-build": "echo 'vercel-build'"
+    "build": "tsc && prisma generate",
+    "vercel-build": "echo 'vercel-build' && prisma generate"
   },
   "author": "",
   "license": "ISC",
