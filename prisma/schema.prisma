@@ -9,21 +9,27 @@ generator client {
 }
 
 model User {
-  id                     String   @id @default(uuid())
-  name                   String
-  email                  String   @unique
-  createdAt              DateTime @default(now())
-  updatedAt              DateTime @updatedAt
-  emailVerified          Boolean  @default(false)
+  id                     String               @id @default(uuid())
+  lastname               String
+  firstname              String
+  email                  String               @unique
+  address                String
+  createdAt              DateTime             @default(now())
+  updatedAt              DateTime             @updatedAt
+  emailVerified          Boolean              @default(false)
   emailVerificationToken String? // Un token unique pour la vérification d'email
-
   // Relations
-  authLocal           AuthLocal?
-  authOAuth           AuthOAuth[]
-  passwordResetTokens PasswordResetToken[]
+  authLocal              AuthLocal?
+  authOAuth              AuthOAuth[]
+  passwordResetTokens    PasswordResetToken[]
 
-  isVolunteer isVolunteer[]
-  isPresent   isPresent[]
+  picture          Bytes?
+  isVolunteer      IsVolunteer[]
+  isPresent        IsPresent[]
+  isReferent       IsReferent[]
+  inscriptions     Inscription[]
+  userAssociations UserAssociation[]
+  managedEvents    Event[]           @relation("manager")
 }
 
 model AuthLocal {
@@ -62,90 +68,198 @@ model PasswordResetToken {
   @@index([userId])
 }
 
-model Job {
-  id          Int      @id @default(autoincrement())
-  title       String
-  description String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+model Festival {
+  idFestival  Int           @id @default(autoincrement())
+  name        String
+  address     String
+  dateDebut   DateTime
+  dateFin     DateTime
+  isVolunteer IsVolunteer[]
+  creneaux    Creneau[]
+  postes      Poste[]
+  isPresent   IsPresent[]
+  isPlay      IsPlay[]
 }
 
-model Space {
-  id          Int      @id @default(autoincrement())
-  title       String
-  description String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+model IsVolunteer {
+  idFestival   Int
+  idUser       String
+  isVege       Boolean
+  sizeTeeShirt String
+  role         Role
+  festival     Festival @relation(fields: [idFestival], references: [idFestival])
+  user         User     @relation(fields: [idUser], references: [id])
+  Jeux         Jeux?    @relation(fields: [jeuxIdGame], references: [idGame])
+  jeuxIdGame   Int?
+
+  @@id([idUser, idFestival])
+  @@index([idUser])
+  @@index([idFestival])
+  @@index([jeuxIdGame])
 }
 
-model TimeSlot {
-  id          Int      @id @default(autoincrement())
-  title       String
-  description String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+enum Role {
+  administrator
+  receptionManager
+  referent
 }
 
-model Fest {
-  id          Int      @id @default(autoincrement())
-  title       String
-  description String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+model Creneau {
+  idCreneau     Int             @id
+  timeStart     DateTime
+  timeEnd       DateTime
+  idFestival    Int
+  festival      Festival        @relation(fields: [idFestival], references: [idFestival])
+  creneauEspace CreneauEspace[]
 
-  isPresent   isPresent[]
-  isVolunteer isVolunteer[]
+  @@index([idFestival])
 }
 
-model Register {
-  id          Int      @id @default(autoincrement())
-  title       String
-  description String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+model Poste {
+  idPoste       Int           @id
+  name          String
+  capacityPoste Int
+  idFestival    Int
+  festival      Festival      @relation(fields: [idFestival], references: [idFestival])
+  posteEspaces  PosteEspace[]
+
+  @@index([idFestival])
 }
 
-model isReferent {
-  id          Int      @id @default(autoincrement())
-  title       String
-  description String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+model Espace {
+  idEspace       Int             @id
+  name           String
+  posteEspaces   PosteEspace[]
+  creneauEspaces CreneauEspace[]
+  isReferent     IsReferent[]
 }
 
-model isVolunteer {
-  userId      String // Clé étrangère pour User
-  festId      Int // Clé étrangère pour Fest
-  description String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+model PosteEspace {
+  idPoste  Int
+  idEspace Int
+  poste    Poste  @relation(fields: [idPoste], references: [idPoste])
+  espace   Espace @relation(fields: [idEspace], references: [idEspace])
 
-  user User @relation(fields: [userId], references: [id])
-  fest Fest @relation(fields: [festId], references: [id])
-
-  @@id([userId, festId]) // Clé primaire composite
-  @@index([userId]) // Ajout d'un index sur userId
-  @@index([festId]) // Ajout d'un index sur festId
+  @@id([idPoste, idEspace])
+  @@index([idEspace])
+  @@index([idPoste])
 }
 
-model isReceptionManager {
-  id          Int      @id @default(autoincrement())
-  title       String
-  description String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+model IsReferent {
+  idUser     String
+  idEspace   Int
+  user       User   @relation(fields: [idUser], references: [id])
+  espace     Espace @relation(fields: [idEspace], references: [idEspace])
+  Jeux       Jeux?  @relation(fields: [jeuxIdGame], references: [idGame])
+  jeuxIdGame Int?
+
+  @@id([idUser, idEspace])
+  @@index([idUser])
+  @@index([idEspace])
+  @@index([jeuxIdGame])
 }
 
-model isPresent {
-  userId    String // Clé étrangère pour User
-  festId    Int // Clé étrangère pour Fest
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+model CreneauEspace {
+  idCreneauEspace Int           @id
+  idCreneau       Int
+  idEspace        Int
+  capacityEspace  Int           @default(2)
+  creneau         Creneau       @relation(fields: [idCreneau], references: [idCreneau])
+  espace          Espace        @relation(fields: [idEspace], references: [idEspace])
+  inscriptions    Inscription[]
 
-  user User @relation(fields: [userId], references: [id])
-  fest Fest @relation(fields: [festId], references: [id])
+  @@index([idCreneau])
+  @@index([idEspace])
+}
 
-  @@id([userId, festId]) // Clé primaire composite
-  @@index([userId]) // Ajout d'un index sur userId
-  @@index([festId]) // Ajout d'un index sur festId
+model Inscription {
+  idUser          String
+  idCreneauEspace Int
+  isAccepted      Boolean
+  isFlexible      Boolean // Pas obligatoire?
+  user            User          @relation(fields: [idUser], references: [id])
+  creneauEspace   CreneauEspace @relation(fields: [idCreneauEspace], references: [idCreneauEspace])
+  Jeux            Jeux?         @relation(fields: [jeuxIdGame], references: [idGame])
+  jeuxIdGame      Int?
+
+  @@id([idUser, idCreneauEspace])
+  @@index([idCreneauEspace])
+  @@index([idUser])
+  @@index([jeuxIdGame])
+}
+
+model IsPresent {
+  idFestival Int
+  idUser     String
+  date       DateTime
+  festival   Festival @relation(fields: [idFestival], references: [idFestival])
+  user       User     @relation(fields: [idUser], references: [id])
+  Jeux       Jeux?    @relation(fields: [jeuxIdGame], references: [idGame])
+  jeuxIdGame Int?
+
+  @@id([idFestival, idUser, date])
+  @@index([idFestival])
+  @@index([idUser])
+  @@index([jeuxIdGame])
+}
+
+model Event {
+  idEvent      Int           @id
+  dateEvent    DateTime
+  addressEvent String
+  idManager    String
+  manager      User          @relation("manager", fields: [idManager], references: [id])
+  isPresented  IsPresented[]
+
+  @@index([idManager])
+}
+
+model IsPresented {
+  idGame  Int
+  idEvent Int
+  game    Jeux  @relation(fields: [idGame], references: [idGame])
+  event   Event @relation(fields: [idEvent], references: [idEvent])
+
+  @@id([idGame, idEvent])
+  @@index([idGame])
+  @@index([idEvent])
+}
+
+model UserAssociation {
+  idUser        String
+  idAssociation Int
+  user          User        @relation(fields: [idUser], references: [id])
+  association   Association @relation(fields: [idAssociation], references: [idAssociation])
+
+  @@id([idUser, idAssociation])
+  @@index([idUser])
+  @@index([idAssociation])
+}
+
+model Association {
+  idAssociation    Int               @id
+  name             String
+  userAssociations UserAssociation[]
+}
+
+model Jeux {
+  idGame       Int           @id
+  name         String
+  isPresented  IsPresented[]
+  isPlay       IsPlay[]
+  isVolunteer  IsVolunteer[]
+  isReferent   IsReferent[]
+  isPresent    IsPresent[]
+  inscriptions Inscription[]
+}
+
+model IsPlay {
+  idGame     Int
+  idFestival Int
+  game       Jeux     @relation(fields: [idGame], references: [idGame])
+  festival   Festival @relation(fields: [idFestival], references: [idFestival])
+
+  @@id([idGame, idFestival])
+  @@index([idGame])
+  @@index([idFestival])
 }
