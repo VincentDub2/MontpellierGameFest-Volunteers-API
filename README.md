@@ -20,6 +20,11 @@ Cette application web est conçue pour le cadre universitaire et destinée à la
 - `/uploadCsv`
 - `/games`
 - `/game/:id`
+- `/festivals`
+- `/festival`
+- `/festival/:id`
+- `/festivalCurrent`
+- `/festivalNext`
 
 ### Détails des Routes de l'API
 
