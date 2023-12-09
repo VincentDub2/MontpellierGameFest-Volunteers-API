@@ -241,7 +241,7 @@ model UserAssociation {
 }
 
 model Association {
-  idAssociation    Int               @id
+  idAssociation    Int               @id @default(autoincrement())
   name             String
   userAssociations UserAssociation[]
 }

@@ -72,7 +72,7 @@ Permet de récupérer la liste des jeux.
 - **Exemple**: `GET /games?name=monopoly` renvoie la liste des jeux dont le nom contient "monopoly".
 - **Exemple**: `GET /games?pageSize=10` renvoie les 10 premiers jeux.
 - **Exemple**: `GET /games?page=2` renvoie les jeux de la page 2.
-- **Exemple**: `GET /games?games?page=1&pageSize=20` renvoie les 20 premiers jeux de la page 1.
+- **Exemple**: `GET /games?page=1&pageSize=20` renvoie les 20 premiers jeux de la page 1.
 
 - **Exemple**: `GET /game/:id` renvoie le jeu avec l'id correspondant.
 - **Exemple**: `POST /game` permet d'ajouter un jeu.
@@ -93,6 +93,18 @@ Permet de récupérer les informations du festival.
 ### 11 . User (`/updateUserPicture`)
 Permet de modifier la photo de profil de l'utilisateur.
 - **Exemple**: `POST /updateUserPicture` permet de modifier la photo de profil de l'utilisateur.
+
+### 12 . Association (`/association`)
+- **Exemple**: `GET /associations` renvoie la liste des associations.
+- **Exemple**: `GET /associations?name=runningClub` renvoie la liste des associations dont le nom contient "runningClub".
+- **Exemple**: `GET /associations?pageSize=10` renvoie les 10 premières associations.
+- **Exemple**: `GET /associations?page=2` renvoie les associations de la page 2.
+- **Exemple**: `GET /associations?page=1&pageSize=20` renvoie les 20 premières associations de la page 1.
+
+- **Exemple**: `GET /association/:id` renvoie le jeu avec l'id correspondant.
+- **Exemple**: `POST /association` permet d'ajouter un jeu.
+- **Exemple**: `PUT /association/:id` permet de modifier un jeu.
+- **Exemple**: `DELETE /association/:id` permet de supprimer un jeu.
 
 ## 📁 Structure du Projet
 
