@@ -4,7 +4,7 @@ import authLocalService from "../services/authLocal.service";
 import jwt from 'jsonwebtoken';
 import bcrypt from "bcrypt";
 import {logger} from "../helpers/loggers.vercel";
-import {findOrCreateUser} from "../services/oauth.service";
+
 
 //Permet de générer un token unique
 import {v4 as uuidv4} from "uuid";
