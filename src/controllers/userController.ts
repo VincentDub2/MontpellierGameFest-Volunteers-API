@@ -52,6 +52,35 @@ const userController = {
             res.status(500).json({ message: "Erreur lors de la récupération de l'utilisateur" });
         }
     },
+    updateUserPicture: async (req: Request, res: Response) => {
+        try {
+            const userReq = req as UserRequest;
+            if (!userReq.user) {
+                logger.warn("Tentative de récupération de l'utilisateur sans jeton d'authentification");
+                return res.status(500).json({ message: "Erreur lors de la récupération de l'utilisateur" });
+            }
+            if (!req.file) {
+                logger.warn("Tentative de mise à jour de la photo de profil sans fichier");
+                return res.status(400).json({ message: "Veuillez sélectionner un fichier" });
+            }
+            if (userReq.user.pictureId) {
+                logger.info(`Suppression de l'ancienne photo de profil avec l'ID: ${userReq.user.pictureId}`);
+                await userService.deleteProfilePicture(userReq.user.pictureId);
+            }
+            const url = await userService.uploadProfilePicture(req.file.buffer)
+            if (!url) {
+                throw new Error('Erreur lors de l\'upload de l\'image');
+            }
+            const user = await userService.setPictureProfile(userReq.user.id, url.secure_url, url.public_id);
+
+            logger.info(`Photo de profil mise à jour pour l'utilisateur avec l'ID: ${user.id}`);
+
+            res.json(user);
+        } catch (error) {
+            logger.error(`Erreur lors de la mise à jour de la photo de profil: ${error}`);
+            res.status(500).json({ message: "Erreur lors de la mise à jour de la photo de profil" });
+        }
+    }
 }
 
 export default userController;

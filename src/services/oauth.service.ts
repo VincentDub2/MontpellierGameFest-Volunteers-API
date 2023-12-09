@@ -10,7 +10,9 @@ interface UserProfile {
     provider: string; // Nom du fournisseur OAuth (ex : "Google")
     providerId: string; // ID unique du fournisseur OAuth (ex : "Google")
     providerUserId: string; // ID utilisateur attribué par le fournisseur OAuth
-    name: string;
+    firstName: string;
+    lastName: string;
+    picture: string;
 }
 
 type Provider = 'google' | 'facebook' | 'twitter' | 'github' | 'linkedin' | 'microsoft';
@@ -79,6 +81,7 @@ const fetchUserProfile = async (provider: string, accessToken: string): Promise<
                 Authorization: `Bearer ${accessToken}`,
             },
         });
+
         return  adaptGoogleProfile(response.data);
     }
     if (provider === "facebook") {
@@ -96,9 +99,6 @@ const fetchUserProfile = async (provider: string, accessToken: string): Promise<
 
 const findOrCreateUser = async (userProfile: UserProfile,token : Token): Promise<User> => {
 
-    console.log("UserProfile ",userProfile);
-
-
     let user = await prisma.user.findUnique({
         where: { email : userProfile.email },
     });
@@ -108,7 +108,9 @@ const findOrCreateUser = async (userProfile: UserProfile,token : Token): Promise
             user = await prisma.user.create({
                 data: {
                     email : userProfile.email,
-                    firstName : userProfile.name,
+                    firstName : userProfile.firstName,
+                    lastName : userProfile.lastName,
+                    picture : userProfile.picture,
                     emailVerified: true,
                     authOAuth: {
                         create: {
@@ -137,7 +139,9 @@ const findOrCreateUser = async (userProfile: UserProfile,token : Token): Promise
 function adaptGoogleProfile(googleProfile: any): UserProfile {
     return {
         email: googleProfile.email,
-        name: googleProfile.name,
+        firstName: googleProfile.given_name,
+        lastName: googleProfile.family_name,
+        picture: googleProfile.picture,
         provider: "google",
         providerId: "google",
         providerUserId: stringify(googleProfile.id),
@@ -148,7 +152,9 @@ function adaptGoogleProfile(googleProfile: any): UserProfile {
 function adaptFacebookProfile(facebookProfile: any): UserProfile {
     return {
         email: facebookProfile.email, // Assurez-vous que le champ existe
-        name: facebookProfile.name,
+        firstName: facebookProfile.name,
+        lastName: facebookProfile.name,
+        picture: facebookProfile.picture.data.url,
         provider: "facebook",
         providerId: "facebook",
         providerUserId: stringify(facebookProfile.id),

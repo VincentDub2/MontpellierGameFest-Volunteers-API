@@ -87,6 +87,7 @@ const authLocalController = {
     register: async (req: Request, res: Response) => {
         try {
             const { firstName,lastName,address, email, password } = req.body;
+            const picture = req.file;
             if (!firstName|| !email || !password || !lastName || !address) {
                 logger.warn("Tentative de création d'un utilisateur sans nom, email ou mot de passe");
                 return res.status(400).json({ message: "Nom, email et mot de passe requis" });
@@ -101,8 +102,15 @@ const authLocalController = {
             }
 
             // Créer un nouvel utilisateur
-            const user = await userService.createUser(email,lastName,firstName,address);
+            let user = await userService.createUser(email,lastName,firstName,address);
 
+            if (picture && picture.buffer) {
+                const url = await userService.uploadProfilePicture(picture.buffer);
+                if (!url) {
+                    throw new Error('Erreur lors de l\'upload de l\'image');
+                }
+                user = await userService.setPictureProfile(user.id, url.secure_url, url.public_id);
+            }
             const salt = await bcrypt.genSalt(10);
 
             await authLocalService.addAuthLocalToUser(user.id, password, salt);

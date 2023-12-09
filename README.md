@@ -25,6 +25,7 @@ Cette application web est conçue pour le cadre universitaire et destinée à la
 - `/festival/:id`
 - `/festivalCurrent`
 - `/festivalNext`
+- `/updateUserPicture`
 
 ### Détails des Routes de l'API
 
@@ -43,6 +44,7 @@ Permet à un utilisateur de se connecter en utilisant ses identifiants de l'appl
 #### 4. Enregistrement (`/register`)
 Permet à un nouvel utilisateur de créer un compte.
 - **Exemple**: `POST /register` avec les informations nécessaires à l'enregistrement (e-mail, nom d'utilisateur, mot de passe).
+- Possibilité de fournir une photo de profil en utilisant le champ `picture` du corps de la requête.
 
 #### 5. Utilisateur Actuel (`/currentUser`)
 Récupère les informations de l'utilisateur actuellement connecté.
@@ -88,8 +90,9 @@ Permet de récupérer les informations du festival.
 - **Exemple**: `GET /festivalCurrent` renvoie le festival en cours.
 - **Exemple**: `GET /festivalNext` renvoie le festival suivant.
 
-
-
+### 11 . User (`/updateUserPicture`)
+Permet de modifier la photo de profil de l'utilisateur.
+- **Exemple**: `POST /updateUserPicture` permet de modifier la photo de profil de l'utilisateur.
 
 ## 📁 Structure du Projet
 
