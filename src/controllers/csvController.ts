@@ -1,28 +1,29 @@
 import Papa from 'papaparse';
-import fs from 'fs';
 import { Request, Response } from 'express';
+import csvService from "../services/csv.service";
 
 const csvController = {
-    uploadCsv: async (req : Request, res : Response) => {
+    uploadCsv: async (req: Request, res: Response) => {
         try {
             const file = req.file;
 
             if (!file) {
-                return res.status(400).json("Aucun fichier n'a été uploadé.");
+                return res.status(400).json("Aucun fichier n'a été upload.");
             }
 
-            const filePath = file.path;
-            const fileContent = fs.readFileSync(filePath, 'utf8');
+            // Utilisez 'file. Buffer' au lieu de lire depuis un fichier sur le disque
+            const fileContent = file.buffer.toString('utf8');
 
             Papa.parse(fileContent, {
                 header: true,
-                complete: (results) => {
-                    console.log("Analyse CSV terminée : ", results.data);
-
-                    // Ici, vous pouvez traiter les données du CSV
-                    // Par exemple, enregistrer dans la base de données, etc.
-
-                    res.status(200).send("Fichier CSV traité avec succès.");
+                complete: async (results) => {
+                    try {
+                        await csvService.processAndSaveGameData2(results.data);
+                        res.status(200).send("Données des utilisateurs enregistrées avec succès.");
+                    } catch (error) {
+                        console.error("Erreur lors de l'enregistrement en base de données : ", error);
+                        res.status(500).send("Erreur lors de l'enregistrement des données.");
+                    }
                 },
                 error: (error : Error) => {
                     console.error("Erreur d'analyse CSV : ", error);
@@ -30,8 +31,6 @@ const csvController = {
                 }
             });
 
-            // Supprimez le fichier après traitement
-            fs.unlinkSync(filePath);
         } catch (error) {
             console.error("Erreur de traitement CSV : ", error);
             res.status(500).send("Erreur lors du traitement du fichier CSV.");

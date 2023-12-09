@@ -246,8 +246,29 @@ model Association {
 }
 
 model Jeux {
-  idGame       Int           @id
-  name         String
+  idGame          Int      @id
+  name            String
+  author          String? // Ajouté, facultatif si non toujours présent
+  publisher       String? // Ajouté, facultatif si non toujours présent
+  numberOfPlayers String? // Ajouté, facultatif si non toujours présent
+  minAge          String? // Ajouté, facultatif si non toujours présent
+  duration        String? // Ajouté, facultatif si non toujours présent
+  type            String? // Ajouté, facultatif si non toujours présent
+  instructionLink String?  @db.Text // Ajouté, facultatif si non toujours présent
+  playArea        String? // Ajouté, facultatif si non toujours présent
+  volunteerArea   String? // Ajouté, facultatif si non toujours présent
+  idZone          Int?
+  toAnimate       Boolean? // Ajouté, facultatif si non toujours présent
+  received        Boolean? // Ajouté, facultatif si non toujours présent
+  mechanisms      String?  @db.Text // Ajouté, facultatif si non toujours présent
+  themes          String? // Ajouté, facultatif si non toujours présent
+  tags            String? // Ajouté, facultatif si non toujours présent
+  description     String?  @db.Text
+  imageUrl        String?  @db.Text
+  logoUrl         String?  @db.Text
+  videoUrl        String?  @db.Text
+
+  // Relations existantes
   isPresented  IsPresented[]
   isPlay       IsPlay[]
   isVolunteer  IsVolunteer[]
