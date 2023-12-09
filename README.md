@@ -57,6 +57,23 @@ Note : Utilisation de la librairie 'csv-parser' pour parser le fichier CSV.
 Les requetes sont effectuées en parallel pour optimiser le delai.
 - **Exemple**: `POST /uploadCsv` avec un fichier CSV contenant les informations des bénévoles.
 
+### 9. Jeux (`/games`)
+Permet de récupérer la liste des jeux.
+- **Exemple**: `GET /games` renvoie la liste des jeux.
+- **Exemple**: `GET /games?name=monopoly` renvoie la liste des jeux dont le nom contient "monopoly".
+- **Exemple**: `GET /games?pageSize=10` renvoie les 10 premiers jeux.
+- **Exemple**: `GET /games?page=2` renvoie les jeux de la page 2.
+- **Exemple**: `GET /games?games?page=1&pageSize=20` renvoie les 20 premiers jeux de la page 1.
+
+- **Exemple**: `GET /game/:id` renvoie le jeu avec l'id correspondant.
+- **Exemple**: `POST /game` permet d'ajouter un jeu.
+- **Exemple**: `PUT /gams/:id` permet de modifier un jeu.
+- **Exemple**: `DELETE /game/:id` permet de supprimer un jeu.
+
+
+
+## 📁 Structure du Projet
+
 ## 🛡️ Middlewares
 - `isAccountOwner`
 - `isAuthenticated`
