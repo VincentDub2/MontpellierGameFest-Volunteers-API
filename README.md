@@ -9,47 +9,60 @@ Cette application web est conçue pour le cadre universitaire et destinée à la
 - Gestion des bénévoles
 
 ## 🚀 Routes de l'API
-- \`/auth/:provider\`
-- \`/auth/:provider/callback\`
-- \`/login\`
-- \`/register\`
-- \`/currentUser\`
-- \`/verify-email\`
-- \`/reset-password\`
-- \`/update-password-with-token\`
+- `/auth/:provider\`
+- `/auth/:provider/callback`
+- `/login`
+- `/register`
+- `/currentUser`
+- `/verify-email`
+- `/reset-password`
+- `/update-password-with-token`
+- `/uploadCsv`
 
 ### Détails des Routes de l'API
 
-#### 1. Authentification avec un Fournisseur (\`/auth/:provider\`)
+#### 1. Authentification avec un Fournisseur (`/auth/:provider`)
 Cette route permet à un utilisateur de s'authentifier via un fournisseur externe (par exemple, Google).
-- **Exemple**: \`GET /auth/google\` pour démarrer le processus d'authentification avec Google.
+- **Exemple**: `GET /auth/google` pour démarrer le processus d'authentification avec Google.
 
-#### 2. Callback d'Authentification (\`/auth/:provider/callback\`)
+#### 2. Callback d'Authentification (`/auth/:provider/callback`)
 Après l'authentification avec le fournisseur, cette route gère la réponse et les données de l'utilisateur.
-- **Exemple**: \`GET /auth/google/callback\` reçoit les données de l'utilisateur de Google et termine le processus d'authentification.
+- **Exemple**: `GET /auth/google/callback` reçoit les données de l'utilisateur de Google et termine le processus d'authentification.
 
-#### 3. Connexion (\`/login\`)
+#### 3. Connexion (`/login`)
 Permet à un utilisateur de se connecter en utilisant ses identifiants de l'application.
-- **Exemple**: \`POST /login\` avec le corps de la requête contenant le nom d'utilisateur et le mot de passe.
+- **Exemple**: `POST /login` avec le corps de la requête contenant le nom d'utilisateur et le mot de passe.
 
-#### 4. Enregistrement (\`/register\`)
+#### 4. Enregistrement (`/register`)
 Permet à un nouvel utilisateur de créer un compte.
-- **Exemple**: \`POST /register\` avec les informations nécessaires à l'enregistrement (e-mail, nom d'utilisateur, mot de passe).
+- **Exemple**: `POST /register` avec les informations nécessaires à l'enregistrement (e-mail, nom d'utilisateur, mot de passe).
 
-#### 5. Utilisateur Actuel (\`/currentUser\`)
+#### 5. Utilisateur Actuel (`/currentUser`)
 Récupère les informations de l'utilisateur actuellement connecté.
-- **Exemple**: \`GET /currentUser\` renvoie les détails de l'utilisateur connecté.
+- **Exemple**: `GET /currentUser` renvoie les détails de l'utilisateur connecté.
 
-#### 6. Vérification de l'E-mail (\`/verify-email\`)
+#### 6. Vérification de l'E-mail (`/verify-email`)
 Permet à l'utilisateur de vérifier son adresse e-mail.
-- **Exemple**: \`POST /verify-email\` avec un token envoyé à l'adresse e-mail de l'utilisateur pour confirmer son identité.
+- **Exemple**: `POST /verify-email` avec un token envoyé à l'adresse e-mail de l'utilisateur pour confirmer son identité.
+
+#### 7. Réinitialisation du Mot de Passe (`/reset-password`)
+Permet à l'utilisateur de réinitialiser son mot de passe.
+- **Exemple**: `POST /reset-password` avec l'adresse e-mail de l'utilisateur pour recevoir un lien de réinitialisation du mot de passe.
+- **Exemple**: `POST /update-password-with-token` avec le token envoyé à l'adresse e-mail de l'utilisateur pour réinitialiser son mot de passe.
+
+#### 8. Importation d'un Fichier CSV (`/uploadCsv`)
+Permet d'importer un fichier CSV contenant les informations des bénévoles.
+Ps : le fichier CSV doit être envoyé dans le corps de la requête avec le nome 'file'.
+Note : Utilisation de la librairie 'csv-parser' pour parser le fichier CSV.
+Les requetes sont effectuées en parallel pour optimiser le delai.
+- **Exemple**: `POST /uploadCsv` avec un fichier CSV contenant les informations des bénévoles.
 
 ## 🛡️ Middlewares
-- \`isAccountOwner\`
-- \`isAuthenticated\`
-- \`isEmailVerified\`
+- `isAccountOwner`
+- `isAuthenticated`
+- `isEmailVerified`
 
-## ⚙️ Configuration (\`.env\` file)
+## ⚙️ Configuration (`.env` file)
 ```
 JWT_SECRET=""
 DATABASE_URL=''
@@ -92,4 +105,4 @@ npm test
 - Limitation du nombre de requêtes pour prévenir les attaques DDoS
 
 ## 📊 Gestion des Logs
-L'application possède une gestion des logs enregistrés dans le dossier \`logs\`. Les logs sont enregistrés dans un fichier par jour.
+L'application possède une gestion des logs enregistrés dans le dossier `logs`. Les logs sont enregistrés dans un fichier par jour.
