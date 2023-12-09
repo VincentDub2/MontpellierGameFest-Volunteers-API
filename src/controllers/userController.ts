@@ -30,7 +30,7 @@ const userController = {
             logger.info(`Email vérifié avec succès pour le token: ${token}`);
 
             // On renvoie un message de succès
-            await mailHelpers.sendWelcomeEmail(user.email, user.name);
+            await mailHelpers.sendWelcomeEmail(user.email,user.firstName);
 
             res.status(200).json({ message: "Email vérifié avec succès." });
         } catch (error) {

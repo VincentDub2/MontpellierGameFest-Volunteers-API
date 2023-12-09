@@ -9,11 +9,15 @@ generator client {
 }
 
 model User {
-  id                     String               @id @default(uuid())
-  lastname               String
-  firstname              String
-  email                  String               @unique
-  address                String
+  id          String  @id @default(uuid())
+  lastName    String?
+  firstName   String
+  email       String  @unique
+  address     String?
+  picture     String?
+  phoneNumber String?
+  completed   Boolean @default(false)
+
   createdAt              DateTime             @default(now())
   updatedAt              DateTime             @updatedAt
   emailVerified          Boolean              @default(false)
@@ -23,7 +27,6 @@ model User {
   authOAuth              AuthOAuth[]
   passwordResetTokens    PasswordResetToken[]
 
-  picture          Bytes?
   isVolunteer      IsVolunteer[]
   isPresent        IsPresent[]
   isReferent       IsReferent[]

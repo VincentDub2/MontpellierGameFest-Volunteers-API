@@ -1,20 +1,20 @@
 import prisma from '../prisma';
-import bcrypt from 'bcrypt';
-import { v4 as uuidv4 } from 'uuid';
-import nodemailer from 'nodemailer';
+import {v4 as uuidv4} from 'uuid';
 import * as process from "process";
 import mailHelpers from "../helpers/mailHelpers";
 
 const UserService = {
     // Créer un nouvel utilisateur
-    createUser: async (email: string, name: string) => {
+    createUser: async (email: string, firstName: string,address : string,lastName : string) => {
 
         const emailVerificationToken = uuidv4(); // Générer un token unique
 
         const user = await prisma.user.create({
             data: {
                 email,
-                name,
+                firstName,
+                lastName,
+                address,
                 emailVerificationToken
             }
         });
@@ -27,22 +27,18 @@ const UserService = {
 
     // Trouver un utilisateur par email
     findUserByEmail: async (email: string) => {
-        const user = await prisma.user.findUnique({
-            where: { email },
-            include: { authLocal: true, authOAuth: true }
+        return await prisma.user.findUnique({
+            where: {email},
+            include: {authLocal: true, authOAuth: true}
         });
-
-        return user;
     },
 
     // Mise à jour du profil de l'utilisateur
     updateUser: async (userId: string, updateData: { name?: string, email?: string }) => {
-        const user = await prisma.user.update({
-            where: { id: userId },
+        return await prisma.user.update({
+            where: {id: userId},
             data: updateData
         });
-
-        return user;
     },
     // Vérifier l'email de l'utilisateur
     verifyEmail: async (token: string) => {

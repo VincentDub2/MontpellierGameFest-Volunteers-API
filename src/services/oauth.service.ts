@@ -4,6 +4,7 @@ import {stringify} from "ts-jest";
 import {User} from "@prisma/client";
 
 
+
 interface UserProfile {
     email: string;
     provider: string; // Nom du fournisseur OAuth (ex : "Google")
@@ -107,7 +108,7 @@ const findOrCreateUser = async (userProfile: UserProfile,token : Token): Promise
             user = await prisma.user.create({
                 data: {
                     email : userProfile.email,
-                    name : userProfile.name,
+                    firstName : userProfile.name,
                     emailVerified: true,
                     authOAuth: {
                         create: {
