@@ -18,6 +18,8 @@ Cette application web est conçue pour le cadre universitaire et destinée à la
 - `/reset-password`
 - `/update-password-with-token`
 - `/uploadCsv`
+- `/games`
+- `/game/:id`
 
 ### Détails des Routes de l'API
 
@@ -69,6 +71,18 @@ Permet de récupérer la liste des jeux.
 - **Exemple**: `POST /game` permet d'ajouter un jeu.
 - **Exemple**: `PUT /gams/:id` permet de modifier un jeu.
 - **Exemple**: `DELETE /game/:id` permet de supprimer un jeu.
+
+### 10 . Festival (`/festival`)
+Permet de récupérer les informations du festival.
+- **Exemple**: `GET /festivals` renvoie la liste des festivals.
+- **Exemple**: `GET /festival` renvoie le dernier festival crée.
+- **Exemple**: `GET /festival/:id` renvoie le festival avec l'id correspondant.
+- **Exemple**: `POST /festival` permet d'ajouter un festival.
+- **Exemple**: `PUT /festival/:id` permet de modifier un festival.
+- **Exemple**: `DELETE /festival/:id` permet de supprimer un festival.
+- **Exemple**: `GET /festivalCurrent` renvoie le festival en cours.
+- **Exemple**: `GET /festivalNext` renvoie le festival suivant.
+
 
 
 

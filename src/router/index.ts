@@ -4,6 +4,7 @@ import oauth from "./oauth";
 import authLocal from "./authLocal";
 import csv from "./csv";
 import game from "./game";
+import festival from "./festival";
 
 
 const router = express.Router();
@@ -14,5 +15,6 @@ export default (): express.Router => {
       authLocal(router);
       csv(router);
       game(router)
+        festival(router)
     return router;
   };
