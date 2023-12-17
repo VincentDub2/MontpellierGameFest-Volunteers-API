@@ -20,6 +20,7 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(morganMiddleware);
 app.use(middleware.limiter)
+app.set('trust proxy', 1);
 const server = http.createServer(app);
 
 server.listen(8080, () => {
@@ -29,6 +30,7 @@ server.listen(8080, () => {
 
 
 app.use('/', router());
+
 
 
 export default app;
