@@ -43,7 +43,7 @@ const csvService = {
         console.time('TraitementTotal');
         const existingGames = new Set((await prisma.jeux.findMany()).map(game => game.idGame));
 
-        const batchSize = 300; // Taille de chaque groupe
+        const batchSize = 400; // Taille de chaque groupe
         // Par exemple, si csvData contient 1000 éléments et batchSize = 100, alors nous aurons 10 groupes
         for (let i = 0; i < csvData.length; i += batchSize) {
             const batch = csvData.slice(i, i + batchSize);
