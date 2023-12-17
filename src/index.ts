@@ -14,13 +14,13 @@ const app = express();
 app.use(cors({
     credentials: true,
 }));
-
+app.set('trust proxy', 1);
 app.use(compression());
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(morganMiddleware);
 app.use(middleware.limiter)
-app.set('trust proxy', 1);
+
 const server = http.createServer(app);
 
 server.listen(8080, () => {
