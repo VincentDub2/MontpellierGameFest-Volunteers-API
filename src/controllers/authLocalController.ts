@@ -119,7 +119,7 @@ const authLocalController = {
             res.status(201).json({ message: "Utilisateur créé avec succès", user });
         } catch (error) {
             logger.error(`Erreur lors de l'enregistrement de l'utilisateur: ${error}`);
-            res.status(500).json({ message: "Erreur lors de l'enregistrement de l'utilisateur" });
+            res.status(500).json({ message: "Erreur lors de l'enregistrement de l'utilisateur" + error });
         }
     },
     resetPassword: async (req: Request, res: Response) => {
