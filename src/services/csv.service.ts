@@ -43,7 +43,7 @@ const csvService = {
         console.time('TraitementTotal');
         const existingGames = new Set((await prisma.jeux.findMany()).map(game => game.idGame));
 
-        const batchSize = 400; // Taille de chaque groupe
+        const batchSize = 500; // Taille de chaque groupe
         // Par exemple, si csvData contient 1000 éléments et batchSize = 100, alors nous aurons 10 groupes
         for (let i = 0; i < csvData.length; i += batchSize) {
             const batch = csvData.slice(i, i + batchSize);
@@ -61,12 +61,10 @@ const csvService = {
                     where: { idGame },
                     data: data
                 });
-                logger.info(`Jeu ${data.name} mis à jour avec succès`);
             } else {
                 await prisma.jeux.create({
                     data: data
                 });
-                logger.info(`Jeu ${data.name} enregistré avec succès`);
             }
         } catch (error) {
             logger.error(`Erreur lors de l'enregistrement du jeu ${data.name}:`, error);
