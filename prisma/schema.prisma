@@ -232,8 +232,8 @@ model IsPresented {
 model UserAssociation {
   idUser        String
   idAssociation Int
-  user          User        @relation(fields: [idUser], references: [id])
-  association   Association @relation(fields: [idAssociation], references: [idAssociation])
+  user          User        @relation(fields: [idUser], references: [id], onDelete: Cascade)
+  association   Association @relation(fields: [idAssociation], references: [idAssociation], onDelete: Cascade)
 
   @@id([idUser, idAssociation])
   @@index([idUser])
