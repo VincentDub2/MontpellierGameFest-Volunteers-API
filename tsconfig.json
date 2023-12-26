@@ -12,5 +12,5 @@
     "strict": true,
     "skipLibCheck": true
   },
-  "include": ["src/**/*","src/types/types.d.ts","/test/**/*","api/*"],
+  "include": ["src/**/*","src/types/types.d.ts","/test/**/*","api/*",".env"],
 }

@@ -9,6 +9,21 @@ import { morganMiddleware } from './helpers/loggers.vercel';
 import router from './router';
 import middleware from './middlewares/index';
 
+// Load environment variables from .env file
+import dotenv from 'dotenv';
+import path from 'path';
+
+const result = dotenv.config({ path: path.resolve(__dirname, '../.env') });
+if (result.error) {
+  console.error('Error loading .env file:', result.error);
+}
+
+console.log("test");
+
+// Check that all required environment variables are set
+const MONGODB_URI = process.env.MONGODB_URI;
+console.log(MONGODB_URI)
+
 const app = express();
 
 app.use(cors({
