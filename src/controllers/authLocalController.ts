@@ -101,8 +101,8 @@ const authLocalController = {
                 return res.status(400).json({ message: "Un utilisateur avec cet email existe déjà" });
             }
 
-            // Créer un nouvel utilisateur
-            let user = await userService.createUser(email,lastName,firstName,address);
+            // createUser: async (email: string, firstName: string,address : string,lastName : string)
+            let user = await userService.createUser(email, firstName,address,lastName);
 
             if (picture && picture.buffer) {
                 const url = await userService.uploadProfilePicture(picture.buffer);
