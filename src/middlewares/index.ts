@@ -8,7 +8,6 @@ import {logger} from "../helpers/loggers.vercel";
 const middleware = {
     isAuthenticated : async (req : Request, res : Response, next : NextFunction) => {
     const token = req.headers.authorization?.split(' ')[1];
-
     if (!token) {
         return res.status(401).json({ message: "Authentification requise" });
     }
@@ -53,7 +52,9 @@ const middleware = {
             return res.status(500).json({ message: "Erreur lors de la récupération de l'utilisateur" });
         }
         const userId = req.user.id;
-        const accountIdToModify = req.params.userId;
+    
+        const accountIdToModify = req.params.id;
+    
         if (userId !== accountIdToModify) {
             return res.status(403).json({ message: "Action non autorisée" });
         }
