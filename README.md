@@ -54,9 +54,25 @@ Permet à un nouvel utilisateur de créer un compte.
 - **Exemple**: `POST /register` avec les informations nécessaires à l'enregistrement (e-mail, nom d'utilisateur, mot de passe).
 - Possibilité de fournir une photo de profil en utilisant le champ `picture` du corps de la requête.
 
-#### 5. Utilisateur Actuel (`/users/current`)
+#### 5. Utilisateur Actuel (`/users`)
 Récupère les informations de l'utilisateur actuellement connecté.
 - **Exemple**: `GET /users/current` renvoie les détails de l'utilisateur connecté.
+Permet de modifier la photo de profil de l'utilisateur.
+- **Exemple**: `POST /users/profile-picture` permet de modifier la photo de profil de l'utilisateur.
+- **Exemple**: `put /users/:id` permet de modifier un utilisateur. Il faut envoyer un objet JSON avec les champs à modifier. Il faut etre connecté pour pouvoir modifier un utilisateur. Il faut etre le propriétaire du compte pour pouvoir modifier un utilisateur.
+##### Récupérer les Festivals par Volontaire
+- **Route**: `GET /users/:volunteerId/festivals`
+- **Paramètres URL**:
+  - `:volunteerId` - Identifiant unique du volontaire.
+- **Paramètres de requête** (query parameters):
+  - `page` - Numéro de la page pour la pagination (optionnel).
+  - `pageSize` - Nombre de festivals à afficher par page (optionnel).
+  - `role` - Rôle du volontaire dans le festival (optionnel).
+  - `startDate` - Date de début pour filtrer les festivals (optionnel).
+  - `endDate` - Date de fin pour filtrer les festivals (optionnel).
+- **Exemple**: `GET /users/123/festivals?page=1&pageSize=10&role=administrateur&startDate=2021-01-01&endDate=2021-12-31`
+  - Récupère les festivals auxquels le volontaire avec l'ID `123` a participé en tant qu'`administrateur` entre le 1er janvier 2021 et le 31 décembre 2021, affichant la première page avec 10 festivals par page.
+
 
 #### 6. Vérification de l'E-mail (`/emails/verify`)
 Permet à l'utilisateur de vérifier son adresse e-mail.
@@ -67,7 +83,7 @@ Permet à l'utilisateur de réinitialiser son mot de passe.
 - **Exemple**: `POST /reset-password` avec l'adresse e-mail de l'utilisateur pour recevoir un lien de réinitialisation du mot de passe.
 - **Exemple**: `POST /update-password-with-token` avec le token envoyé à l'adresse e-mail de l'utilisateur pour réinitialiser son mot de passe.
 
-#### 8. Importation d'un Fichier CSV (`/uploadCsv`)
+#### 8. Importation d'un Fichier CSV (`/uploads/csv`)
 Permet d'importer un fichier CSV contenant les informations des bénévoles.
 Ps : le fichier CSV doit être envoyé dans le corps de la requête avec le nome 'file'.
 Note : Utilisation de la librairie 'csv-parser' pour parser le fichier CSV.
@@ -115,10 +131,11 @@ Corps de la requête:
     - sizeTeeShirt - la taille de tee-shirt du volontaire.
     - role - le rôle du volontaire dans le festival. Comme pour la route getVolunteersToFestival, une validation est effectuée pour s'assurer que le rôle fourni est valide.
 
-### 11 . User (`/users/profile-picture`)
-Permet de modifier la photo de profil de l'utilisateur.
-- **Exemple**: `POST /users/profile-picture` permet de modifier la photo de profil de l'utilisateur.
-- **Exemple**: `put /users/:id` permet de modifier un utilisateur. Il faut envoyer un objet JSON avec les champs à modifier. Il faut etre connecté pour pouvoir modifier un utilisateur. Il faut etre le propriétaire du compte pour pouvoir modifier un utilisateur.
+#### Obtenir tous les Postes d'un Festival (`/festivals/:idFestival/postes`)
+- **Exemple**: `GET /festivals/:idFestival/postes` permet de récupérer tous les postes associés à un festival spécifique.
+
+
+### 11 
 
 ### 12 . Association (`/associations`)
 - **Exemple**: `GET /associations` renvoie la liste des associations.
@@ -136,6 +153,25 @@ Permet de modifier la photo de profil de l'utilisateur.
 - **Exemple**: `GET /users/:userId/associations` permet de récupérer les associations d'un utilisateur.
 - **Exemple**: `GET /associations/:associationId/users` permet de récupérer les utilisateurs d'une association.
 - **Exemple**: `DELETE /associations/:associationId/user/:userId` permet de supprimer un utilisateur d'une association.
+
+### 13. Postes (`/postes`)
+Gestion des postes pour le festival, y compris l'ajout, la récupération et la mise à jour des informations des postes.
+
+#### Ajouter un Poste (`/postes`)
+- **Exemple**: `POST /postes` permet d'ajouter un nouveau poste. Les détails du poste (nom, capacité, ID du festival) doivent être envoyés dans le corps de la requête.
+
+#### Ajouter Plusieurs Postes (`/postes/multiple`)
+- **Exemple**: `POST /postes/multiple` permet d'ajouter plusieurs postes en une seule requête. Les détails des postes doivent être envoyés dans le corps de la requête sous forme d'un tableau.
+
+#### Obtenir un Poste par ID (`/postes/:idPoste`)
+- **Exemple**: `GET /postes/:idPoste` permet de récupérer les détails d'un poste spécifique à l'aide de son ID.
+
+#### Mettre à jour un Poste (`/postes/:idPoste`)
+- **Exemple**: `PUT /postes/:idPoste` permet de mettre à jour les détails d'un poste spécifique. Les informations à mettre à jour doivent être envoyées dans le corps de la requête.
+
+#### Supprimer un Poste (`/postes/:idPoste`)
+- **Exemple**: `DELETE /postes/:idPoste` permet de supprimer un poste spécifique.
+
 
 ## 📁 Structure du Projet
 

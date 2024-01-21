@@ -123,7 +123,41 @@ const volunteerToFestivalService = {
         } catch (error) {
             logger.error(`Erreur lors de la modification du volontaire au festival: ${error}`);
         }
+    },
+    getFestivalsByVolunteer: async (volunteerId: string, page: number, pageSize: number, role?: Role, startDate?: Date, endDate?: Date) => {
+        const skip = (page - 1) * pageSize;
+        let whereClause: { idUser: string; role?: Role; festival?: { dateDebut?: any; dateFin?: any; } } = { idUser: volunteerId };
+    
+        if (role) {
+            whereClause.role = role;
+        }
+    
+        // Créer un filtre de date pour le festival
+        whereClause.festival = {};
+        if (startDate) {
+            whereClause.festival.dateDebut = { gte: startDate };
+        }
+        if (endDate) {
+            whereClause.festival.dateFin = { lte: endDate };
+        }
+    
+        try {
+            const festivals = await prisma.isVolunteer.findMany({
+                where: whereClause,
+                skip: skip,
+                take: pageSize,
+                include: {
+                    festival: true
+                }
+            });
+            logger.info(`Récupération des festivals par volontaire avec succès`);
+            return festivals;
+        } catch (error) {
+            logger.error(`Erreur lors de la récupération des festivals par volontaire: ${error}`);
+        }
     }
+    
+        
 }
 
 export default volunteerToFestivalService;

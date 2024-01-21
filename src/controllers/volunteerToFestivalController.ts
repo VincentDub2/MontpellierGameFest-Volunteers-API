@@ -135,7 +135,49 @@ const volunteerToFestivalController = {
             logger.error(`Erreur lors de la mise à jour du volontaire au festival: ${error}`);
             res.status(500).json({ message: "Erreur lors de la mise à jour du volontaire au festival" });
         }
-    }
+    },
+    //route pour recuperer les festivales au quel un volontaire est inscrit ou a participé
+    //volunteerId: string, page: number, pageSize: number, role?: Role,startDate : Date, endDate : Date
+    getFestivalsByVolunteer: async (req: Request, res: Response) => {
+        try {
+            const { volunteerId } = req.params;
+            const { page, pageSize, role,startDate, endDate } = req.query;
+            
+            if (!volunteerId) {
+                logger.warn(`Erreur lors de la récupération des festivals au quel un volontaire est inscrit ou a participé: Veuillez renseigner l'identifiant du volontaire`);
+                return res.status(400).json({ message: "Veuillez renseigner l'identifiant du volontaire" });
+            }
+            if (role && !Object.values(Role).includes(role as Role)) {
+                logger.warn(`Erreur lors de la mise à jour du volontaire au festival: Le rôle renseigné n'est pas valide`);
+                return res.status(400).json({ message: "Le rôle renseigné n'est pas valide" });
+            }
+
+            // Validation des dates
+            let parsedStartDate: Date | undefined = undefined;
+            let parsedEndDate: Date | undefined = undefined;
+
+            if (typeof startDate === 'string') {
+                parsedStartDate = new Date(startDate);
+            }
+
+            if (typeof endDate === 'string') {
+                parsedEndDate = new Date(endDate);
+            }
+
+            const result = await volunteerToFestivalService.getFestivalsByVolunteer(
+                volunteerId, 
+                parseInt(page as string), 
+                parseInt(pageSize as string),
+                role as Role,
+                parsedEndDate,
+                parsedStartDate
+            );
+            res.json(result);
+        } catch (error) {
+            logger.error(`Erreur lors de la récupération des festivals au quel un volontaire est inscrit ou a participé: ${error}`);
+            res.status(500).json({ message: "Erreur lors de la récupération des festivals au quel un volontaire est inscrit ou a participé" });
+        }
+    },
 
 };
 
