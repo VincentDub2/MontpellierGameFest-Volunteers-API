@@ -9,24 +9,31 @@ Cette application web est conçue pour le cadre universitaire et destinée à la
 - Gestion des bénévoles
 
 ## 🚀 Routes de l'API
-- `/auth/:provider`
-- `/auth/:provider/callback`
-- `/login`
-- `/register`
-- `/currentUser`
-- `/user/:id`
-- `/verify-email`
-- `/reset-password`
-- `/update-password-with-token`
-- `/uploads/csv`
-- `/games`
-- `/game/:id`
-- `/festivals`
-- `/festival`
-- `/festival/:id`
-- `/festivalCurrent`
-- `/festivalNext`
-- `/updateUserPicture`
+
+- `/auth/:provider` - Authentification avec un fournisseur externe.
+- `/auth/:provider/callback` - Callback après l'authentification avec un fournisseur externe.
+- `/login` - Connexion d'un utilisateur.
+- `/register` - Enregistrement d'un nouvel utilisateur.
+- `/users/current` - Obtenir l'utilisateur actuellement connecté.
+- `/users/:id` - Obtenir ou mettre à jour les informations d'un utilisateur spécifique.
+- `/emails/verify` - Vérification de l'adresse e-mail de l'utilisateur.
+- `/reset-password` - Réinitialisation du mot de passe de l'utilisateur.
+- `/update-password-with-token` - Mise à jour du mot de passe de l'utilisateur à l'aide d'un token.
+- `/uploads/csv` - Téléchargement d'un fichier CSV.
+- `/games` - Obtention de la liste de tous les jeux.
+- `/games/:id` - Obtention, mise à jour ou suppression d'un jeu spécifique.
+- `/festivals` - Obtention de la liste de tous les festivals ou ajout d'un nouveau festival.
+- `/festivals/:id` - Obtention, mise à jour ou suppression d'un festival spécifique.
+- `/festivals/last` - Obtention du dernier festival créé.
+- `/festivals/current` - Obtention du festival actuellement en cours.
+- `/festivals/next` - Obtention du prochain festival prévu.
+- `/users/profile-picture` - Mise à jour de la photo de profil de l'utilisateur.
+- `/associations` - Obtention de la liste de toutes les associations ou ajout d'une nouvelle association.
+- `/associations/:id` - Obtention, mise à jour ou suppression d'une association spécifique.
+- `/associations/:associationId/users/:userId` - Ajout d'un utilisateur à une association.
+- `/users/:userId/associations` - Obtention des associations d'un utilisateur spécifique.
+- `/associations/:associationId/users` - Obtention des utilisateurs d'une association spécifique.
+- `/associations/:associationId/users/:userId` - Suppression d'un utilisateur d'une association.
 
 ### Détails des Routes de l'API
 
