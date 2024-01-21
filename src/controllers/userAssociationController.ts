@@ -89,8 +89,7 @@ const userAssociationController = {
             logger.error(`Erreur lors de la récupération des utilisateurs de l'association: ${error}`);
             res.status(500).json({ message: "Erreur lors de la récupération des utilisateurs de l'association" });
         }
-    }
-
+    },
 }
 
 export default userAssociationController;

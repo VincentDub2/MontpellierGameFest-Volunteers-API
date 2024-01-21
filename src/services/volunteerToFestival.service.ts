@@ -1,14 +1,7 @@
 import prisma from "../prisma";
 import {logger} from "../helpers/loggers.vercel";
 import {Role} from "@prisma/client";
-
-interface VolunteerInterface {
-    volunteerId: string;
-    festivalId: number;
-    isVege? : boolean;
-    sizeTeeShirt?: string;
-    role?: Role;
-}
+import {VolunteerInterface} from "../types/types";
 
 const volunteerToFestivalService = {
     /**

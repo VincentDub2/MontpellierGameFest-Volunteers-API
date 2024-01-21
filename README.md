@@ -14,6 +14,7 @@ Cette application web est conçue pour le cadre universitaire et destinée à la
 - `/login`
 - `/register`
 - `/currentUser`
+- `/user/:id`
 - `/verify-email`
 - `/reset-password`
 - `/update-password-with-token`
@@ -79,20 +80,38 @@ Permet de récupérer la liste des jeux.
 - **Exemple**: `PUT /gams/:id` permet de modifier un jeu.
 - **Exemple**: `DELETE /game/:id` permet de supprimer un jeu.
 
-### 10 . Festival (`/festival`)
-Permet de récupérer les informations du festival.
-- **Exemple**: `GET /festivals` renvoie la liste des festivals.
-- **Exemple**: `GET /festival` renvoie le dernier festival crée.
-- **Exemple**: `GET /festival/:id` renvoie le festival avec l'id correspondant.
-- **Exemple**: `POST /festival` permet d'ajouter un festival.
-- **Exemple**: `PUT /festival/:id` permet de modifier un festival.
-- **Exemple**: `DELETE /festival/:id` permet de supprimer un festival.
-- **Exemple**: `GET /festivalCurrent` renvoie le festival en cours.
-- **Exemple**: `GET /festivalNext` renvoie le festival suivant.
+### 10. Festivals (`/festivals`)
+- **Exemple**: - **Exemple**:POST /festivals` permet d'ajouter un nouveau festival.
+- **Exemple**: `GET /festivals` renvoie la liste de tous les festivals.
+- **Exemple**: `GET /festivals/:id` renvoie le festival avec l'ID correspondant.
+- **Exemple**: `PUT /festivals/:id` permet de modifier un festival existant.
+- **Exemple**: `DELETE /festivals/:id` permet de supprimer un festival.
+- **Exemple**: `GET /festivals/last` renvoie le dernier festival créé.
+- **Exemple**: `GET /festivals/current` renvoie le festival actuellement en cours.
+- **Exemple**: `GET /festivals/next` renvoie le prochain festival prévu.
+
+Gestion des Volontaires dans les Festivals (`/festivals/:festivalId/volunteers`)
+Cette section couvre les opérations liées aux volontaires dans les festivals.
+
+- **Exemple**: `POST /festivals/:festivalId/volunteers` permet d'ajouter un volontaire à un festival spécifique.
+- **Exemple**: `DELETE /festivals/:festivalId/volunteers/:volunteerId` permet de supprimer un volontaire d'un festival spécifique.
+- **Exemple**: `GET /festivals/:festivalId/volunteers/:volunteerId` renvoie les informations d'un volontaire spécifique dans un festival.
+- **Exemple**: `GET /festivals/:festivalId/volunteers` renvoie la liste de tous les volontaires pour un festival spécifique.
+Paramètres de requête:
+    - page et pageSize - (optionnel) permettent la pagination des résultats. page indique la page actuelle, et pageSize le nombre de résultats par page.
+    - role - (optionnel) filtre les volontaires par leur rôle (par exemple, administrateur, manager de réception, etc.). La validation s'assure que le rôle fourni correspond aux valeurs définies dans l'énumération Role.
+    - name - (optionnel) permet de filtrer les volontaires par leur nom.
+- **Exemple**: `PUT /festivals/:festivalId/volunteers/:volunteerId` permet de mettre à jour les informations d'un volontaire dans un festival.
+Corps de la requête:
+    - il n'est pas nécessaire d'inclure tous les champs dans le corps de la requête. Seuls les champs à mettre à jour doivent être inclus.
+    - isVege - indique si le volontaire suit un régime végétarien.
+    - sizeTeeShirt - la taille de tee-shirt du volontaire.
+    - role - le rôle du volontaire dans le festival. Comme pour la route getVolunteersToFestival, une validation est effectuée pour s'assurer que le rôle fourni est valide.
 
 ### 11 . User (`/updateUserPicture`)
 Permet de modifier la photo de profil de l'utilisateur.
 - **Exemple**: `POST /updateUserPicture` permet de modifier la photo de profil de l'utilisateur.
+- **Exemple**: `put /user/:id` permet de modifier un utilisateur. Il faut envoyer un objet JSON avec les champs à modifier. Il faut etre connecté pour pouvoir modifier un utilisateur. Il faut etre le propriétaire du compte pour pouvoir modifier un utilisateur.
 
 ### 12 . Association (`/association`)
 - **Exemple**: `GET /associations` renvoie la liste des associations.

@@ -84,16 +84,22 @@ const userController = {
     },
     updateUser: async (req: Request, res: Response) => {
         const {id} = req.params;
-        const { firstName, lastName, email,address ,phoneNumbe } = req.body;
-        console.log(req.body);
-        console.log(address);
+        const { firstName, lastName, email,address,phoneNumbe } = req.body;
+
         try {
             const userReq = req as UserRequest;
+            const updateData = {
+                firstName,
+                lastName,
+                email,
+                address,
+                phoneNumbe
+            }
             if (!userReq.user) {
                 logger.warn("Tentative de récupération de l'utilisateur sans jeton d'authentification");
                 return res.status(500).json({ message: "Erreur lors de la récupération de l'utilisateur" });
             }
-            const user = await userService.updateUser(userReq.user.id, req.body);
+            const user = await userService.updateUser(userReq.user.id, updateData);
             logger.info(`Utilisateur mis à jour avec l'ID: ${user.id}`);
             res.json(user);
         } catch (error) {

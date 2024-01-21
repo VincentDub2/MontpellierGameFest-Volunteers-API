@@ -1,4 +1,4 @@
-import {User} from "@prisma/client"; // Importez votre modèle User
+import {User,role} from "@prisma/client"; // Importez votre modèle User
 
 import * as express from 'express';
 
@@ -16,6 +16,13 @@ declare module 'express-serve-static-core' {
 }
 
 
+export interface VolunteerInterface {
+    volunteerId: string;
+    festivalId: number;
+    isVege? : boolean;
+    sizeTeeShirt?: string;
+    role?: Role;
+}
 
 export interface UserRequest extends express.Request {
     user?: User;

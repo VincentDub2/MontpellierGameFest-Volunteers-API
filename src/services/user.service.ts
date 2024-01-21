@@ -57,7 +57,12 @@ const UserService = {
     },
 
     // Mise à jour du profil de l'utilisateur
-    updateUser: async (userId: string, updateData: { name?: string, email?: string }) => {
+    updateUser: async (userId: string, updateData: { 
+        firstName?: string, 
+        lastName?: string, 
+        address?: string, 
+        phoneNumber?: string
+     }) => {
         return await prisma.user.update({
             where: {id: userId},
             data: updateData

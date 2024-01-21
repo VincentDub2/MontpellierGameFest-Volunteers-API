@@ -8,6 +8,7 @@ generator client {
   provider = "prisma-client-js"
 }
 
+
 model User {
   id          String  @id @default(uuid())
   lastName    String?
@@ -18,6 +19,7 @@ model User {
   pictureId   String?
   phoneNumber String?
   completed   Boolean @default(false)
+  isGod    Boolean @default(false)
 
   createdAt              DateTime             @default(now())
   updatedAt              DateTime             @updatedAt
@@ -103,10 +105,10 @@ model IsVolunteer {
 }
 
 enum Role {
-  administrator
-  receptionManager
-  referent
-}
+    administrator 
+    receptionManager
+    referent 
+  }
 
 model Creneau {
   idCreneau     Int             @id

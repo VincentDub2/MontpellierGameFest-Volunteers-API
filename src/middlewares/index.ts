@@ -32,7 +32,20 @@ const middleware = {
     } catch (error) {
         console.log(error);
         res.status(401).json({ message: "Erreur d'authentification" });
-    }
+    }},
+    isGod : async (req : Request, res : Response, next : NextFunction) => {
+        try {
+            if (!req.user) {
+                return res.status(500).json({ message: "Erreur lors de la récupération de l'utilisateur" });
+            }
+            const user = await userService.findUserById(req.user.id) ;
+            if (!user || user.isGod == true) {
+                return res.status(403).json({ message: "Action non autorisée" });
+            }
+            next();
+        } catch (error) {
+            res.status(500).json({ message: "Erreur lors de la vérification de l'email" });
+        }
     },
     isEmailVerified : async (req : Request, res : Response, next : NextFunction) => {
         try {
