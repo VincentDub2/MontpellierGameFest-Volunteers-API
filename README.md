@@ -134,6 +134,9 @@ Corps de la requête:
 
 #### Obtenir tous les Postes d'un Festival (`/festivals/:idFestival/postes`)
 - **Exemple**: `GET /festivals/:idFestival/postes` permet de récupérer tous les postes associés à un festival spécifique.
+Paramètres de requête:
+    - name - (optionnel) permet de filtrer les postes par leur nom.
+
 
 
 ### 11 

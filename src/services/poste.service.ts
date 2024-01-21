@@ -1,5 +1,6 @@
 import { PrismaClient, Poste } from '@prisma/client';
 import { Prisma } from '@prisma/client';
+import { get } from 'lodash';
 
 const prisma = new PrismaClient();
 
@@ -40,11 +41,16 @@ const posteService = {
         }
     },
 
-    // Obtenir tous les postes pour un festival donné
-    getAllPostesByFestival: async (idFestival: number): Promise<Poste[] | null> => {
+    getAllPostesByFestival: async (idFestival: number, name?: string): Promise<Poste[] | null> => {
         try {
+            let whereClause: { idFestival: number; name?: string } = { idFestival };
+    
+            if (name) {
+                whereClause.name = name;
+            }
+    
             return await prisma.poste.findMany({
-                where: { idFestival },
+                where: whereClause,
             });
         } catch (error) {
             console.error(`Error retrieving postes for festival: ${error}`);
@@ -78,7 +84,7 @@ const posteService = {
             console.error(`Error deleting poste: ${error}`);
             return null;
         }
-    },
+    }
 };
 
 export default posteService;

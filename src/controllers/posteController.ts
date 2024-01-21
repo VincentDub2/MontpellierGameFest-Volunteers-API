@@ -50,9 +50,10 @@ const posteController = {
 
     // Obtenir tous les postes pour un festival donné
     getAllPostesByFestival: async (req: Request, res: Response) => {
-        const { idFestival } = req.params;
+        const { idFestival} = req.params;
+        const {name }= req.query;
         try {
-            const postes = await posteService.getAllPostesByFestival(parseInt(idFestival));
+            const postes = await posteService.getAllPostesByFestival(parseInt(idFestival),name as string);
             res.json(postes);
             logger.info(`Récupération de tous les postes pour le festival avec l'ID: ${idFestival}`);
         } catch (error) {
