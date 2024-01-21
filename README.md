@@ -137,9 +137,50 @@ Corps de la requête:
 Paramètres de requête:
     - name - (optionnel) permet de filtrer les postes par leur nom.
 
+#### Obtenir tous les Créneaux pour un Festival Donné (`/festivals/:idFestival/creneaux`)
+- **Route**: `GET /festivals/:idFestival/creneaux`
+- **Paramètres URL**:
+  - `idFestival`: Identifiant unique du festival pour lequel les créneaux sont demandés.
+- **Paramètres de requête** (query parameters) (optionnels):
+  - `timeStart`: Date et heure de début pour filtrer les créneaux (format DateTime).
+  - `timeEnd`: Date et heure de fin pour filtrer les créneaux (format DateTime).
+  - `idEspace`: Identifiant de l'espace associé aux créneaux.
+  - `idPoste`: Identifiant du poste associé aux créneaux.
+- **Exemple**: `GET /festivals/1/creneaux?timeStart=2024-06-10T08:00:00&timeEnd=2024-06-10T12:00:00&idEspace=2&idPoste=5`
+  - Récupère tous les créneaux du festival avec l'ID `1` qui se déroulent entre 8h et 12h le 10 juin 2024, associés à l'espace avec l'ID `2` et au poste avec l'ID `5`.
 
+### 11. Créneaux (`/creneaux`)
+Gestion des créneaux pour les festivals, y compris l'ajout, la consultation, la mise à jour et la suppression des créneaux.
 
-### 11 
+#### Ajouter un Créneau (`/creneaux`)
+- **Route**: `POST /creneaux`
+- **Corps de la requête**: 
+  - `timeStart`: Date et heure de début du créneau (DateTime).
+  - `timeEnd`: Date et heure de fin du créneau (DateTime).
+  - `idFestival`: Identifiant du festival associé (Int).
+- **Exemple**: `POST /creneaux` avec le corps de la requête contenant `{"timeStart": "2024-06-10T08:00:00", "timeEnd": "2024-06-10T12:00:00", "idFestival": 1}` pour créer un nouveau créneau.
+
+#### Obtenir un Créneau par ID (`/creneaux/:idCreneau`)
+- **Route**: `GET /creneaux/:idCreneau`
+- **Paramètres URL**:
+  - `idCreneau`: Identifiant unique du créneau.
+- **Exemple**: `GET /creneaux/123` pour obtenir les détails du créneau avec l'ID `123`.
+
+#### Mettre à Jour un Créneau (`/creneaux/:idCreneau`)
+- **Route**: `PUT /creneaux/:idCreneau`
+- **Paramètres URL**:
+  - `idCreneau`: Identifiant unique du créneau.
+- **Corps de la requête**: 
+  - `timeStart` (optionnel): Nouvelle heure de début.
+  - `timeEnd` (optionnel): Nouvelle heure de fin.
+- **Exemple**: `PUT /creneaux/123` avec le corps de la requête pour mettre à jour le créneau `123`.
+
+#### Supprimer un Créneau (`/creneaux/:idCreneau`)
+- **Route**: `DELETE /creneaux/:idCreneau`
+- **Paramètres URL**:
+  - `idCreneau`: Identifiant unique du créneau.
+- **Exemple**: `DELETE /creneaux/123` pour supprimer le créneau avec l'ID `123`.
+
 
 ### 12 . Association (`/associations`)
 - **Exemple**: `GET /associations` renvoie la liste des associations.

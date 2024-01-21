@@ -2,6 +2,7 @@ import express from "express";
 import festivalController from "../controllers/festivalController";
 import volunteerToFestivalController from "../controllers/volunteerToFestivalController";   
 import posteController from '../controllers/posteController';
+import creneauController from '../controllers/creneauController';
 
 export default (router: express.Router) => {
     router.post('/festivals', festivalController.createAFestival);
@@ -30,6 +31,9 @@ export default (router: express.Router) => {
 
     // Route pour obtenir tous les postes d'un festival spécifique
     router.get('/festivals/:idFestival/postes', posteController.getAllPostesByFestival);
+
+    // Route pour obtenir tous les créneaux d'un festival donné
+    router.get('/festivals/:idFestival/creneaux', creneauController.getAllCreneauxByFestival);
 
     return router;
 };
