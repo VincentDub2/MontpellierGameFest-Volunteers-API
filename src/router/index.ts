@@ -17,8 +17,8 @@ export default (): express.Router => {
       authLocal(router);
       csv(router);
       game(router)
-        festival(router)
-        association(router)
-    userAssociation(router)
+      festival(router)
+      association(router)
+      userAssociation(router)
     return router;
   };

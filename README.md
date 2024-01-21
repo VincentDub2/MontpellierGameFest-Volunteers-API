@@ -9,7 +9,7 @@ Cette application web est conçue pour le cadre universitaire et destinée à la
 - Gestion des bénévoles
 
 ## 🚀 Routes de l'API
-- `/auth/:provider\`
+- `/auth/:provider`
 - `/auth/:provider/callback`
 - `/login`
 - `/register`
@@ -18,7 +18,7 @@ Cette application web est conçue pour le cadre universitaire et destinée à la
 - `/verify-email`
 - `/reset-password`
 - `/update-password-with-token`
-- `/uploadCsv`
+- `/uploads/csv`
 - `/games`
 - `/game/:id`
 - `/festivals`
@@ -65,7 +65,7 @@ Permet d'importer un fichier CSV contenant les informations des bénévoles.
 Ps : le fichier CSV doit être envoyé dans le corps de la requête avec le nome 'file'.
 Note : Utilisation de la librairie 'csv-parser' pour parser le fichier CSV.
 Les requetes sont effectuées en parallel pour optimiser le delai.
-- **Exemple**: `POST /uploadCsv` avec un fichier CSV contenant les informations des bénévoles.
+- **Exemple**: `POST /uploads/csv` avec un fichier CSV contenant les informations des bénévoles.
 
 ### 9. Jeux (`/games`)
 Permet de récupérer la liste des jeux.
