@@ -113,22 +113,22 @@ Permet de modifier la photo de profil de l'utilisateur.
 - **Exemple**: `POST /users/profile-picture` permet de modifier la photo de profil de l'utilisateur.
 - **Exemple**: `put /users/:id` permet de modifier un utilisateur. Il faut envoyer un objet JSON avec les champs à modifier. Il faut etre connecté pour pouvoir modifier un utilisateur. Il faut etre le propriétaire du compte pour pouvoir modifier un utilisateur.
 
-### 12 . Association (`/association`)
+### 12 . Association (`/associations`)
 - **Exemple**: `GET /associations` renvoie la liste des associations.
 - **Exemple**: `GET /associations?name=runningClub` renvoie la liste des associations dont le nom contient "runningClub".
 - **Exemple**: `GET /associations?pageSize=10` renvoie les 10 premières associations.
 - **Exemple**: `GET /associations?page=2` renvoie les associations de la page 2.
 - **Exemple**: `GET /associations?page=1&pageSize=20` renvoie les 20 premières associations de la page 1.
 
-- **Exemple**: `GET /association/:id` renvoie l'association avec l'id correspondant.
-- **Exemple**: `POST /association` permet d'ajouter une association.
-- **Exemple**: `PUT /association/:id` permet de modifier une association.
-- **Exemple**: `DELETE /association/:id` permet de supprimer une association.
+- **Exemple**: `GET /associations/:id` renvoie l'association avec l'id correspondant.
+- **Exemple**: `POST /associations` permet d'ajouter une association.
+- **Exemple**: `PUT /associations/:id` permet de modifier une association.
+- **Exemple**: `DELETE /associations/:id` permet de supprimer une association.
 
-- **Exemple**: `POST /association/:associationId/user/:userId` permet d'ajouter un utilisateur à une association.
-- **Exemple**: `GET /user/:userId/associations` permet de récupérer les associations d'un utilisateur.
-- **Exemple**: `GET /association/:associationId/users` permet de récupérer les utilisateurs d'une association.
-- **Exemple**: `DELETE /association/:associationId/user/:userId` permet de supprimer un utilisateur d'une association.
+- **Exemple**: `POST /associations/:associationId/user/:userId` permet d'ajouter un utilisateur à une association.
+- **Exemple**: `GET /users/:userId/associations` permet de récupérer les associations d'un utilisateur.
+- **Exemple**: `GET /associations/:associationId/users` permet de récupérer les utilisateurs d'une association.
+- **Exemple**: `DELETE /associations/:associationId/user/:userId` permet de supprimer un utilisateur d'une association.
 
 ## 📁 Structure du Projet
 
