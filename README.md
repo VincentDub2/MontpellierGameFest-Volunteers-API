@@ -32,6 +32,7 @@ Cette application web est conçue pour le cadre universitaire et destinée à la
 - `/associations/:id` - Obtention, mise à jour ou suppression d'une association spécifique.
 - `/associations/:associationId/users/:userId` - Ajout d'un utilisateur à une association.
 - `/users/:userId/associations` - Obtention des associations d'un utilisateur spécifique.
+- `/users/:volunteerId/festivals` - Obtention des festivals auxquels un volontaire a participé.
 - `/associations/:associationId/users` - Obtention des utilisateurs d'une association spécifique.
 - `/associations/:associationId/users/:userId` - Suppression d'un utilisateur d'une association.
 

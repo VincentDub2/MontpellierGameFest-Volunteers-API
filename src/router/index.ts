@@ -7,7 +7,7 @@ import game from "./game";
 import festival from "./festival";
 import association from "./association";
 import userAssociation from "./userAssociation";
-
+import poste from "./poste";
 
 const router = express.Router();
 
@@ -20,5 +20,6 @@ export default (): express.Router => {
       festival(router)
       association(router)
       userAssociation(router)
+      poste(router)
     return router;
   };
