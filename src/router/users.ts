@@ -5,9 +5,9 @@ import multer from "multer";
 import upload from "../middlewares/uploadMiddleware";
 
 export default (router: express.Router) => {
-    router.get('/verify-email',userController.verifyEmail)
-    router.get('/currentUser',middleware.isAuthenticated,userController.getCurrentUser)
-    router.put('/updateUserPicture',middleware.isAuthenticated,middleware.isEmailVerified,upload.single('picture'),userController.updateUserPicture)
-    router.put('/user/:id',middleware.isAuthenticated,middleware.isAccountOwner,userController.updateUser)
+    router.get('/emails/verify',userController.verifyEmail)
+    router.get('/users/current',middleware.isAuthenticated,userController.getCurrentUser)
+    router.put('/users/profile-picture',middleware.isAuthenticated,middleware.isEmailVerified,upload.single('picture'),userController.updateUserPicture)
+    router.put('/users/:id',middleware.isAuthenticated,middleware.isAccountOwner,userController.updateUser)
     return router;
 };

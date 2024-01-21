@@ -47,13 +47,13 @@ Permet à un nouvel utilisateur de créer un compte.
 - **Exemple**: `POST /register` avec les informations nécessaires à l'enregistrement (e-mail, nom d'utilisateur, mot de passe).
 - Possibilité de fournir une photo de profil en utilisant le champ `picture` du corps de la requête.
 
-#### 5. Utilisateur Actuel (`/currentUser`)
+#### 5. Utilisateur Actuel (`/users/current`)
 Récupère les informations de l'utilisateur actuellement connecté.
-- **Exemple**: `GET /currentUser` renvoie les détails de l'utilisateur connecté.
+- **Exemple**: `GET /users/current` renvoie les détails de l'utilisateur connecté.
 
-#### 6. Vérification de l'E-mail (`/verify-email`)
+#### 6. Vérification de l'E-mail (`/emails/verify`)
 Permet à l'utilisateur de vérifier son adresse e-mail.
-- **Exemple**: `POST /verify-email` avec un token envoyé à l'adresse e-mail de l'utilisateur pour confirmer son identité.
+- **Exemple**: `POST /emails/verify` avec un token envoyé à l'adresse e-mail de l'utilisateur pour confirmer son identité.
 
 #### 7. Réinitialisation du Mot de Passe (`/reset-password`)
 Permet à l'utilisateur de réinitialiser son mot de passe.
@@ -108,10 +108,10 @@ Corps de la requête:
     - sizeTeeShirt - la taille de tee-shirt du volontaire.
     - role - le rôle du volontaire dans le festival. Comme pour la route getVolunteersToFestival, une validation est effectuée pour s'assurer que le rôle fourni est valide.
 
-### 11 . User (`/updateUserPicture`)
+### 11 . User (`/users/profile-picture`)
 Permet de modifier la photo de profil de l'utilisateur.
-- **Exemple**: `POST /updateUserPicture` permet de modifier la photo de profil de l'utilisateur.
-- **Exemple**: `put /user/:id` permet de modifier un utilisateur. Il faut envoyer un objet JSON avec les champs à modifier. Il faut etre connecté pour pouvoir modifier un utilisateur. Il faut etre le propriétaire du compte pour pouvoir modifier un utilisateur.
+- **Exemple**: `POST /users/profile-picture` permet de modifier la photo de profil de l'utilisateur.
+- **Exemple**: `put /users/:id` permet de modifier un utilisateur. Il faut envoyer un objet JSON avec les champs à modifier. Il faut etre connecté pour pouvoir modifier un utilisateur. Il faut etre le propriétaire du compte pour pouvoir modifier un utilisateur.
 
 ### 12 . Association (`/association`)
 - **Exemple**: `GET /associations` renvoie la liste des associations.
