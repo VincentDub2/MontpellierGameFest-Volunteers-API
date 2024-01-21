@@ -75,10 +75,10 @@ Permet de récupérer la liste des jeux.
 - **Exemple**: `GET /games?page=2` renvoie les jeux de la page 2.
 - **Exemple**: `GET /games?page=1&pageSize=20` renvoie les 20 premiers jeux de la page 1.
 
-- **Exemple**: `GET /game/:id` renvoie le jeu avec l'id correspondant.
-- **Exemple**: `POST /game` permet d'ajouter un jeu.
+- **Exemple**: `GET /games/:id` renvoie le jeu avec l'id correspondant.
+- **Exemple**: `POST /games` permet d'ajouter un jeu.
 - **Exemple**: `PUT /gams/:id` permet de modifier un jeu.
-- **Exemple**: `DELETE /game/:id` permet de supprimer un jeu.
+- **Exemple**: `DELETE /games/:id` permet de supprimer un jeu.
 
 ### 10. Festivals (`/festivals`)
 - **Exemple**: - **Exemple**:POST /festivals` permet d'ajouter un nouveau festival.
