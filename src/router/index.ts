@@ -7,7 +7,8 @@ import game from "./game";
 import festival from "./festival";
 import association from "./association";
 import userAssociation from "./userAssociation";
-
+import poste from "./poste";
+import creneau from "./creneau";
 
 const router = express.Router();
 
@@ -17,8 +18,11 @@ export default (): express.Router => {
       authLocal(router);
       csv(router);
       game(router)
-        festival(router)
-        association(router)
-    userAssociation(router)
+      festival(router)
+      association(router)
+      userAssociation(router)
+      poste(router)
+      creneau(router)
+
     return router;
   };

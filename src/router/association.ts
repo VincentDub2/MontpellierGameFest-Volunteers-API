@@ -3,9 +3,9 @@ import associationController from "../controllers/associationCrontroller";
 
 export default (router: express.Router) => {
     router.get('/associations',associationController.getAllAssociations);
-    router.get('/association/:id',associationController.getAssociationById);
-    router.delete('/association/:id',associationController.deleteAssociation);
-    router.post('/association',associationController.createAssociation);
-    router.put('/association/:id',associationController.updateAssociation);
+    router.get('/associations/:id',associationController.getAssociationById);
+    router.delete('/associations/:id',associationController.deleteAssociation);
+    router.post('/associations',associationController.createAssociation);
+    router.put('/associations/:id',associationController.updateAssociation);
 };
 

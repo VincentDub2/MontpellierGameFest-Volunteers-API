@@ -21,6 +21,13 @@ type UploadResult = {
 
 const UserService = {
     // Créer un nouvel utilisateur
+    /**
+     * Cette methode permet de créer un nouvel utilisateur
+     * @param email
+     * @param firstName
+     * @param address
+     * @param lastName
+     */
     createUser: async (email: string, firstName: string,address : string,lastName : string) => {
 
         const emailVerificationToken = uuidv4(); // Générer un token unique
@@ -50,7 +57,12 @@ const UserService = {
     },
 
     // Mise à jour du profil de l'utilisateur
-    updateUser: async (userId: string, updateData: { name?: string, email?: string }) => {
+    updateUser: async (userId: string, updateData: { 
+        firstName?: string, 
+        lastName?: string, 
+        address?: string, 
+        phoneNumber?: string
+     }) => {
         return await prisma.user.update({
             where: {id: userId},
             data: updateData

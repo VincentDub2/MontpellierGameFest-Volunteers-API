@@ -9,6 +9,7 @@ generator client {
   binaryTargets = ["native", "debian-openssl-1.1.x"]
 }
 
+
 model User {
   id          String  @id @default(uuid())
   lastName    String?
@@ -19,6 +20,7 @@ model User {
   pictureId   String?
   phoneNumber String?
   completed   Boolean @default(false)
+  isGod    Boolean @default(false)
 
   createdAt              DateTime             @default(now())
   updatedAt              DateTime             @updatedAt
@@ -104,13 +106,13 @@ model IsVolunteer {
 }
 
 enum Role {
-  administrator
-  receptionManager
-  referent
-}
+    administrator 
+    receptionManager
+    referent 
+  }
 
 model Creneau {
-  idCreneau     Int             @id
+  idCreneau     Int             @id @default(autoincrement())
   timeStart     DateTime
   timeEnd       DateTime
   idFestival    Int
@@ -121,7 +123,7 @@ model Creneau {
 }
 
 model Poste {
-  idPoste       Int           @id
+  idPoste       Int           @id @default(autoincrement())
   name          String
   capacityPoste Int
   idFestival    Int
@@ -132,7 +134,7 @@ model Poste {
 }
 
 model Espace {
-  idEspace       Int             @id
+  idEspace       Int            @id @default(autoincrement())
   name           String
   posteEspaces   PosteEspace[]
   creneauEspaces CreneauEspace[]
@@ -165,7 +167,7 @@ model IsReferent {
 }
 
 model CreneauEspace {
-  idCreneauEspace Int           @id
+  idCreneauEspace Int           @id @default(autoincrement())
   idCreneau       Int
   idEspace        Int
   capacityEspace  Int           @default(2)
@@ -209,7 +211,7 @@ model IsPresent {
 }
 
 model Event {
-  idEvent      Int           @id
+  idEvent      Int           @id @default(autoincrement())
   dateEvent    DateTime
   addressEvent String
   idManager    String

@@ -3,7 +3,7 @@
  */
 import { Request, Response } from "express";
 import festivalService from "../services/festivalService";
-
+import { logger } from "../helpers/loggers.vercel";
 
 const festivalController = {
     /**
@@ -14,8 +14,10 @@ const festivalController = {
     createAFestival: async (req: Request, res: Response) => {
         try {
             const festival = await festivalService.createAFestival(req.body);
+            logger.info(`Création du festival avec succès`);
             res.json(festival);
         } catch (error) {
+            logger.error(`Erreur lors de la création du festival: ${error}`);
             res.status(500).json({ message: "Erreur lors de la création du festival :" + error });
         }
     },
@@ -27,8 +29,10 @@ const festivalController = {
     getAllFestivals: async (req: Request, res: Response) => {
         try {
             const festivals = await festivalService.getAllFestivals();
+            logger.info(`Récupération de tous les festivals avec succès`);
             res.json(festivals);
         } catch (error) {
+            logger.error(`Erreur lors de la récupération des festivals: ${error}`);
             res.status(500).json({ message: "Erreur lors de la récupération des festivals :" + error });
         }
     },
@@ -41,12 +45,14 @@ const festivalController = {
         try {
             const id = parseInt(req.params.id);
             const festival = await festivalService.getFestivalById(id);
+            logger.info(`Récupération du festival avec succès`);
             res.json(festival);
         } catch (error) {
+            logger.info(`Erreur lors de la récupération du festival: ${error}`);
             res.status(500).json({ message: "Erreur lors de la récupération du festival :" + error });
         }
     },
-    /**
+    /** 
      * Supprimer un festival par son id
      * @param req
      * @param res
@@ -55,8 +61,10 @@ const festivalController = {
         try {
             const id = parseInt(req.params.id);
             const festival = await festivalService.deleteFestivalById(id);
+            logger.info(`Suppression du festival avec succès`);
             res.json(festival);
         } catch (error) {
+            logger.error(`Erreur lors de la suppression du festival: ${error}`);
             res.status(500).json({ message: "Erreur lors de la suppression du festival :" + error });
         }
     },
@@ -69,8 +77,10 @@ const festivalController = {
         try {
             const id = parseInt(req.params.id);
             const festival = await festivalService.updateFestival(id, req.body);
+            logger.info(`Mise à jour du festival avec succès`);
             res.json(festival);
         } catch (error) {
+            logger.error(`Erreur lors de la mise à jour du festival: ${error}`);
             res.status(500).json({ message: "Erreur lors de la mise à jour du festival :" + error });
         }
     },
@@ -82,8 +92,10 @@ const festivalController = {
     getActiveFestival : async (req: Request, res: Response) => {
         try {
             const festival = await festivalService.getActiveFestival();
+            logger.info(`Récupération du festival avec succès`);
             res.json(festival);
         } catch (error) {
+            logger.error(`Erreur lors de la récupération du festival: ${error}`);
             res.status(500).json({ message: "Erreur lors de la récupération du festival :" + error });
         }
     },
@@ -95,8 +107,10 @@ const festivalController = {
     getLastFestival : async (req: Request, res: Response) => {
         try {
             const festival = await festivalService.getLastFestival();
+            logger.info(`Récupération du festival avec succès`);
             res.json(festival);
         } catch (error) {
+            logger.error(`Erreur lors de la récupération du festival: ${error}`);
             res.status(500).json({ message: "Erreur lors de la récupération du festival :" + error });
         }
     },
@@ -108,8 +122,10 @@ const festivalController = {
     getNextFestival : async (req: Request, res: Response) => {
         try {
             const festival = await festivalService.getNextFestival();
+            logger.info(`Récupération du festival avec succès`);
             res.json(festival);
         } catch (error) {
+            logger.error(`Erreur lors de la récupération du festival: ${error}`);
             res.status(500).json({ message: "Erreur lors de la récupération du festival :" + error });
         }
     }

@@ -8,7 +8,6 @@ import {logger} from "../helpers/loggers.vercel";
 const middleware = {
     isAuthenticated : async (req : Request, res : Response, next : NextFunction) => {
     const token = req.headers.authorization?.split(' ')[1];
-
     if (!token) {
         return res.status(401).json({ message: "Authentification requise" });
     }
@@ -33,7 +32,20 @@ const middleware = {
     } catch (error) {
         console.log(error);
         res.status(401).json({ message: "Erreur d'authentification" });
-    }
+    }},
+    isGod : async (req : Request, res : Response, next : NextFunction) => {
+        try {
+            if (!req.user) {
+                return res.status(500).json({ message: "Erreur lors de la récupération de l'utilisateur" });
+            }
+            const user = await userService.findUserById(req.user.id) ;
+            if (!user || user.isGod == true) {
+                return res.status(403).json({ message: "Action non autorisée" });
+            }
+            next();
+        } catch (error) {
+            res.status(500).json({ message: "Erreur lors de la vérification de l'email" });
+        }
     },
     isEmailVerified : async (req : Request, res : Response, next : NextFunction) => {
         try {
@@ -53,7 +65,9 @@ const middleware = {
             return res.status(500).json({ message: "Erreur lors de la récupération de l'utilisateur" });
         }
         const userId = req.user.id;
-        const accountIdToModify = req.params.userId;
+    
+        const accountIdToModify = req.params.id;
+    
         if (userId !== accountIdToModify) {
             return res.status(403).json({ message: "Action non autorisée" });
         }

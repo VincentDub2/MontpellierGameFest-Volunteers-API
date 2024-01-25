@@ -3,10 +3,14 @@ import userController from "../controllers/userController";
 import middleware from "../middlewares";
 import multer from "multer";
 import upload from "../middlewares/uploadMiddleware";
+import volunteerToFestivalController from "../controllers/volunteerToFestivalController";
 
 export default (router: express.Router) => {
-    router.get('/verify-email',userController.verifyEmail)
-    router.get('/currentUser',middleware.isAuthenticated,userController.getCurrentUser)
-    router.put('/updateUserPicture',middleware.isAuthenticated,middleware.isEmailVerified,upload.single('picture'),userController.updateUserPicture)
+    router.get('/emails/verify',userController.verifyEmail)
+    router.get('/users/current',middleware.isAuthenticated,userController.getCurrentUser)
+    router.put('/users/profile-picture',middleware.isAuthenticated,middleware.isEmailVerified,upload.single('picture'),userController.updateUserPicture)
+    router.put('/users/:id',middleware.isAuthenticated,middleware.isAccountOwner,userController.updateUser);
+    router.get('/users/:volunteerId/festivals', volunteerToFestivalController.getFestivalsByVolunteer);
+
     return router;
 };
