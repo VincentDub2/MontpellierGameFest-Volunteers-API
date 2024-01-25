@@ -5,13 +5,12 @@ import prisma from "../prisma";
 import {logger} from "../helpers/loggers.vercel";
 
 interface FestivalInterface {
-    idFestival?: number;
     name: string;
     address: string;
     dateDebut: Date;
     dateFin: Date;
     city: string;
-    codePostal: string;
+    postalCode: string;
     country: string;
 }
 
