@@ -5,10 +5,9 @@ datasource db {
 }
 
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
   binaryTargets = ["native", "debian-openssl-1.1.x"]
 }
-
 
 model User {
   id          String  @id @default(uuid())
@@ -20,7 +19,7 @@ model User {
   pictureId   String?
   phoneNumber String?
   completed   Boolean @default(false)
-  isGod    Boolean @default(false)
+  isGod       Boolean @default(false)
 
   createdAt              DateTime             @default(now())
   updatedAt              DateTime             @updatedAt
@@ -79,6 +78,10 @@ model Festival {
   idFestival  Int           @id @default(autoincrement())
   name        String
   address     String
+  city        String
+  postalCode  String
+  country     String
+  isActive    Boolean       @default(true)
   dateDebut   DateTime
   dateFin     DateTime
   isVolunteer IsVolunteer[]
@@ -94,8 +97,8 @@ model IsVolunteer {
   isVege       Boolean
   sizeTeeShirt String
   role         Role
-  festival     Festival @relation(fields: [idFestival], references: [idFestival])
-  user         User     @relation(fields: [idUser], references: [id])
+  festival     Festival @relation(fields: [idFestival], references: [idFestival], onDelete: Cascade)
+  user         User     @relation(fields: [idUser], references: [id], onDelete: Cascade)
   Jeux         Jeux?    @relation(fields: [jeuxIdGame], references: [idGame])
   jeuxIdGame   Int?
 
@@ -106,17 +109,17 @@ model IsVolunteer {
 }
 
 enum Role {
-    administrator 
-    receptionManager
-    referent 
-  }
+  administrator
+  receptionManager
+  referent
+}
 
 model Creneau {
   idCreneau     Int             @id @default(autoincrement())
   timeStart     DateTime
   timeEnd       DateTime
   idFestival    Int
-  festival      Festival        @relation(fields: [idFestival], references: [idFestival])
+  festival      Festival        @relation(fields: [idFestival], references: [idFestival], onDelete: Cascade)
   creneauEspace CreneauEspace[]
 
   @@index([idFestival])
@@ -127,14 +130,14 @@ model Poste {
   name          String
   capacityPoste Int
   idFestival    Int
-  festival      Festival      @relation(fields: [idFestival], references: [idFestival])
+  festival      Festival      @relation(fields: [idFestival], references: [idFestival], onDelete: Cascade)
   posteEspaces  PosteEspace[]
 
   @@index([idFestival])
 }
 
 model Espace {
-  idEspace       Int            @id @default(autoincrement())
+  idEspace       Int             @id @default(autoincrement())
   name           String
   posteEspaces   PosteEspace[]
   creneauEspaces CreneauEspace[]
@@ -144,8 +147,8 @@ model Espace {
 model PosteEspace {
   idPoste  Int
   idEspace Int
-  poste    Poste  @relation(fields: [idPoste], references: [idPoste])
-  espace   Espace @relation(fields: [idEspace], references: [idEspace])
+  poste    Poste  @relation(fields: [idPoste], references: [idPoste], onDelete: Cascade)
+  espace   Espace @relation(fields: [idEspace], references: [idEspace], onDelete: Cascade)
 
   @@id([idPoste, idEspace])
   @@index([idEspace])
@@ -155,9 +158,9 @@ model PosteEspace {
 model IsReferent {
   idUser     String
   idEspace   Int
-  user       User   @relation(fields: [idUser], references: [id])
-  espace     Espace @relation(fields: [idEspace], references: [idEspace])
-  Jeux       Jeux?  @relation(fields: [jeuxIdGame], references: [idGame])
+  user       User   @relation(fields: [idUser], references: [id], onDelete: Cascade)
+  espace     Espace @relation(fields: [idEspace], references: [idEspace], onDelete: Cascade)
+  Jeux       Jeux?  @relation(fields: [jeuxIdGame], references: [idGame], onDelete: Cascade)
   jeuxIdGame Int?
 
   @@id([idUser, idEspace])
@@ -171,8 +174,8 @@ model CreneauEspace {
   idCreneau       Int
   idEspace        Int
   capacityEspace  Int           @default(2)
-  creneau         Creneau       @relation(fields: [idCreneau], references: [idCreneau])
-  espace          Espace        @relation(fields: [idEspace], references: [idEspace])
+  creneau         Creneau       @relation(fields: [idCreneau], references: [idCreneau], onDelete: Cascade)
+  espace          Espace        @relation(fields: [idEspace], references: [idEspace], onDelete: Cascade)
   inscriptions    Inscription[]
 
   @@index([idCreneau])
@@ -199,7 +202,7 @@ model IsPresent {
   idFestival Int
   idUser     String
   date       DateTime
-  festival   Festival @relation(fields: [idFestival], references: [idFestival])
+  festival   Festival @relation(fields: [idFestival], references: [idFestival], onDelete: Cascade)
   user       User     @relation(fields: [idUser], references: [id])
   Jeux       Jeux?    @relation(fields: [jeuxIdGame], references: [idGame])
   jeuxIdGame Int?
@@ -224,8 +227,8 @@ model Event {
 model IsPresented {
   idGame  Int
   idEvent Int
-  game    Jeux  @relation(fields: [idGame], references: [idGame])
-  event   Event @relation(fields: [idEvent], references: [idEvent])
+  game    Jeux  @relation(fields: [idGame], references: [idGame], onDelete: Cascade)
+  event   Event @relation(fields: [idEvent], references: [idEvent], onDelete: Cascade)
 
   @@id([idGame, idEvent])
   @@index([idGame])
@@ -284,8 +287,8 @@ model Jeux {
 model IsPlay {
   idGame     Int
   idFestival Int
-  game       Jeux     @relation(fields: [idGame], references: [idGame])
-  festival   Festival @relation(fields: [idFestival], references: [idFestival])
+  game       Jeux     @relation(fields: [idGame], references: [idGame], onDelete: Cascade)
+  festival   Festival @relation(fields: [idFestival], references: [idFestival], onDelete: Cascade)
 
   @@id([idGame, idFestival])
   @@index([idGame])

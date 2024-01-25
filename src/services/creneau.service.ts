@@ -21,9 +21,9 @@ const creneauService = {
         }
     },
     //Add plusieurs creneaux
-    addMultipleCreneaux: async (creneauxData: Prisma.PosteCreateManyInput): Promise<Prisma.BatchPayload> => {
+    addMultipleCreneaux: async (creneauxData: Prisma.CreneauCreateManyInput): Promise<Prisma.BatchPayload> => {
     try {
-        return await prisma.poste.createMany({
+        return await prisma.creneau.createMany({
             data: creneauxData,
         });
     } catch (error) {

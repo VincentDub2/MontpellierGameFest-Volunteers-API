@@ -1,5 +1,5 @@
 import request from 'supertest';
-import app from '../../src/index'; // Assurez-vous que le chemin est correct
+import {app,server} from '../../src'; // Assurez-vous que le chemin est correct
 import prisma from '../../src/prisma'; // Importez l'instance Prisma
 
 beforeAll(async () => {
@@ -12,6 +12,7 @@ afterAll(async () => {
     // Nettoyage de la base de données après les tests
     await prisma.jeux.deleteMany({});
     await prisma.$disconnect();
+    server.close()
 });
 
 describe('Game API Endpoints', () => {
@@ -41,18 +42,18 @@ describe('Game API Endpoints', () => {
         });
         const res = await request(app).get(`/games/${game.idGame}`);
         expect(res.statusCode).toEqual(200);
-        expect(res.body).toHaveProperty('id', game.idGame);
+        expect(res.body).toHaveProperty('idGame', game.idGame);
     });
 
     // Test pour PUT /games/:id
     it('should update a game', async () => {
         const game = await prisma.jeux.create({
             data: {
-                idGame: 1,
+                idGame: 5,
                 name: 'Old Game',
                 type: 'Action' },
         });
-        const updatedData = { name: 'Updated Game', genre: 'Adventure' };
+        const updatedData = { name: 'Updated Game', type: 'Adventure' };
         const res = await request(app).put(`/games/${game.idGame}`).send(updatedData);
         expect(res.statusCode).toEqual(200);
         expect(res.body).toHaveProperty('name', 'Updated Game');
@@ -69,6 +70,3 @@ describe('Game API Endpoints', () => {
         expect(res.statusCode).toEqual(200);
     });
 });
- // Fermez le serveur après les tests
-afterAll(() => {
-} );

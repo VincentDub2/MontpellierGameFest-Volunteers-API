@@ -15,7 +15,7 @@ const festivalController = {
         try {
             const festival = await festivalService.createAFestival(req.body);
             logger.info(`Création du festival avec succès`);
-            res.json(festival);
+            res.status(200).json(festival);
         } catch (error) {
             logger.error(`Erreur lors de la création du festival: ${error}`);
             res.status(500).json({ message: "Erreur lors de la création du festival :" + error });
@@ -44,6 +44,10 @@ const festivalController = {
     getFestivalById: async (req: Request, res: Response) => {
         try {
             const id = parseInt(req.params.id);
+            if (!id){
+                logger.error(`Erreur lors de la récupération du festival: id invalide`);
+                res.status(500).json({ message: "Erreur lors de la récupération du festival : id invalide" });
+            }
             const festival = await festivalService.getFestivalById(id);
             logger.info(`Récupération du festival avec succès`);
             res.json(festival);

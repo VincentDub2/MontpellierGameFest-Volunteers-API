@@ -4,28 +4,15 @@
 import prisma from "../prisma";
 import {logger} from "../helpers/loggers.vercel";
 
-/*
-Model prisma :
-model Festival {
-  idFestival  Int           @id @default(autoincrement())
-  name        String
-  address     String
-  dateDebut   DateTime
-  dateFin     DateTime
-  isVolunteer IsVolunteer[]
-  creneaux    Creneau[]
-  postes      Poste[]
-  isPresent   IsPresent[]
-  isPlay      IsPlay[]
-}
- */
-
 interface FestivalInterface {
     idFestival?: number;
     name: string;
     address: string;
     dateDebut: Date;
     dateFin: Date;
+    city: string;
+    codePostal: string;
+    country: string;
 }
 
 
