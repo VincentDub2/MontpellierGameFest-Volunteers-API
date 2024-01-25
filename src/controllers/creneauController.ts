@@ -21,7 +21,7 @@ const creneauController = {
         }
     },
     addMultipleCreneaux: async (req: Request, res: Response) => {
-        const { creneauxData } = req.body;
+        const creneauxData = req.body;
         try {
             const newCreneaux = await creneauService.addMultipleCreneaux(creneauxData);
             if (newCreneaux) {
