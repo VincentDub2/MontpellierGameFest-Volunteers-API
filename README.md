@@ -160,6 +160,12 @@ Gestion des créneaux pour les festivals, y compris l'ajout, la consultation, la
   - `idFestival`: Identifiant du festival associé (Int).
 - **Exemple**: `POST /creneaux` avec le corps de la requête contenant `{"timeStart": "2024-06-10T08:00:00", "timeEnd": "2024-06-10T12:00:00", "idFestival": 1}` pour créer un nouveau créneau.
 
+#### Ajouter plusieurs Créneaux (`/creneaux/multiple`)
+- **Route**: `POST /creneaux/multiple`
+- **Corps de la requête**: 
+  - `creneaux`: Tableau contenant les détails des créneaux à ajouter.
+- **Exemple**: `POST /creneaux/multiple` avec le corps de la requête contenant `{"creneaux": [{"timeStart": "2024-06-10T08:00:00", "timeEnd": "2024-06-10T12:00:00", "idFestival": 1}, {"timeStart": "2024-06-10T14:00:00", "timeEnd": "2024-06-10T18:00:00", "idFestival": 1}]}` pour créer deux nouveaux créneaux.
+
 #### Obtenir un Créneau par ID (`/creneaux/:idCreneau`)
 - **Route**: `GET /creneaux/:idCreneau`
 - **Paramètres URL**:
