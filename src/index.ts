@@ -20,6 +20,8 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(morganMiddleware);
 app.use(middleware.limiter)
+app.use(express.json({limit: '50mb'}));
+app.use(express.urlencoded({limit: '50mb'}));
 
 const server = http.createServer(app);
 
