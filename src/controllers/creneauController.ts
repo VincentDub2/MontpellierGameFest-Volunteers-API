@@ -20,7 +20,22 @@ const creneauController = {
             logger.error(`Erreur serveur: ${error}`);
         }
     },
-
+    addMultipleCreneaux: async (req: Request, res: Response) => {
+        const { creneauxData } = req.body;
+        try {
+            const newCreneaux = await creneauService.addMultipleCreneaux(creneauxData);
+            if (newCreneaux) {
+                res.status(201).json(newCreneaux);
+                logger.info(`Créneaux ajoutés avec succès: ${newCreneaux}`);
+            } else {
+                res.status(500).json({ message: 'Erreur lors de la création des créneaux' });
+                logger.error('Erreur lors de la création des créneaux');
+            }
+        } catch (error) {
+            res.status(500).json({ message: `Erreur serveur: ${error}` });
+            logger.error(`Erreur serveur: ${error}`);
+        }
+    },
     // Obtenir un créneau par son ID
     getCreneauById: async (req: Request, res: Response) => {
         const { idCreneau } = req.params;

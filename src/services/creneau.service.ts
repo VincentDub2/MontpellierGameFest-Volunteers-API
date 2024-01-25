@@ -1,4 +1,4 @@
-import { PrismaClient, Creneau } from '@prisma/client';
+import {PrismaClient, Creneau, Prisma} from '@prisma/client';
 
 const prisma = new PrismaClient();
 
@@ -20,7 +20,17 @@ const creneauService = {
             return null;
         }
     },
-
+    //Add plusieurs creneaux
+    addMultipleCreneaux: async (creneauxData: Prisma.PosteCreateManyInput): Promise<Prisma.BatchPayload> => {
+    try {
+        return await prisma.poste.createMany({
+            data: creneauxData,
+        });
+    } catch (error) {
+        console.error(`Error adding multiple postes: ${error}`);
+        throw error; // ou retourner null selon votre gestion d'erreur
+    }
+},
     // Obtenir un créneau par son ID
     getCreneauById: async (idCreneau: number): Promise<Creneau | null> => {
         try {
