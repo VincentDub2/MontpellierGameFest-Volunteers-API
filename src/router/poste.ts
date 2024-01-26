@@ -1,5 +1,5 @@
 import express from 'express';
-import posteController from '../controllers/posteController';
+import posteController from '../controllers/poste.controller';
 
 export default (router: express.Router) => {
 

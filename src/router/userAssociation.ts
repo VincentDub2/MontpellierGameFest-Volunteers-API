@@ -1,5 +1,5 @@
 import express from "express";
-import userAssociationController from "../controllers/userAssociationController";
+import userAssociationController from "../controllers/userAssociation.controller";
 
 export default (router: express.Router) => {
     router.post('/associations/:associationId/user/:userId',userAssociationController.addUserToAssociation);

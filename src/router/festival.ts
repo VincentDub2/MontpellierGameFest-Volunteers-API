@@ -1,8 +1,8 @@
 import express from "express";
-import festivalController from "../controllers/festivalController";
-import volunteerToFestivalController from "../controllers/volunteerToFestivalController";   
-import posteController from '../controllers/posteController';
-import creneauController from '../controllers/creneauController';
+import festivalController from "../controllers/festival.controller";
+import volunteerToFestivalController from "../controllers/volunteerToFestival.controller";
+import posteController from '../controllers/poste.controller';
+import creneauController from '../controllers/creneau.controller';
 
 export default (router: express.Router) => {
     router.post('/festivals', festivalController.createAFestival);

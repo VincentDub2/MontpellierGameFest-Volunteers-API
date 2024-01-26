@@ -1,5 +1,5 @@
 import express from "express";
-import associationController from "../controllers/associationCrontroller";
+import associationController from "../controllers/association.controller";
 
 export default (router: express.Router) => {
     router.get('/associations',associationController.getAllAssociations);

@@ -1,5 +1,5 @@
 import express from "express";
-import eventController from "../controllers/eventController";
+import eventController from "../controllers/event.controller";
 
 export default (router: express.Router) => {
     // Route pour ajouter un nouvel événement

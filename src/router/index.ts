@@ -10,6 +10,7 @@ import userAssociation from "./userAssociation";
 import poste from "./poste";
 import creneau from "./creneau";
 import event from "./event";
+import espace from "./posteEspace";
 
 const router = express.Router();
 
@@ -25,6 +26,7 @@ export default (): express.Router => {
       poste(router)
       creneau(router)
       event(router)
+      espace(router)
 
     return router;
   };

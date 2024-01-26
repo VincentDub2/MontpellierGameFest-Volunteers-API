@@ -1,6 +1,6 @@
 import express from "express";
-import getAllGames from "../controllers/gameController";
-import gameController from "../controllers/gameController";
+import getAllGames from "../controllers/game.controller";
+import gameController from "../controllers/game.controller";
 
 export default (router: express.Router) => {
     router.get('/games',gameController.getAllGames);

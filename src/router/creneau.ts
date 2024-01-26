@@ -1,5 +1,5 @@
 import express from 'express';
-import creneauController from '../controllers/creneauController';
+import creneauController from '../controllers/creneau.controller';
 import upload from "../middlewares/uploadMiddleware";
 
 export default (router: express.Router) => {

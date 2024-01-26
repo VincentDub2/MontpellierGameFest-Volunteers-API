@@ -1,9 +1,9 @@
 import express from 'express';
-import userController from "../controllers/userController";
+import userController from "../controllers/user.controller";
 import middleware from "../middlewares";
 import multer from "multer";
 import upload from "../middlewares/uploadMiddleware";
-import volunteerToFestivalController from "../controllers/volunteerToFestivalController";
+import volunteerToFestivalController from "../controllers/volunteerToFestival.controller";
 
 export default (router: express.Router) => {
     router.get('/emails/verify',userController.verifyEmail)
