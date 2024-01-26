@@ -21,11 +21,12 @@ const creneauService = {
         }
     },
     //Add plusieurs creneaux
-    addMultipleCreneaux: async (creneauxData: Prisma.CreneauCreateManyInput): Promise<Prisma.BatchPayload> => {
+    addMultipleCreneaux: async (creneauxData: Prisma.CreneauCreateManyInput[]): Promise<Prisma.BatchPayload> => {
     try {
         return await prisma.creneau.createMany({
             data: creneauxData,
-        });
+            }
+        );
     } catch (error) {
         console.error(`Error adding multiple postes: ${error}`);
         throw error; // ou retourner null selon votre gestion d'erreur
