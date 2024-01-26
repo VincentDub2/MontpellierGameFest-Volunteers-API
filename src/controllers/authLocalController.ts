@@ -4,13 +4,14 @@ import authLocalService from "../services/authLocal.service";
 import jwt from 'jsonwebtoken';
 import bcrypt from "bcrypt";
 import {logger} from "../helpers/loggers.vercel";
-
+import {User} from "@prisma/client";
 
 //Permet de générer un token unique
 import {v4 as uuidv4} from "uuid";
 
 //Permet d'envoyer des mails
 import mailService from "../helpers/mailHelpers";
+import prisma from "../prisma";
 
 
 const MAX_ATTEMPTS = 5; // Nombre maximal de tentatives
@@ -30,6 +31,8 @@ const authLocalController = {
 
             // On récupère l'utilisateur s'il existe
             const user = await userService.findUserByEmail(email);
+
+
 
             // Si l'utilisateur n'existe pas ou n'a pas de mot de passe local
             if (!user || !user.authLocal) {

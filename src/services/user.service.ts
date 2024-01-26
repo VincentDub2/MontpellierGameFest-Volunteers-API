@@ -55,7 +55,8 @@ const UserService = {
     findUserByEmail: async (email: string) => {
         try {
             return await prisma.user.findUnique({
-                where: {email}
+                where: {email},
+                include: { authLocal: true, authOAuth: true }
             });
             logger.info(`Récupération de l'utilisateur avec succès`);
         } catch (error) {
