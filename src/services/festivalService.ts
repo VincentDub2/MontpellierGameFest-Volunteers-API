@@ -28,7 +28,7 @@ const festivalService = {
         logger.info(`Festival ${data.name} créé avec succès`);
         return festivalCreated;
         } catch (error) {
-        logger.error(`Erreur lors de la création du festival ${data.name}:`, error);
+            throw new Error(`Erreur lors de la création du festival ${data.name}: ${error}`);
         }
     },
     /**
@@ -101,20 +101,15 @@ const festivalService = {
      */
     getActiveFestival : async () => {
         try {
-            const festival = await prisma.festival.findFirst({
+            const festival = await prisma.festival.findMany({
                 where: {
-                    dateDebut: {
-                        lte: new Date()
-                    },
-                    dateFin: {
-                        gte: new Date()
-                    }
+                    isActive : true
                 }
             });
-            logger.info(`Récupération du festival actif avec succès`);
+            logger.info(`Récupération des festivals actifs avec succès`);
             return festival;
         } catch (error) {
-            logger.error(`Erreur lors de la récupération du festival actif: ${error}`);
+            logger.error(`Erreur lors de la récupération des festivals actifs: ${error}`);
         }
     },
     /**
@@ -125,6 +120,11 @@ const festivalService = {
             const festival = await prisma.festival.findFirst({
                 orderBy: {
                     dateDebut: 'desc'
+                },
+                where : {
+                    dateDebut: {
+                        lt: new Date()
+                    }
                 }
             });
             logger.info(`Récupération du dernier festival créé avec succès`);
@@ -138,6 +138,11 @@ const festivalService = {
             const festival = await prisma.festival.findFirst({
                 orderBy: {
                     dateDebut: 'asc'
+                },
+                where : {
+                    dateDebut: {
+                        gt: new Date()
+                    }
                 }
             });
             logger.info(`Récupération du prochain festival créé avec succès`);

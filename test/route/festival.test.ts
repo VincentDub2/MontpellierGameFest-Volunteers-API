@@ -30,7 +30,6 @@ describe('Festival API Endpoints', () => {
         const res = await request(app).post('/festivals').send(newFestival);
         expect(res.statusCode).toEqual(200);
         expect(res.body).toHaveProperty('idFestival');
-        // ... autres assertions ...
     });
 
     // Test pour GET /festivals
@@ -43,17 +42,8 @@ describe('Festival API Endpoints', () => {
 
     // Test pour GET /festivals/:id
     it('should return a single festival', async () => {
-        const newFestival = {
-            name: 'Festival Test',
-            dateDebut: new Date('2023-01-01T10:00:00'),
-            dateFin: new Date('2023-01-02T10:00:00'),
-            address: '1 rue du festival',
-            city: 'Paris',
-            postalCode: '75000',
-            country: 'France',
-            isActive: true
-        };
-        const fest = await prisma.festival.create({data: newFestival})
+        const fest = await prisma.festival.findFirst()
+        if (!fest) throw new Error('Festival not found');
         const res = await request(app).get(`/festivals/${fest.idFestival}`);
         expect(res.statusCode).toEqual(200);
         expect(res.body).toHaveProperty('idFestival', fest.idFestival);
@@ -78,13 +68,25 @@ describe('Festival API Endpoints', () => {
     it('should return the active festival', async () => {
         const res = await request(app).get('/festivals/current');
         expect(res.statusCode).toEqual(200);
-        // ... autres assertions ...
+        expect(Array.isArray(res.body)).toBeTruthy();
     });
 
     // Récupération du prochain festival
     it('should return the next festival', async () => {
+        const newFestival = {
+            name: 'Festival Test',
+            dateDebut: new Date('2025-01-01T10:00:00'),
+            dateFin: new Date('2025-01-02T10:00:00'),
+            address: '1 rue du festival',
+            city: 'Paris',
+            postalCode: '75000',
+            country: 'France',
+            isActive: true
+        };
+        const fest = await prisma.festival.create({data: newFestival})
         const res = await request(app).get('/festivals/next');
         expect(res.statusCode).toEqual(200);
+        expect(res.body).toHaveProperty('idFestival', fest.idFestival);
         // ... autres assertions ...
     });
 })

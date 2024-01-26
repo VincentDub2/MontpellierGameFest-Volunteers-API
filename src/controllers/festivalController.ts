@@ -13,6 +13,9 @@ const festivalController = {
      */
     createAFestival: async (req: Request, res: Response) => {
         try {
+            //On met la date au bon format
+            req.body.dateDebut = new Date(req.body.dateDebut);
+            req.body.dateFin = new Date(req.body.dateFin);
             const festival = await festivalService.createAFestival(req.body);
             logger.info(`Création du festival avec succès`);
             res.status(200).json(festival);
@@ -44,6 +47,7 @@ const festivalController = {
     getFestivalById: async (req: Request, res: Response) => {
         try {
             const id = parseInt(req.params.id);
+            console.log(id);
             if (!id){
                 logger.error(`Erreur lors de la récupération du festival: id invalide`);
                 res.status(500).json({ message: "Erreur lors de la récupération du festival : id invalide" });
@@ -95,11 +99,12 @@ const festivalController = {
      */
     getActiveFestival : async (req: Request, res: Response) => {
         try {
+
             const festival = await festivalService.getActiveFestival();
             logger.info(`Récupération du festival avec succès`);
             res.json(festival);
         } catch (error) {
-            logger.error(`Erreur lors de la récupération du festival: ${error}`);
+            logger.error(`Erreur lors de la récupération du festival actif: ${error}`);
             res.status(500).json({ message: "Erreur lors de la récupération du festival :" + error });
         }
     },
@@ -115,7 +120,7 @@ const festivalController = {
             res.json(festival);
         } catch (error) {
             logger.error(`Erreur lors de la récupération du festival: ${error}`);
-            res.status(500).json({ message: "Erreur lors de la récupération du festival :" + error });
+            res.status(500).json({ message: "Erreur lors de la récupération du dernier festival  :" + error });
         }
     },
     /**

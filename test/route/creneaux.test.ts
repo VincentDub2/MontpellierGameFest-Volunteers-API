@@ -20,7 +20,6 @@ beforeAll(async () => {
    const festival = await prisma.festival.create(
         {data: newFestival}
     )
-    console.log(festival)
 });
 
 afterAll(async () => {
