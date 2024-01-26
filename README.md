@@ -105,7 +105,7 @@ Permet de récupérer la liste des jeux.
 - **Exemple**: `DELETE /games/:id` permet de supprimer un jeu.
 
 ### 10. Festivals (`/festivals`)
-- **Exemple**: - **Exemple**:POST /festivals` permet d'ajouter un nouveau festival.
+- **Exemple**:  `POST /festivals` permet d'ajouter un nouveau festival.
 - **Exemple**: `GET /festivals` renvoie la liste de tous les festivals.
 - **Exemple**: `GET /festivals/:id` renvoie le festival avec l'ID correspondant.
 - **Exemple**: `PUT /festivals/:id` permet de modifier un festival existant.
