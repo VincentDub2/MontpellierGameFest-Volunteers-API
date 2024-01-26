@@ -1,7 +1,6 @@
 import request from 'supertest';
 import {app,server} from '../../src'; // Assurez-vous que le chemin est correct
 import prisma from '../../src/prisma';
-import {IsVolunteer} from "@prisma/client"; // Importez l'instance Prisma
 //Augmentation du temps d'attente
 jest.setTimeout(30000);
 beforeAll(async () => {

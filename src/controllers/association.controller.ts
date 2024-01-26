@@ -67,7 +67,7 @@ const associationController = {
     /**
      * Mettre à jour une association
      * @param req
-     * @param
+     * @param res
      */
     updateAssociation: async (req: Request, res: Response) => {
         try {

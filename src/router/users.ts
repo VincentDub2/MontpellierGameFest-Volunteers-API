@@ -1,7 +1,6 @@
 import express from 'express';
 import userController from "../controllers/user.controller";
 import middleware from "../middlewares";
-import multer from "multer";
 import upload from "../middlewares/uploadMiddleware";
 import volunteerToFestivalController from "../controllers/volunteerToFestival.controller";
 

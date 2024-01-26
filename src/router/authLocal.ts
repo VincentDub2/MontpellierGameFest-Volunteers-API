@@ -1,7 +1,5 @@
 import express from 'express';
-import userController from "../controllers/user.controller";
 import authLocalController from "../controllers/authLocal.controller";
-import authLocalService from "../services/authLocal.service";
 import upload from "../middlewares/uploadMiddleware";
 
 export default (router: express.Router) => {

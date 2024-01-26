@@ -2,7 +2,6 @@ import { Request, Response } from 'express';
 import volunteerToFestivalService from "../services/volunteerToFestival.service";
 import { VolunteerInterface } from "../types/types";
 import { logger } from "../helpers/loggers.vercel";
-import { get, update } from 'lodash';
 import {IsVolunteer, Role} from '@prisma/client';
 
 const volunteerToFestivalController = {

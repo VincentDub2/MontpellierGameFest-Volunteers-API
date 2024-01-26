@@ -1,5 +1,4 @@
 import express from "express";
-import getAllGames from "../controllers/game.controller";
 import gameController from "../controllers/game.controller";
 
 export default (router: express.Router) => {
