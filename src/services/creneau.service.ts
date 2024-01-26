@@ -16,8 +16,7 @@ const creneauService = {
                 },
             });
         } catch (error) {
-            console.error(`Error adding creneau: ${error}`);
-            return null;
+            throw new Error(`Error adding creneau: ${error}`);
         }
     },
     //Add plusieurs creneaux
@@ -28,8 +27,7 @@ const creneauService = {
             }
         );
     } catch (error) {
-        console.error(`Error adding multiple postes: ${error}`);
-        throw error; // ou retourner null selon votre gestion d'erreur
+        throw new Error(`Error adding multiple creneaux: ${error}`);
     }
 },
     // Obtenir un créneau par son ID
@@ -43,8 +41,7 @@ const creneauService = {
                 }
             });
         } catch (error) {
-            console.error(`Error retrieving creneau: ${error}`);
-            return null;
+            throw new Error(`Error retrieving creneau: ${error}`);
         }
     },
 
@@ -91,8 +88,7 @@ const creneauService = {
                 }
             });
         } catch (error) {
-            console.error(`Error retrieving creneaux for festival: ${error}`);
-            return null;
+            throw new Error(`Error retrieving creneaux: ${error}`);
         }
     },
     
@@ -108,8 +104,7 @@ const creneauService = {
                 },
             });
         } catch (error) {
-            console.error(`Error updating creneau: ${error}`);
-            return null;
+           throw new Error(`Error updating creneau: ${error}`);
         }
     },
 
@@ -120,8 +115,7 @@ const creneauService = {
                 where: { idCreneau },
             });
         } catch (error) {
-            console.error(`Error deleting creneau: ${error}`);
-            return null;
+            throw new Error(`Error deleting creneau: ${error}`);
         }
     },
 };

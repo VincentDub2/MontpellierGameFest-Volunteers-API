@@ -15,8 +15,7 @@ const eventService = {
                 },
             });
         } catch (error) {
-            console.error(`Error adding event: ${error}`);
-            return null;
+            throw new Error(`Error adding event: ${error}`);
         }
     },
 
@@ -31,8 +30,7 @@ const eventService = {
                 }
             });
         } catch (error) {
-            console.error(`Error retrieving event: ${error}`);
-            return null;
+           throw new Error(`Error retrieving event: ${error}`);
         }
     },
 
@@ -46,8 +44,7 @@ const eventService = {
                 }
             });
         } catch (error) {
-            console.error(`Error retrieving all events: ${error}`);
-            return null;
+            throw new Error(`Error retrieving events: ${error}`);
         }
     },
 
@@ -63,8 +60,7 @@ const eventService = {
                 },
             });
         } catch (error) {
-            console.error(`Error updating event: ${error}`);
-            return null;
+            throw new Error(`Error updating event: ${error}`);
         }
     },
 
@@ -75,8 +71,7 @@ const eventService = {
                 where: { idEvent },
             });
         } catch (error) {
-            console.error(`Error deleting event: ${error}`);
-            return null;
+            throw new Error(`Error deleting event: ${error}`);
         }
     },
 };

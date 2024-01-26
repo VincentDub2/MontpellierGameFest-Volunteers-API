@@ -12,7 +12,7 @@ const volunteerToFestivalService = {
             const {volunteerId, festivalId, isVege, sizeTeeShirt, role} = volunteer;
             if (isVege === undefined || sizeTeeShirt === undefined || role === undefined) {
                 logger.warn(`Erreur lors de l'ajout du volontaire au festival: Veuillez renseigner l'identifiant du volontaire, du festival, le role, la taille du t-shirt et si il est végétarien`);
-                return { message: "Veuillez renseigner l'identifiant du volontaire, du festival, le role, la taille du t-shirt et si il est végétarien" };
+                throw new Error(`Erreur lors de l'ajout du volontaire au festival: Veuillez renseigner l'identifiant du volontaire, du festival, le role, la taille du t-shirt et si il est végétarien`);
             }
             const volunteerToFestival = await prisma.isVolunteer.create({
                 data: {
@@ -26,7 +26,7 @@ const volunteerToFestivalService = {
             logger.info(`Ajout du volontaire au festival avec succès`);
             return volunteerToFestival;
         } catch (error) {
-            logger.error(`Erreur lors de l'ajout du volontaire au festival: ${error}`);
+            throw new Error(`Erreur lors de l'ajout du volontaire au festival: ${error}`);
         }
     },
     /**
@@ -44,7 +44,7 @@ const volunteerToFestivalService = {
             logger.info(`Suppression du volontaire au festival avec succès`);
             return volunteerToFestival;
         } catch (error) {
-            logger.error(`Erreur lors de la suppression du volontaire au festival: ${error}`);
+            throw new Error(`Erreur lors de la suppression du volontaire au festival: ${error}`);
         }
     },
     /**
@@ -63,7 +63,7 @@ const volunteerToFestivalService = {
             logger.info(`Récupération du volontaire au festival avec succès`);
             return volunteerToFestival;
         } catch (error) {
-            logger.error(`Erreur lors de la récupération du volontaire au festival: ${error}`);
+           throw new Error(`Erreur lors de la récupération du volontaire au festival: ${error}`);
         }
     },
     /**
@@ -94,7 +94,7 @@ const volunteerToFestivalService = {
             logger.info(`Récupération des volontaires au festival avec succès`);
             return volunteersToFestival;
         } catch (error) {
-            logger.error(`Erreur lors de la récupération des volontaires au festival: ${error}`);
+            throw new Error(`Erreur lors de la récupération des volontaires au festival: ${error}`);
         }
     },
     /**
@@ -121,7 +121,7 @@ const volunteerToFestivalService = {
             logger.info(`Modification du volontaire au festival avec succès`);
             return volunteerToFestival;
         } catch (error) {
-            logger.error(`Erreur lors de la modification du volontaire au festival: ${error}`);
+            throw new Error(`Erreur lors de la modification du volontaire au festival: ${error}`);
         }
     },
     getFestivalsByVolunteer: async (volunteerId: string, page: number, pageSize: number, role?: Role, startDate?: Date, endDate?: Date) => {
@@ -153,7 +153,7 @@ const volunteerToFestivalService = {
             logger.info(`Récupération des festivals par volontaire avec succès`);
             return festivals;
         } catch (error) {
-            logger.error(`Erreur lors de la récupération des festivals par volontaire: ${error}`);
+           throw new Error(`Erreur lors de la récupération des festivals par volontaire: ${error}`);
         }
     }
     

@@ -126,7 +126,7 @@ const findOrCreateUser = async (userProfile: UserProfile,token : Token): Promise
                 },
             })
         } catch (error) {
-            console.log(error);
+            throw new Error(`Erreur lors de la création de l'utilisateur: ${error}`);
         }
     }
     if (!user) {

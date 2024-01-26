@@ -30,7 +30,7 @@ const associationService = {
             return associations;
 
         } catch (error) {
-            logger.error(`Erreur lors de la récupération des jeux: ${error}`);
+           throw new Error(`Erreur lors de la récupération des jeux: ${error}`);
         }
     },
     /**
@@ -47,7 +47,7 @@ const associationService = {
             logger.info(`Récupération du jeu avec succès`);
             return association;
         } catch (error) {
-            logger.error(`Erreur lors de la récupération du jeu: ${error}`);
+            throw new Error(`Erreur lors de la récupération du jeu: ${error}`);
         }
     },
     /**
@@ -64,7 +64,7 @@ const associationService = {
             logger.info(`Suppression du jeu avec succès`);
             return association;
         } catch (error) {
-            logger.error(`Erreur lors de la suppression du jeu: ${error}`);
+            throw new Error(`Erreur lors de la suppression du jeu: ${error}`);
         }
     },
     /**
@@ -79,7 +79,7 @@ const associationService = {
             logger.info(`Association ${data.name} créée avec succès`);
             return associationCreated;
         } catch (error) {
-            logger.error(`Erreur lors de la création de l'association ${data.name}:`, error);
+           throw new Error(`Erreur lors de la création de l'association ${data.name}: ${error}`);
         }
     },
     /**
@@ -98,7 +98,7 @@ const associationService = {
             logger.info(`Association ${data.name} mise à jour avec succès`);
             return associationUpdated;
         } catch (error) {
-            logger.error(`Erreur lors de la mise à jour de l'association ${data.name}:`, error);
+           throw new Error(`Erreur lors de la mise à jour de l'association ${data.name}: ${error}`);
         }},
 
 }

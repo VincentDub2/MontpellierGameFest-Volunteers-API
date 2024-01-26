@@ -16,7 +16,7 @@ const userAssociationService = {
             logger.info(`Ajout de l'utilisateur à l'association avec succès`);
             return userAssociation;
         } catch (error) {
-            logger.error(`Erreur lors de l'ajout de l'utilisateur à l'association: ${error}`);
+            throw new Error(`Erreur lors de l'ajout de l'utilisateur à l'association: ${error}`);
         }
     },
     /**
@@ -36,7 +36,7 @@ const userAssociationService = {
             logger.info(`Récupération des associations de l'utilisateur avec succès`);
             return userAssociations;
         } catch (error) {
-            logger.error(`Erreur lors de la récupération des associations de l'utilisateur: ${error}`);
+           throw new Error(`Erreur lors de la récupération des associations de l'utilisateur: ${error}`);
         }
     },
     /**
@@ -55,7 +55,7 @@ const userAssociationService = {
             logger.info(`Suppression de l'association entre l'utilisateur et le groupe avec succès`);
             return userAssociation;
         } catch (error) {
-            logger.error(`Erreur lors de la suppression de l'association entre l'utilisateur et le groupe: ${error}`);
+            throw new Error(`Erreur lors de la suppression de l'association entre l'utilisateur et le groupe: ${error}`);
         }
     },
     /**
@@ -75,7 +75,7 @@ const userAssociationService = {
             logger.info(`Récupération des utilisateurs de l'association avec succès`);
             return users;
         } catch (error) {
-            logger.error(`Erreur lors de la récupération des utilisateurs de l'association: ${error}`);
+            throw new Error(`Erreur lors de la récupération des utilisateurs de l'association: ${error}`);
         }
     }
 }

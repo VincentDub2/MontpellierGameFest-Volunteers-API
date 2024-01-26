@@ -7,12 +7,18 @@ import creneauController from '../controllers/creneauController';
 export default (router: express.Router) => {
     router.post('/festivals', festivalController.createAFestival);
     router.get('/festivals', festivalController.getAllFestivals);
-    router.get('/festivals/:id', festivalController.getFestivalById);
-    router.delete('/festivals/:id', festivalController.deleteFestivalById);
-    router.put('/festivals/:id', festivalController.updateFestival);
+
     router.get('/festivals/last', festivalController.getLastFestival);
+
     router.get('/festivals/current', festivalController.getActiveFestival);
+
     router.get('/festivals/next', festivalController.getNextFestival);
+
+    router.get('/festivals/:id', festivalController.getFestivalById);
+
+    router.delete('/festivals/:id', festivalController.deleteFestivalById);
+
+    router.put('/festivals/:id', festivalController.updateFestival);
 
     // Ajouter un volontaire à un festival
     router.post('/festivals/:festivalId/volunteers', volunteerToFestivalController.addVolunteerToFestival);

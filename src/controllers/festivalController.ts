@@ -47,7 +47,7 @@ const festivalController = {
     getFestivalById: async (req: Request, res: Response) => {
         try {
             const id = parseInt(req.params.id);
-            console.log(id);
+
             if (!id){
                 logger.error(`Erreur lors de la récupération du festival: id invalide`);
                 res.status(500).json({ message: "Erreur lors de la récupération du festival : id invalide" });

@@ -29,31 +29,38 @@ const UserService = {
      * @param lastName
      */
     createUser: async (email: string, firstName: string,address : string,lastName : string) => {
+        try {
+            const emailVerificationToken = uuidv4(); // Générer un token unique
 
-        const emailVerificationToken = uuidv4(); // Générer un token unique
+            const user = await prisma.user.create({
+                data: {
+                    email,
+                    firstName,
+                    lastName,
+                    address,
+                    emailVerificationToken
+                }
+            });
+            const link = `${process.env.FRONTEND_URL}/verify-email?token=${emailVerificationToken}`;
 
-        const user = await prisma.user.create({
-            data: {
-                email,
-                firstName,
-                lastName,
-                address,
-                emailVerificationToken
-            }
-        });
-        const link = `${process.env.FRONTEND_URL}/verify-email?token=${emailVerificationToken}`;
-
-        // Envoyer un email de vérification
-        await mailHelpers.sendEmailVerification(email, link);
-        return user;
+            // Envoyer un email de vérification
+            await mailHelpers.sendEmailVerification(email, link);
+            return user;
+        }catch (error) {
+            throw new Error(`Erreur lors de la création de l'utilisateur: ${error}`);
+        }
     },
 
     // Trouver un utilisateur par email
     findUserByEmail: async (email: string) => {
-        return await prisma.user.findUnique({
-            where: {email},
-            include: {authLocal: true, authOAuth: true}
-        });
+        try {
+            return await prisma.user.findUnique({
+                where: {email}
+            });
+            logger.info(`Récupération de l'utilisateur avec succès`);
+        } catch (error) {
+            throw new Error(`Erreur lors de la récupération de l'utilisateur: ${error}`);
+        }
     },
 
     // Mise à jour du profil de l'utilisateur
@@ -63,37 +70,48 @@ const UserService = {
         address?: string, 
         phoneNumber?: string
      }) => {
-        return await prisma.user.update({
-            where: {id: userId},
-            data: updateData
-        });
+        try {
+            return await prisma.user.update({
+                where: {id: userId},
+                data: updateData
+            });
+        }catch (error) {
+            throw new Error(`Erreur lors de la mise à jour de l'utilisateur: ${error}`);
+        }
     },
     // Vérifier l'email de l'utilisateur
     verifyEmail: async (token: string) => {
-        const user = await prisma.user.findFirst({
-            where: { emailVerificationToken: token }
-        });
+        try {
+            const user = await prisma.user.findFirst({
+                where: {emailVerificationToken: token}
+            });
 
-        if (!user) {
-            throw new Error('Token de vérification invalide');
+            if (!user) {
+                throw new Error('Token de vérification invalide');
+            }
+
+
+            await prisma.user.update({
+                where: {id: user.id},
+                data: {emailVerified: true, emailVerificationToken: null}
+            });
+
+            return user;
+        }catch (error) {
+            throw new Error(`Erreur lors de la vérification de l'email: ${error}`);
         }
-
-
-
-        await prisma.user.update({
-            where: { id: user.id },
-            data: { emailVerified: true, emailVerificationToken: null }
-        });
-
-        return user;
     },
     // Trouver un utilisateur par ID
     findUserById: async (userId: string) => {
-        const user = await prisma.user.findUnique({
-            where: { id: userId },
-        });
+        try {
+            const user = await prisma.user.findUnique({
+                where: {id: userId},
+            });
 
-        return user;
+            return user;
+        }catch (error) {
+            throw new Error(`Erreur lors de la récupération de l'utilisateur: ${error}`);
+        }
     },
     findUserByIdWithAuth: async (userId: string) => {
         const user = await prisma.user.findUnique({
@@ -140,7 +158,7 @@ const UserService = {
             return uploadResult;
         } catch (error) {
             logger.error(`Erreur lors de l'upload de l'image de profil: ${error}`)
-            return undefined;
+            throw new Error(`Erreur lors de l'upload de l'image de profil: ${error}`);
         }
     },
     /**

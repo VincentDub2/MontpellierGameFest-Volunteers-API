@@ -57,7 +57,7 @@ const festivalService = {
             logger.info(`Récupération du festival avec succès`);
             return festival;
         } catch (error) {
-            logger.error(`Erreur lors de la récupération du festival: ${error}`);
+            throw new Error(`Erreur lors de la récupération du festival: ${error}`);
         }
     },
     /**
@@ -74,7 +74,7 @@ const festivalService = {
             logger.info(`Suppression du festival avec succès`);
             return festival;
         } catch (error) {
-            logger.error(`Erreur lors de la suppression du festival: ${error}`);
+            throw new Error(`Erreur lors de la suppression du festival: ${error}`);
         }
     },
     /**
@@ -93,7 +93,7 @@ const festivalService = {
             logger.info(`Mise à jour du festival avec succès`);
             return festival;
         } catch (error) {
-            logger.error(`Erreur lors de la mise à jour du festival: ${error}`);
+            throw new Error(`Erreur lors de la mise à jour du festival: ${error}`);
         }
     },
     /**
@@ -109,7 +109,7 @@ const festivalService = {
             logger.info(`Récupération des festivals actifs avec succès`);
             return festival;
         } catch (error) {
-            logger.error(`Erreur lors de la récupération des festivals actifs: ${error}`);
+            throw new Error(`Erreur lors de la récupération des festivals actifs: ${error}`);
         }
     },
     /**
@@ -130,7 +130,7 @@ const festivalService = {
             logger.info(`Récupération du dernier festival créé avec succès`);
             return festival;
         } catch (error) {
-            logger.error(`Erreur lors de la récupération du dernier festival créé: ${error}`);
+            throw new Error(`Erreur lors de la récupération du dernier festival créé: ${error}`);
         }
     },
     getNextFestival : async () => {
@@ -148,7 +148,7 @@ const festivalService = {
             logger.info(`Récupération du prochain festival créé avec succès`);
             return festival;
         } catch (error) {
-            logger.error(`Erreur lors de la récupération du prochain festival créé: ${error}`);
+            throw new Error(`Erreur lors de la récupération du prochain festival créé: ${error}`);
         }
     }
 };

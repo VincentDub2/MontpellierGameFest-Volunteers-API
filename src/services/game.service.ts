@@ -24,7 +24,7 @@ const gameService = {
             return games;
 
         } catch (error) {
-            logger.error(`Erreur lors de la récupération des jeux: ${error}`);
+            throw new Error(`Erreur lors de la récupération des jeux: ${error}`);
         }
   },
     /**
@@ -41,7 +41,7 @@ const gameService = {
             logger.info(`Récupération du jeu avec succès`);
             return game;
         } catch (error) {
-            logger.error(`Erreur lors de la récupération du jeu: ${error}`);
+            throw new Error(`Erreur lors de la récupération du jeu: ${error}`);
         }
     },
     /**
@@ -58,7 +58,7 @@ const gameService = {
             logger.info(`Suppression du jeu avec succès`);
             return game;
         } catch (error) {
-            logger.error(`Erreur lors de la suppression du jeu: ${error}`);
+            throw new Error(`Erreur lors de la suppression du jeu: ${error}`);
         }
     },
     /**
@@ -73,7 +73,7 @@ const gameService = {
             logger.info(`Création du jeu avec succès`);
             return newGame;
         } catch (error) {
-            logger.error(`Erreur lors de la création du jeu: ${error}`);
+            throw new Error(`Erreur lors de la création du jeu: ${error}`);
         }},
     /**
      * Met à jour un jeu
@@ -91,7 +91,7 @@ const gameService = {
             logger.info(`Mise à jour du jeu avec succès`);
             return updatedGame;
         } catch (error) {
-            logger.error(`Erreur lors de la mise à jour du jeu: ${error}`);
+            throw new Error(`Erreur lors de la mise à jour du jeu: ${error}`);
         }
     },
 };

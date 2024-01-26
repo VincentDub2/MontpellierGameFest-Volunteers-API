@@ -16,8 +16,7 @@ const posteService = {
                 },
             });
         } catch (error) {
-            console.error(`Error adding poste: ${error}`);
-            return null;
+            throw new Error(`Error adding poste: ${error}`);
         }
     },addMultiplePostes: async (postesData: Prisma.PosteCreateManyInput[]): Promise<Prisma.BatchPayload> => {
         try {
@@ -26,7 +25,7 @@ const posteService = {
             });
         } catch (error) {
             console.error(`Error adding multiple postes: ${error}`);
-            throw error; // ou retourner null selon votre gestion d'erreur
+            throw new Error(`Error adding multiple postes: ${error}`);
         }
     },
     // Obtenir un poste par son ID
@@ -36,8 +35,7 @@ const posteService = {
                 where: { idPoste },
             });
         } catch (error) {
-            console.error(`Error retrieving poste: ${error}`);
-            return null;
+            throw new Error(`Error retrieving poste: ${error}`);
         }
     },
 
@@ -53,8 +51,7 @@ const posteService = {
                 where: whereClause,
             });
         } catch (error) {
-            console.error(`Error retrieving postes for festival: ${error}`);
-            return null;
+            throw new Error(`Error retrieving postes: ${error}`);
         }
     },
 
@@ -69,8 +66,7 @@ const posteService = {
                 },
             });
         } catch (error) {
-            console.error(`Error updating poste: ${error}`);
-            return null;
+            throw new Error(`Error updating poste: ${error}`);
         }
     },
 
@@ -81,8 +77,7 @@ const posteService = {
                 where: { idPoste },
             });
         } catch (error) {
-            console.error(`Error deleting poste: ${error}`);
-            return null;
+            throw new Error(`Error deleting poste: ${error}`);
         }
     }
 };
