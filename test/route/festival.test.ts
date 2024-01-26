@@ -260,7 +260,7 @@ describe('Creneau API Endpoints', () => {
         expect(Array.isArray(res2.body)).toBeTruthy()
         console.log(res2.body)
 
-        const res3 = await request(app).get(`/festivals/${fest.idFestival}/creneaux?idEspace=${poste.idPoste}`)
+        const res3 = await request(app).get(`/festivals/${fest.idFestival}/creneaux?timeStart=${'2025-01-01T10:00:00'}&idEspace=${espace.idEspace}`)
         expect(res3.statusCode).toEqual(200)
         expect(Array.isArray(res3.body)).toBeTruthy()
         console.log(res3.body)
