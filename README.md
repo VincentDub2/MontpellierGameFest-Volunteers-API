@@ -60,7 +60,7 @@ Récupère les informations de l'utilisateur actuellement connecté.
 - **Exemple**: `GET /users/current` renvoie les détails de l'utilisateur connecté.
 Permet de modifier la photo de profil de l'utilisateur.
 - **Exemple**: `POST /users/profile-picture` permet de modifier la photo de profil de l'utilisateur.
-- **Exemple**: `put /users/:id` permet de modifier un utilisateur. Il faut envoyer un objet JSON avec les champs à modifier. Il faut etre connecté pour pouvoir modifier un utilisateur. Il faut etre le propriétaire du compte pour pouvoir modifier un utilisateur.
+- **Exemple**: `put /users/:id` permet de modifier un utilisateur. Il faut envoyer un objet JSON avec les champs à modifier. Il faut être connecté pour pouvoir modifier un utilisateur. Il faut être le propriétaire du compte pour pouvoir modifier un utilisateur.
 ##### Récupérer les Festivals par Volontaire
 - **Route**: `GET /users/:volunteerId/festivals`
 - **Paramètres URL**:
@@ -88,7 +88,7 @@ Permet à l'utilisateur de réinitialiser son mot de passe.
 Permet d'importer un fichier CSV contenant les informations des bénévoles.
 Ps : le fichier CSV doit être envoyé dans le corps de la requête avec le nome 'file'.
 Note : Utilisation de la librairie 'csv-parser' pour parser le fichier CSV.
-Les requetes sont effectuées en parallel pour optimiser le delai.
+Les requêtes sont effectuées en parallel pour optimiser le délai.
 - **Exemple**: `POST /uploads/csv` avec un fichier CSV contenant les informations des bénévoles.
 
 ### 9. Jeux (`/games`)
@@ -121,12 +121,12 @@ Cette section couvre les opérations liées aux volontaires dans les festivals.
 - **Exemple**: `DELETE /festivals/:festivalId/volunteers/:volunteerId` permet de supprimer un volontaire d'un festival spécifique.
 - **Exemple**: `GET /festivals/:festivalId/volunteers/:volunteerId` renvoie les informations d'un volontaire spécifique dans un festival.
 - **Exemple**: `GET /festivals/:festivalId/volunteers` renvoie la liste de tous les volontaires pour un festival spécifique.
-Paramètres de requête:
+Paramètres de requête :
     - page et pageSize - (optionnel) permettent la pagination des résultats. page indique la page actuelle, et pageSize le nombre de résultats par page.
     - role - (optionnel) filtre les volontaires par leur rôle (par exemple, administrateur, manager de réception, etc.). La validation s'assure que le rôle fourni correspond aux valeurs définies dans l'énumération Role.
     - name - (optionnel) permet de filtrer les volontaires par leur nom.
 - **Exemple**: `PUT /festivals/:festivalId/volunteers/:volunteerId` permet de mettre à jour les informations d'un volontaire dans un festival.
-Corps de la requête:
+Corps de la requête :
     - il n'est pas nécessaire d'inclure tous les champs dans le corps de la requête. Seuls les champs à mettre à jour doivent être inclus.
     - isVege - indique si le volontaire suit un régime végétarien.
     - sizeTeeShirt - la taille de tee-shirt du volontaire.
@@ -134,7 +134,7 @@ Corps de la requête:
 
 #### Obtenir tous les Postes d'un Festival (`/festivals/:idFestival/postes`)
 - **Exemple**: `GET /festivals/:idFestival/postes` permet de récupérer tous les postes associés à un festival spécifique.
-Paramètres de requête:
+Paramètres de requête :
     - name - (optionnel) permet de filtrer les postes par leur nom.
 
 #### Obtenir tous les Créneaux pour un Festival Donné (`/festivals/:idFestival/creneaux`)
@@ -145,7 +145,7 @@ Paramètres de requête:
   - `timeStart`: Date et heure de début pour filtrer les créneaux (format DateTime).
   - `timeEnd`: Date et heure de fin pour filtrer les créneaux (format DateTime).
   - `idEspace`: Identifiant de l'espace associé aux créneaux.
-  - `idPoste`: Identifiant du poste associé aux créneaux.
+  - `idPoste`: Identifiant du poste associé aux créneaux. (Ne marche pas)
 - **Exemple**: `GET /festivals/1/creneaux?timeStart=2024-06-10T08:00:00&timeEnd=2024-06-10T12:00:00&idEspace=2&idPoste=5`
   - Récupère tous les créneaux du festival avec l'ID `1` qui se déroulent entre 8h et 12h le 10 juin 2024, associés à l'espace avec l'ID `2` et au poste avec l'ID `5`.
 
@@ -177,8 +177,8 @@ Gestion des créneaux pour les festivals, y compris l'ajout, la consultation, la
 - **Paramètres URL**:
   - `idCreneau`: Identifiant unique du créneau.
 - **Corps de la requête**: 
-  - `timeStart` (optionnel): Nouvelle heure de début.
-  - `timeEnd` (optionnel): Nouvelle heure de fin.
+  - `timeStart` (optionnel) : Nouvelle heure de début.
+  - `timeEnd` (optionnel) : Nouvelle heure de fin.
 - **Exemple**: `PUT /creneaux/123` avec le corps de la requête pour mettre à jour le créneau `123`.
 
 #### Supprimer un Créneau (`/creneaux/:idCreneau`)
@@ -223,6 +223,83 @@ Gestion des postes pour le festival, y compris l'ajout, la récupération et la 
 #### Supprimer un Poste (`/postes/:idPoste`)
 - **Exemple**: `DELETE /postes/:idPoste` permet de supprimer un poste spécifique.
 
+### 14. Events (`/events`)
+Gestion des events pour le festival, y compris l'ajout, la récupération et la mise à jour des informations des events.
+
+#### Ajouter un Events (`/events`)
+- **Exemple**: `POST /events` permet d'ajouter un nouveau events. Les détails du poste (dateEvent, addressEvent, idManager : idUser) doivent être envoyés dans le corps de la requête.
+
+#### Obtenir un Events par ID (`/events/:idEvent`)
+- **Exemple**: `GET /events/:idEvent` permet de récupérer les détails d'un event à l'aide de son ID.
+
+#### Obtenir tous les événements (`/events`)
+- **Exemple**: `GET /events` permet de récupérer tous les évents.
+
+
+#### Mettre à jour un Event (`/events/:idEvent`)
+- **Exemple**: `PUT /events/:idEvent` permet de mettre à jour les détails d'un event spécifique. Les informations à mettre à jour doivent être envoyées dans le corps de la requête.
+
+#### Supprimer un Event (`/events/:idEvent`)
+- **Exemple**: `DELETE /events/:idEvent` permet de supprimer un event spécifique.
+
+### 15. Espace (`/espaces`) pas testé encore
+
+#### Ajouter un Espace (`/espaces`)
+- **Route**: `POST /espaces`
+- **Corps de la requête**:
+  - `name`: Nom de l'espace.
+- **Exemple**: `POST /espaces` avec le corps de la requête contenant `{"name": "Espace 1"}` pour créer un nouvel espace.
+
+#### Obtenir un Espace par ID (`/espaces/:idEspace`)
+- **Route**: `GET /espaces/:idEspace`
+- **Paramètres URL**:
+  - `idEspace`: Identifiant unique de l'espace.
+- **Exemple**: `GET /espaces/123` pour obtenir les détails de l'espace avec l'ID `123`.
+
+#### Obtenir tous les Espaces (`/espaces`)
+- **Route**: `GET /espaces`
+- **Paramètres de requête** (query parameters) (optionnels): (pas implémenté encore)
+  - `name`: Nom de l'espace.
+- **Exemple**: `GET /espaces?name=Espace 1` pour obtenir les détails de l'espace avec le nom `Espace 1`.
+- **Exemple**: `GET /espaces` pour obtenir les détails de tous les espaces.
+
+#### Mettre à Jour un Espace (`/espaces/:idEspace`)
+- **Route**: `PUT /espaces/:idEspace`
+- **Paramètres URL**:
+  - `idEspace`: Identifiant unique de l'espace.
+- **Corps de la requête**:
+    - `name` (optionnel) : Nouveau nom de l'espace.
+- **Exemple**: `PUT /espaces/123` avec le corps de la requête pour mettre à jour l'espace `123`.
+
+#### Supprimer un Espace (`/espaces/:idEspace`)
+- **Route**: `DELETE /espaces/:idEspace`
+- **Paramètres URL**:
+  - `idEspace`: Identifiant unique de l'espace.
+- **Exemple**: `DELETE /espaces/123` pour supprimer l'espace avec l'ID `123`.
+
+### 16. posteEspaces (`/posteEspaces`) pas testé encore 
+
+#### Ajouter un posteEspace (`/posteEspaces`)
+- **Route**: `POST /posteEspaces`
+- **Corps de la requête**:
+  - `idPoste`: Identifiant du poste.
+  - `idEspace`: Identifiant de l'espace.
+- **Exemple**: `POST /posteEspaces` avec le corps de la requête contenant `{"idPoste": 1, "idEspace": 1}` pour créer un nouveau posteEspace.
+
+#### Obtenir un posteEspace par ID (`/posteEspaces/:idPoste/:idEspace`)
+- **Route**: `GET /posteEspaces/:idPoste/:idEspace`
+- **Paramètres URL**:
+  - `idPoste`: Identifiant unique du poste.
+  - `idEspace`: Identifiant unique de l'espace.
+- **Exemple**: `GET /posteEspaces/123/456` pour obtenir les détails du posteEspace avec l'ID `123` et l'ID `456`.
+
+#### Supprimer un posteEspace (`/posteEspaces/:idPoste/:idEspace`)
+- **Route**: `DELETE /posteEspaces/:idPoste/:idEspace`
+- **Paramètres URL**:
+  - `idPoste`: Identifiant unique du poste.
+  - `idEspace`: Identifiant unique de l'espace.
+- **Exemple**: `DELETE /posteEspaces/123/456` pour supprimer le posteEspace avec l'ID `123` et l'ID `456`.
+
 
 ## 📁 Structure du Projet
 
@@ -244,6 +321,7 @@ GMAIL_USER='gamefest.mtp@gmail.com'
 GMAIL_PASSWORD=''
 NODE_ENV='development'
 ```
+
 
 
 

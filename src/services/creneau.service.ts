@@ -55,29 +55,26 @@ const creneauService = {
     ): Promise<Creneau[] | null> => {
         try {
             let whereClause: any = {
-                idFestival
+                idFestival,
+                ...(timeStart && { timeStart: { gte: timeStart } }),
+                ...(timeEnd && { timeEnd: { lte: timeEnd } })
             };
-
-            if (timeStart) {
-                whereClause.timeStart = { gte: timeStart };
-            }
-
-            if (timeEnd) {
-                whereClause.timeEnd = { lte: timeEnd };
-            }
 
             if (idEspace || idPoste) {
                 whereClause.creneauEspace = {
                     some: {
                         ...(idEspace && { idEspace }),
-                        espace: idPoste ? {
-                            posteEspaces: {
-                                some: { idPoste }
-                            }
-                        } : {}
+                        espace: {
+                            ...(idPoste && {
+                                posteEspaces: {
+                                    some: { idPoste }
+                                }
+                            })
+                        }
                     }
                 };
             }
+
 
             console.log("Where",whereClause)
     
