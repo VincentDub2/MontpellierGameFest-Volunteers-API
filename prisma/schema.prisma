@@ -102,7 +102,7 @@ model IsVolunteer {
   Jeux         Jeux?    @relation(fields: [jeuxIdGame], references: [idGame])
   jeuxIdGame   Int?
 
-  @@id([idUser, idFestival])
+  @@id([idUser, idFestival]) // Un volontaire ne peut pas être inscrit deux fois au même festival
   @@index([idUser])
   @@index([idFestival])
   @@index([jeuxIdGame])
@@ -112,6 +112,7 @@ enum Role {
   administrator
   receptionManager
   referent
+  basic
 }
 
 model Creneau {

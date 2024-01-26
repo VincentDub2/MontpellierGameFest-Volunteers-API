@@ -3,7 +3,7 @@ import volunteerToFestivalService from "../services/volunteerToFestival.service"
 import { VolunteerInterface } from "../types/types";
 import { logger } from "../helpers/loggers.vercel";
 import { get, update } from 'lodash';
-import { Role } from '@prisma/client';
+import {IsVolunteer, Role} from '@prisma/client';
 
 const volunteerToFestivalController = {
     /**
@@ -11,8 +11,7 @@ const volunteerToFestivalController = {
      */
     addVolunteerToFestival: async (req: Request, res: Response) => {
         try {
-            const volunteer: VolunteerInterface = req.body;
-
+            const volunteer: IsVolunteer = req.body;
             if (!volunteer) {
                 logger.warn(`Erreur lors de l'ajout du volontaire au festival: données du volontaire manquantes`);
                 return res.status(400).json({ message: "Données du volontaire manquantes" });
@@ -73,7 +72,10 @@ const volunteerToFestivalController = {
     getVolunteersToFestival: async (req: Request, res: Response) => {
         try {
             const { festivalId } = req.params;
-            const { page, pageSize, role, name } = req.query;
+            const {role, name } = req.query;
+
+            const page = req.query.page || 1;
+            const pageSize = req.query.pageSize || 20;
             
             if (!festivalId) {
                 logger.warn(`Erreur lors de la récupération des volontaires au festival: Veuillez renseigner l'identifiant du festival`);

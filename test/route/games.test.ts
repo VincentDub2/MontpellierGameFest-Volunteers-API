@@ -1,7 +1,7 @@
 import request from 'supertest';
 import {app,server} from '../../src'; // Assurez-vous que le chemin est correct
 import prisma from '../../src/prisma'; // Importez l'instance Prisma
-
+jest.setTimeout(30000);
 beforeAll(async () => {
     // Initialisation de la base de données de test, si nécessaire
     await prisma.jeux.deleteMany({});

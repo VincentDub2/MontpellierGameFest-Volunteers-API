@@ -1,26 +1,31 @@
 import prisma from "../prisma";
 import {logger} from "../helpers/loggers.vercel";
-import {Role} from "@prisma/client";
+import {IsVolunteer, Role} from "@prisma/client";
 import {VolunteerInterface} from "../types/types";
 
 const volunteerToFestivalService = {
     /**
      * @param volunteer
      */
-    addVolunteerToFestival: async ( volunteer : VolunteerInterface)=> {
+    addVolunteerToFestival: async ( volunteer :IsVolunteer)=> {
         try {
-            const {volunteerId, festivalId, isVege, sizeTeeShirt, role} = volunteer;
+            const {idUser, idFestival, isVege, sizeTeeShirt, role} = volunteer;
+
             if (isVege === undefined || sizeTeeShirt === undefined || role === undefined) {
-                logger.warn(`Erreur lors de l'ajout du volontaire au festival: Veuillez renseigner l'identifiant du volontaire, du festival, le role, la taille du t-shirt et si il est végétarien`);
                 throw new Error(`Erreur lors de l'ajout du volontaire au festival: Veuillez renseigner l'identifiant du volontaire, du festival, le role, la taille du t-shirt et si il est végétarien`);
             }
+
+            if (idUser === undefined || idFestival === undefined) {
+                throw new Error(`Erreur lors de l'ajout du volontaire au festival: Veuillez renseigner l'identifiant du volontaire et du festival`);
+            }
+
             const volunteerToFestival = await prisma.isVolunteer.create({
                 data: {
-                    idUser: volunteerId,
-                    idFestival: festivalId,
+                    idUser,
+                    idFestival,
                     isVege,
                     sizeTeeShirt,
-                    role
+                    role,
                 }
             });
             logger.info(`Ajout du volontaire au festival avec succès`);
@@ -54,7 +59,7 @@ const volunteerToFestivalService = {
      */
     getVolunteerToFestival: async (volunteerId: string, festivalId: number) => {
         try {
-            const volunteerToFestival = await prisma.isVolunteer.findMany({
+            const volunteerToFestival = await prisma.isVolunteer.findFirst({
                 where: {
                     idUser: volunteerId,
                     idFestival: festivalId

@@ -55,22 +55,31 @@ const creneauService = {
     ): Promise<Creneau[] | null> => {
         try {
             let whereClause: any = {
-                idFestival,
-                ...(timeStart && { timeStart: { gte: timeStart } }),
-                ...(timeEnd && { timeEnd: { lte: timeEnd } }),
-                creneauEspace: {
+                idFestival
+            };
+
+            if (timeStart) {
+                whereClause.timeStart = { gte: timeStart };
+            }
+
+            if (timeEnd) {
+                whereClause.timeEnd = { lte: timeEnd };
+            }
+
+            if (idEspace || idPoste) {
+                whereClause.creneauEspace = {
                     some: {
                         ...(idEspace && { idEspace }),
-                        espace: {
+                        espace: idPoste ? {
                             posteEspaces: {
-                                some: {
-                                    ...(idPoste && { idPoste })
-                                }
+                                some: { idPoste }
                             }
-                        }
+                        } : {}
                     }
-                }
-            };
+                };
+            }
+
+            console.log("Where",whereClause)
     
             return await prisma.creneau.findMany({
                 where: whereClause,
@@ -84,7 +93,6 @@ const creneauService = {
                             }
                         }
                     },
-                    festival: true
                 }
             });
         } catch (error) {
