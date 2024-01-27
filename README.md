@@ -333,6 +333,40 @@ Gestion des events pour le festival, y compris l'ajout, la récupération et la 
   - `idEspace`: Identifiant unique de l'espace.
 - **Exemple**: `DELETE /referents/user123/2` pour supprimer le référent avec l'ID utilisateur `user123` et l'ID espace `2`.
 
+### Gestion des CreneauEspaces (`/creneauEspaces`)
+
+#### 18. Ajouter un CreneauEspace (`/creneauEspaces`) pas test
+- **Route**: `POST /creneauEspaces`
+- **Corps de la requête**:
+  - `idCreneau`: Identifiant du créneau.
+  - `idEspace`: Identifiant de l'espace.
+  - `capacityEspace`: Capacité de l'espace (nombre).
+- **Exemple**: `POST /creneauEspaces` avec le corps de la requête contenant `{"idCreneau": 1, "idEspace": 1, "capacityEspace": 30}` pour créer un nouveau CreneauEspace.
+
+#### Obtenir un CreneauEspace par ID (`/creneauEspaces/:idCreneauEspace`)
+- **Route**: `GET /creneauEspaces/:idCreneauEspace`
+- **Paramètres URL**:
+  - `idCreneauEspace`: Identifiant unique du CreneauEspace.
+- **Exemple**: `GET /creneauEspaces/1` pour obtenir les détails du CreneauEspace avec l'ID `1`.
+
+#### Obtenir tous les CreneauEspaces (`/creneauEspaces`)
+- **Route**: `GET /creneauEspaces`
+- **Exemple**: `GET /creneauEspaces` pour obtenir la liste de tous les CreneauEspaces.
+
+#### Mettre à jour un CreneauEspace (`/creneauEspaces/:idCreneauEspace`)
+- **Route**: `PUT /creneauEspaces/:idCreneauEspace`
+- **Paramètres URL**:
+  - `idCreneauEspace`: Identifiant unique du CreneauEspace.
+- **Corps de la requête**:
+  - `capacityEspace`: Nouvelle capacité de l'espace.
+- **Exemple**: `PUT /creneauEspaces/1` avec le corps de la requête contenant `{"capacityEspace": 50}` pour mettre à jour la capacité de l'espace.
+
+#### Supprimer un CreneauEspace (`/creneauEspaces/:idCreneauEspace`)
+- **Route**: `DELETE /creneauEspaces/:idCreneauEspace`
+- **Paramètres URL**:
+  - `idCreneauEspace`: Identifiant unique du CreneauEspace.
+- **Exemple**: `DELETE /creneauEspaces/1` pour supprimer le CreneauEspace avec l'ID `1`.
+
 
 ## 📁 Structure du Projet
 
