@@ -12,6 +12,7 @@ import creneau from "./creneau";
 import event from "./event";
 import espace from "./posteEspace";
 import posteEspace from "./posteEspace";
+import referent from "./referent";
 
 const router = express.Router();
 
@@ -29,6 +30,6 @@ export default (): express.Router => {
       event(router)
       espace(router)
       posteEspace(router)
-
+      referent(router)
     return router;
   };

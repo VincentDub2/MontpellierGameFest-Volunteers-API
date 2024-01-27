@@ -300,6 +300,39 @@ Gestion des events pour le festival, y compris l'ajout, la récupération et la 
   - `idEspace`: Identifiant unique de l'espace.
 - **Exemple**: `DELETE /posteEspaces/123/456` pour supprimer le posteEspace avec l'ID `123` et l'ID `456`.
 
+### 17. Gestion des Référents (`/referents`) pas teste encore
+
+#### Ajouter un Référent (`/referents`)
+- **Route**: `POST /referents`
+- **Corps de la requête**:
+  - `idUser`: Identifiant de l'utilisateur.
+  - `idEspace`: Identifiant de l'espace.
+  - `jeuxIdGame`: (Optionnel) Identifiant du jeu.
+- **Exemple**: `POST /referents` avec le corps de la requête contenant `{"idUser": "user123", "idEspace": 2, "jeuxIdGame": 3}` pour créer un nouveau référent.
+
+#### Obtenir un Référent par ID (`/referents/:idUser/:idEspace`)
+- **Route**: `GET /referents/:idUser/:idEspace`
+- **Paramètres URL**:
+  - `idUser`: Identifiant unique de l'utilisateur.
+  - `idEspace`: Identifiant unique de l'espace.
+- **Exemple**: `GET /referents/user123/2` pour obtenir les détails du référent avec l'ID utilisateur `user123` et l'ID espace `2`.
+
+#### Mettre à jour un Référent (`/referents/:idUser/:idEspace`)
+- **Route**: `PUT /referents/:idUser/:idEspace`
+- **Paramètres URL**:
+  - `idUser`: Identifiant unique de l'utilisateur.
+  - `idEspace`: Identifiant unique de l'espace.
+- **Corps de la requête**:
+  - `jeuxIdGame`: (Optionnel) Nouvel identifiant du jeu.
+- **Exemple**: `PUT /referents/user123/2` avec le corps de la requête contenant `{"jeuxIdGame": 4}` pour mettre à jour le référent.
+
+#### Supprimer un Référent (`/referents/:idUser/:idEspace`)
+- **Route**: `DELETE /referents/:idUser/:idEspace`
+- **Paramètres URL**:
+  - `idUser`: Identifiant unique de l'utilisateur.
+  - `idEspace`: Identifiant unique de l'espace.
+- **Exemple**: `DELETE /referents/user123/2` pour supprimer le référent avec l'ID utilisateur `user123` et l'ID espace `2`.
+
 
 ## 📁 Structure du Projet
 
