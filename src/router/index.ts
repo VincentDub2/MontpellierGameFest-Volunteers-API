@@ -15,6 +15,8 @@ import posteEspace from "./posteEspace";
 import referent from "./referent";
 import creneauEspace from "./creneauEspace";
 import isPresent from "./isPresent";
+import isPlay from "./IsPlay";
+import isPresented from "./isPresented";
 
 const router = express.Router();
 
@@ -35,5 +37,7 @@ export default (): express.Router => {
       referent(router)
       creneauEspace(router)
       isPresent(router)
+      isPlay(router)
+      isPresented(router)
     return router;
   };

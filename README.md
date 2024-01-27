@@ -441,6 +441,63 @@ Gestion des events pour le festival, y compris l'ajout, la récupération et la 
   - `date`: Date de la présence (format: `YYYY-MM-DD`).
 - **Exemple**: `DELETE /isPresent/1/user123/2023-07-21` pour supprimer la présence enregistrée.
 
+### 21. Gestion des Présentations (`/isPresented`)
+
+#### Ajouter une Présentation (`/isPresented`)
+- **Route**: `POST /isPresented`
+- **Corps de la requête**:
+  - `idGame`: Identifiant du jeu.
+  - `idEvent`: Identifiant de l'événement.
+- **Exemple**: `POST /isPresented` avec le corps de la requête contenant `{"idGame": 1, "idEvent": 2}` pour enregistrer une nouvelle présentation.
+
+#### Obtenir une Présentation par ID (`/isPresented/:idGame/:idEvent`)
+- **Route**: `GET /isPresented/:idGame/:idEvent`
+- **Paramètres URL**:
+  - `idGame`: Identifiant unique du jeu.
+  - `idEvent`: Identifiant unique de l'événement.
+- **Exemple**: `GET /isPresented/1/2` pour obtenir les détails de la présentation.
+
+#### Mettre à jour une Présentation (`/isPresented/:idGame/:idEvent`)
+- **Route**: `PUT /isPresented/:idGame/:idEvent`
+- **Paramètres URL**:
+  - `idGame`: Identifiant unique du jeu.
+  - `idEvent`: Identifiant unique de l'événement.
+- **Corps de la requête**:
+  - `newIdGame`: (Optionnel) Nouvel identifiant du jeu.
+  - `newIdEvent`: (Optionnel) Nouvel identifiant de l'événement.
+- **Exemple**: `PUT /isPresented/1/2` avec le corps de la requête pour mettre à jour la présentation.
+
+#### Supprimer une Présentation (`/isPresented/:idGame/:idEvent`)
+- **Route**: `DELETE /isPresented/:idGame/:idEvent`
+- **Paramètres URL**:
+  - `idGame`: Identifiant unique du jeu.
+  - `idEvent`: Identifiant unique de l'événement.
+- **Exemple**: `DELETE /isPresented/1/2` pour supprimer la présentation enregistrée.
+
+### 22. Gestion des Jeux Joués (`/isPlay`)
+
+#### Ajouter un Jeu Joué à un Festival (`/isPlay`)
+- **Route**: `POST /isPlay`
+- **Corps de la requête**:
+  - `idGame`: Identifiant du jeu.
+  - `idFestival`: Identifiant du festival.
+- **Exemple**: `POST /isPlay` avec le corps de la requête contenant `{"idGame": 1, "idFestival": 2}` pour enregistrer un jeu joué dans un festival.
+
+#### Obtenir un Jeu Joué par ID (`/isPlay/:idGame/:idFestival`)
+- **Route**: `GET /isPlay/:idGame/:idFestival`
+- **Paramètres URL**:
+  - `idGame`: Identifiant unique du jeu.
+  - `idFestival`: Identifiant unique du festival.
+- **Exemple**: `GET /isPlay/1/2` pour obtenir les détails d'un jeu joué dans un festival.
+
+#### Supprimer un Jeu Joué (`/isPlay/:idGame/:idFestival`)
+- **Route**: `DELETE /isPlay/:idGame/:idFestival`
+- **Paramètres URL**:
+  - `idGame`: Identifiant unique du jeu.
+  - `idFestival`: Identifiant unique du festival.
+- **Exemple**: `DELETE /isPlay/1/2` pour supprimer un jeu joué dans un festival.
+
+
 ## 📁 Structure du Projet
 
 ## 🛡️ Middlewares
