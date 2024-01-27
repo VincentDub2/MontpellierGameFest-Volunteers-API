@@ -367,6 +367,79 @@ Gestion des events pour le festival, y compris l'ajout, la récupération et la 
   - `idCreneauEspace`: Identifiant unique du CreneauEspace.
 - **Exemple**: `DELETE /creneauEspaces/1` pour supprimer le CreneauEspace avec l'ID `1`.
 
+### 19. Gestion des Inscriptions (`/inscriptions`)
+
+#### Ajouter une Inscription (`/inscriptions`)
+- **Route**: `POST /inscriptions`
+- **Corps de la requête**:
+  - `idUser`: Identifiant de l'utilisateur.
+  - `idCreneauEspace`: Identifiant du créneau espace.
+  - `isAccepted`: Statut d'acceptation (booléen).
+  - `isFlexible`: Flexibilité de l'inscription (booléen).
+  - `jeuxIdGame`: (Optionnel) Identifiant du jeu.
+- **Exemple**: `POST /inscriptions` avec le corps de la requête contenant `{"idUser": "user123", "idCreneauEspace": 1, "isAccepted": true, "isFlexible": false}` pour créer une nouvelle inscription.
+
+#### Obtenir une Inscription par ID (`/inscriptions/:idUser/:idCreneauEspace`)
+- **Route**: `GET /inscriptions/:idUser/:idCreneauEspace`
+- **Paramètres URL**:
+  - `idUser`: Identifiant unique de l'utilisateur.
+  - `idCreneauEspace`: Identifiant unique du créneau espace.
+- **Exemple**: `GET /inscriptions/user123/1` pour obtenir les détails de l'inscription avec l'identifiant utilisateur `user123` et l'identifiant créneau espace `1`.
+
+#### Mettre à jour une Inscription (`/inscriptions/:idUser/:idCreneauEspace`)
+- **Route**: `PUT /inscriptions/:idUser/:idCreneauEspace`
+- **Paramètres URL**:
+  - `idUser`: Identifiant unique de l'utilisateur.
+  - `idCreneauEspace`: Identifiant unique du créneau espace.
+- **Corps de la requête**:
+  - `isAccepted`: (Optionnel) Nouveau statut d'acceptation.
+  - `isFlexible`: (Optionnel) Nouvelle flexibilité de l'inscription.
+  - `jeuxIdGame`: (Optionnel) Identifiant du jeu.
+- **Exemple**: `PUT /inscriptions/user123/1` avec le corps de la requête contenant `{"isAccepted": false}` pour mettre à jour l'inscription.
+
+#### Supprimer une Inscription (`/inscriptions/:idUser/:idCreneauEspace`)
+- **Route**: `DELETE /inscriptions/:idUser/:idCreneauEspace`
+- **Paramètres URL**:
+  - `idUser`: Identifiant unique de l'utilisateur.
+  - `idCreneauEspace`: Identifiant unique du créneau espace.
+- **Exemple**: `DELETE /inscriptions/user123/1` pour supprimer l'inscription avec l'identifiant utilisateur `user123` et l'identifiant créneau espace `1`.
+
+### 20. Gestion de la Présence (`/isPresent`)
+
+#### Ajouter une Présence (`/isPresent`)
+- **Route**: `POST /isPresent`
+- **Corps de la requête**:
+  - `idFestival`: Identifiant du festival.
+  - `idUser`: Identifiant de l'utilisateur.
+  - `date`: Date de la présence (format: `YYYY-MM-DD`).
+  - `jeuxIdGame`: (Optionnel) Identifiant du jeu.
+- **Exemple**: `POST /isPresent` avec le corps de la requête contenant `{"idFestival": 1, "idUser": "user123", "date": "2023-07-21"}` pour enregistrer une présence.
+
+#### Obtenir une Présence par ID (`/isPresent/:idFestival/:idUser/:date`)
+- **Route**: `GET /isPresent/:idFestival/:idUser/:date`
+- **Paramètres URL**:
+  - `idFestival`: Identifiant unique du festival.
+  - `idUser`: Identifiant unique de l'utilisateur.
+  - `date`: Date de la présence (format: `YYYY-MM-DD`).
+- **Exemple**: `GET /isPresent/1/user123/2023-07-21` pour obtenir les détails de la présence.
+
+#### Mettre à jour une Présence (`/isPresent/:idFestival/:idUser/:date`)
+- **Route**: `PUT /isPresent/:idFestival/:idUser/:date`
+- **Paramètres URL**:
+  - `idFestival`: Identifiant unique du festival.
+  - `idUser`: Identifiant unique de l'utilisateur.
+  - `date`: Date de la présence (format: `YYYY-MM-DD`).
+- **Corps de la requête**:
+  - `jeuxIdGame`: (Optionnel) Nouvel identifiant du jeu.
+- **Exemple**: `PUT /isPresent/1/user123/2023-07-21` avec le corps de la requête pour mettre à jour la présence.
+
+#### Supprimer une Présence (`/isPresent/:idFestival/:idUser/:date`)
+- **Route**: `DELETE /isPresent/:idFestival/:idUser/:date`
+- **Paramètres URL**:
+  - `idFestival`: Identifiant unique du festival.
+  - `idUser`: Identifiant unique de l'utilisateur.
+  - `date`: Date de la présence (format: `YYYY-MM-DD`).
+- **Exemple**: `DELETE /isPresent/1/user123/2023-07-21` pour supprimer la présence enregistrée.
 
 ## 📁 Structure du Projet
 
