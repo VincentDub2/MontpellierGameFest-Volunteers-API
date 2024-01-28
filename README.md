@@ -209,18 +209,41 @@ Gestion des créneaux pour les festivals, y compris l'ajout, la consultation, la
 Gestion des postes pour le festival, y compris l'ajout, la récupération et la mise à jour des informations des postes.
 
 #### Ajouter un Poste (`/postes`)
-- **Exemple**: `POST /postes` permet d'ajouter un nouveau poste. Les détails du poste (nom, capacité, ID du festival) doivent être envoyés dans le corps de la requête.
+- **Route**: `POST /postes`
+- **Corps de la requête**:
+  - `name`: Nom du poste.
+  - `capacity`: Capacité du poste (nombre).
+  - `idFestival`: Identifiant du festival.
+  - `description`: Description du poste.
+- **Exemple**: `POST /postes` avec le corps de la requête contenant `{"name": "Poste 1", "capacity": 30, "idFestival": 1, "description": "Description du poste 1"}` pour créer un nouveau poste.
+
 
 #### Ajouter Plusieurs Postes (`/postes/multiple`)
+- **Route**: `POST /postes/multiple`
+- **Corps de la requête**:
+  - `postes`: Tableau contenant les détails des postes à ajouter.
 - **Exemple**: `POST /postes/multiple` permet d'ajouter plusieurs postes en une seule requête. Les détails des postes doivent être envoyés dans le corps de la requête sous forme d'un tableau.
 
 #### Obtenir un Poste par ID (`/postes/:idPoste`)
+- **Route**: `GET /postes/:idPoste`
+- **Paramètres URL**:
+  - `idPoste`: Identifiant unique du poste.
 - **Exemple**: `GET /postes/:idPoste` permet de récupérer les détails d'un poste spécifique à l'aide de son ID.
 
 #### Mettre à jour un Poste (`/postes/:idPoste`)
+- **Route**: `PUT /postes/:idPoste`
+- **Paramètres URL**:
+  - `idPoste`: Identifiant unique du poste.
+- **Corps de la requête**:
+  - `name` (optionnel) : Nouveau nom du poste.
+  - `capacity` (optionnel) : Nouvelle capacité du poste.
+  - `description` (optionnel) : Nouvelle description du poste.
 - **Exemple**: `PUT /postes/:idPoste` permet de mettre à jour les détails d'un poste spécifique. Les informations à mettre à jour doivent être envoyées dans le corps de la requête.
-
+- 
 #### Supprimer un Poste (`/postes/:idPoste`)
+- **Route**: `DELETE /postes/:idPoste`
+- **Paramètres URL**:
+  - `idPoste`: Identifiant unique du poste.
 - **Exemple**: `DELETE /postes/:idPoste` permet de supprimer un poste spécifique.
 
 ### 14. Events (`/events`)

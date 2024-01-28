@@ -198,6 +198,7 @@ describe('Poste API Endpoints', () => {
                 idFestival: fest.idFestival,
                 name: 'Poste Test',
                 capacityPoste: 1,
+                description: 'Description du poste'
             }
         });
         if (!poste) throw new Error('Poste not found');
@@ -219,6 +220,7 @@ describe('Creneau API Endpoints', () => {
                 idFestival: fest.idFestival,
                 name: 'Poste Test',
                 capacityPoste: 1,
+                description: 'Description du poste'
             }
         });
         if (!poste) throw new Error('Poste not found');

@@ -5,9 +5,9 @@ import { logger } from '../helpers/loggers.vercel';
 const posteController = {
     // Ajouter un nouveau poste
     addPoste: async (req: Request, res: Response) => {
-        const { name, capacityPoste, idFestival } = req.body;
+        const { name, capacityPoste, idFestival,description } = req.body;
         try {
-            const newPoste = await posteService.addPoste(name, capacityPoste, idFestival);
+            const newPoste = await posteService.addPoste(name, capacityPoste, idFestival,description);
             if (newPoste) {
                 res.status(201).json(newPoste);
                 logger.info(`Poste créé avec succès avec l'ID: ${newPoste.idPoste}`);
@@ -65,9 +65,9 @@ const posteController = {
     // Mettre à jour un poste
     updatePoste: async (req: Request, res: Response) => {
         const { idPoste } = req.params;
-        const { name, capacityPoste } = req.body;
+        const { name, capacityPoste,description } = req.body;
         try {
-            const updatedPoste = await posteService.updatePoste(parseInt(idPoste), name, capacityPoste);
+            const updatedPoste = await posteService.updatePoste(parseInt(idPoste), name, capacityPoste,description);
             if (updatedPoste) {
                 res.json(updatedPoste);
                 logger.info(`Poste mis à jour avec succès avec l'ID: ${updatedPoste.idPoste}`);

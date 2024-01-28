@@ -129,6 +129,7 @@ model Creneau {
 model Poste {
   idPoste       Int           @id @default(autoincrement())
   name          String
+  description   String        @db.Text
   capacityPoste Int
   idFestival    Int
   festival      Festival      @relation(fields: [idFestival], references: [idFestival], onDelete: Cascade)

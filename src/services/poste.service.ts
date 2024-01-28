@@ -6,13 +6,14 @@ const prisma = new PrismaClient();
 
 const posteService = {
     // Ajouter un nouveau poste
-    addPoste: async (name: string, capacityPoste: number, idFestival: number): Promise<Poste | null> => {
+    addPoste: async (name: string, capacityPoste: number, idFestival: number,description: string): Promise<Poste | null> => {
         try {
             return await prisma.poste.create({
                 data: {
                     name,
                     capacityPoste,
-                    idFestival
+                    idFestival,
+                    description
                 },
             });
         } catch (error) {
@@ -56,13 +57,14 @@ const posteService = {
     },
 
     // Mettre à jour un poste
-    updatePoste: async (idPoste: number, name?: string, capacityPoste?: number): Promise<Poste | null> => {
+    updatePoste: async (idPoste: number, name?: string, capacityPoste?: number,description?: string): Promise<Poste | null> => {
         try {
             return await prisma.poste.update({
                 where: { idPoste },
                 data: {
                     name,
-                    capacityPoste
+                    capacityPoste,
+                    description
                 },
             });
         } catch (error) {
