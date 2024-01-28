@@ -91,7 +91,8 @@ const volunteerToFestivalService = {
         }
 
         try {
-            const volunteersToFestival = await prisma.isVolunteer.findMany({
+            const volunteersToFestival = await prisma.isVolunteer.findMany(
+                {
                 where: whereClause,
                 skip: skip,
                 take: pageSize,

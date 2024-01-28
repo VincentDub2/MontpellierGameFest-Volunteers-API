@@ -159,7 +159,6 @@ describe('Volunteer to Festival API Endpoints', () => {
         if (!volunteer) throw new Error('Volunteer not found');
         const res = await request(app).put(`/festivals/${volunteer.idFestival}/volunteers/${volunteer.idUser}`).send({isVege: true});
         expect(res.statusCode).toEqual(200);
-        console.log(res.body)
         expect(res.body.count).toEqual(1);
         const verifVolunteer = await prisma.isVolunteer.findFirst({
             where: {
