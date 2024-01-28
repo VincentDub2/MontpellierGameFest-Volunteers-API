@@ -474,7 +474,7 @@ Gestion des events pour le festival, y compris l'ajout, la récupération et la 
   - `idEvent`: Identifiant unique de l'événement.
 - **Exemple**: `DELETE /isPresented/1/2` pour supprimer la présentation enregistrée.
 
-### 22. Gestion des Jeux Joués (`/isPlay`)
+### 22. Gestion des Jeux Joués (`/isPlay`) 
 
 #### Ajouter un Jeu Joué à un Festival (`/isPlay`)
 - **Route**: `POST /isPlay`
