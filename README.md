@@ -250,7 +250,17 @@ Gestion des postes pour le festival, y compris l'ajout, la récupération et la 
 Gestion des events pour le festival, y compris l'ajout, la récupération et la mise à jour des informations des events.
 
 #### Ajouter un Events (`/events`)
-- **Exemple**: `POST /events` permet d'ajouter un nouveau events. Les détails du poste (dateEvent, addressEvent, idManager : idUser) doivent être envoyés dans le corps de la requête.
+- **Route**: `POST /events`
+- **Corps de la requête**:
+  - `dateEvent`: Date de l'event.
+  - `address`: Adresse de l'event.
+  - `duration`: Durée de l'event
+  - `city`: Ville de l'event.
+  - `postalCode`: Code postal de l'event.
+  - `country`: Pays de l'event.
+  - `description`: Description de l'event.
+  - `idManager`: Identifiant du manager.
+- **Exemple**: `POST /events` avec le corps de la requête contenant `{"dateEvent": "2024-06-10T08:00:00", "address": "1 rue de la paix", "duration": 4, "city": "Montpellier", "postalCode": 34000, "country": "France", "description": "Description de l'event", "idManager": 1}` pour créer un nouvel event.
 
 #### Obtenir un Events par ID (`/events/:idEvent`)
 - **Exemple**: `GET /events/:idEvent` permet de récupérer les détails d'un event à l'aide de son ID.
@@ -260,6 +270,18 @@ Gestion des events pour le festival, y compris l'ajout, la récupération et la 
 
 
 #### Mettre à jour un Event (`/events/:idEvent`)
+- **Route**: `PUT /events/:idEvent`
+- **Paramètres URL**:
+  - `idEvent`: Identifiant unique de l'event.
+- **Corps de la requête**:
+  - `dateEvent` (optionnel) : Nouvelle date de l'event.
+  - `address` (optionnel) : Nouvelle adresse de l'event.
+  - `duration` (optionnel) : Nouvelle durée de l'event.
+  - `city` (optionnel) : Nouvelle ville de l'event.
+  - `postalCode` (optionnel) : Nouveau code postal de l'event.
+  - `country` (optionnel) : Nouveau pays de l'event.
+  - `description` (optionnel) : Nouvelle description de l'event.
+  - `idManager` (optionnel) : Nouvel identifiant du manager.
 - **Exemple**: `PUT /events/:idEvent` permet de mettre à jour les détails d'un event spécifique. Les informations à mettre à jour doivent être envoyées dans le corps de la requête.
 
 #### Supprimer un Event (`/events/:idEvent`)

@@ -3,12 +3,28 @@ import { Event } from '@prisma/client';
 
 const eventService = {
     // Ajouter un nouvel événement
-    addEvent: async (dateEvent: Date, addressEvent: string, idManager: string): Promise<Event | null> => {
+    addEvent: async (
+        name: string,
+        dateEvent: Date,
+        duration : number,
+        address: string,
+        city: string,
+        postalCode: string,
+        country: string,
+        idManager: string,
+        description: string
+    ): Promise<Event | null> => {
         try {
             return await prisma.event.create({
                 data: {
                     dateEvent,
-                    addressEvent,
+                    name,
+                    address,
+                    city,
+                    postalCode,
+                    country,
+                    duration,
+                    description,
                     manager: {
                         connect: { id: idManager }
                     }
@@ -49,14 +65,40 @@ const eventService = {
     },
 
     // Mettre à jour un événement
-    updateEvent: async (idEvent: number, dateEvent?: Date, addressEvent?: string): Promise<Event | null> => {
+    updateEvent: async (idEvent: number,
+                        name?: string,
+                        dateEvent?: Date,
+                        duration? : number,
+                        address?: string,
+                        city?: string,
+                        postalCode?: string,
+                        country?: string,
+                        idManager?: string,
+                        description?: string
+    ): Promise<Event | null> => {
+        let userId : string | null = null
         try {
+            if (idManager !== undefined && idManager !== null && idManager !== '') {
+                const userExists = await prisma.user.findUnique({ where: { id: idManager } });
+                if (!userExists) {
+                    throw new Error(`Manager with the provided ID does not exist ${idManager}.`);
+                }
+                userId = idManager;
+
+            }
+
             return await prisma.event.update({
                 where: { idEvent },
                 data: {
                     dateEvent,
-                    addressEvent
-                    // Ajoutez d'autres champs si nécessaire
+                    address,
+                    city,
+                    postalCode,
+                    country,
+                    duration,
+                    name,
+                    description,
+                    ... (userId && { manager: { connect: { id: userId } } })
                 },
             });
         } catch (error) {

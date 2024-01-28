@@ -34,7 +34,13 @@ describe('Event API Endpoints', () => {
         if (!user) throw new Error('User not found');
         const newEvent = {
             dateEvent : new Date(),
-            addressEvent:'',
+            address:'test',
+            city:'test',
+            postalCode:'test',
+            country:'test',
+            duration:1,
+            name:'test',
+            description:'test',
             idManager:user.id
         };
 
@@ -57,7 +63,9 @@ describe('Event API Endpoints', () => {
     });
 
     it('should update an event', async () => {
-        const updatedEvent = { /* vos nouvelles données d'événement */ };
+        const updatedEvent = {
+            name: 'Updated Event'
+        };
         const res = await request(app).put(`/events/${eventId}`).send(updatedEvent);
         expect(res.statusCode).toEqual(200);
     });

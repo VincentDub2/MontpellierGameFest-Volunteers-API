@@ -216,12 +216,18 @@ model IsPresent {
 }
 
 model Event {
-  idEvent      Int           @id @default(autoincrement())
-  dateEvent    DateTime
-  addressEvent String
-  idManager    String
-  manager      User          @relation("manager", fields: [idManager], references: [id])
-  isPresented  IsPresented[]
+  idEvent     Int           @id @default(autoincrement())
+  dateEvent   DateTime
+  duration    Int
+  address     String
+  city        String
+  postalCode  String
+  country     String
+  name        String
+  idManager   String
+  description String?       @db.Text
+  manager     User          @relation("manager", fields: [idManager], references: [id])
+  isPresented IsPresented[]
 
   @@index([idManager])
 }

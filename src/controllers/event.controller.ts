@@ -1,13 +1,23 @@
 import { Request, Response } from 'express';
-import eventService from '../services/event.service';
+
 import { logger } from '../helpers/loggers.vercel';
+import eventService from "../services/event.service";
 
 const eventController = {
     // Ajouter un nouvel événement
     addEvent: async (req: Request, res: Response) => {
-        const { dateEvent, addressEvent, idManager } = req.body;
+        const { dateEvent,
+            address,
+            idManager,
+            city,
+            postalCode,
+            country,
+            duration,
+            name,
+            description,
+        } = req.body;
         try {
-            const newEvent = await eventService.addEvent(dateEvent, addressEvent, idManager);
+            const newEvent = await eventService.addEvent(name, dateEvent, duration, address, city, postalCode, country, idManager,description);
             if (newEvent) {
                 res.status(201).json(newEvent);
                 logger.info(`Événement créé avec succès: ${newEvent.idEvent}`);
@@ -54,9 +64,29 @@ const eventController = {
     // Mettre à jour un événement
     updateEvent: async (req: Request, res: Response) => {
         const { idEvent } = req.params;
-        const { dateEvent, addressEvent } = req.body;
+        const { dateEvent,
+            address,
+            idManager,
+            city,
+            postalCode,
+            country,
+            duration,
+            name,
+            description,
+        } = req.body;
         try {
-            const updatedEvent = await eventService.updateEvent(parseInt(idEvent), dateEvent, addressEvent);
+            const updatedEvent = await eventService.updateEvent(
+                parseInt(idEvent),
+                name,
+                dateEvent,
+                duration,
+                address,
+                city,
+                postalCode,
+                country,
+                idManager,
+                description
+            );
             if (updatedEvent) {
                 res.json(updatedEvent);
                 logger.info(`Événement mis à jour avec succès: ${updatedEvent.idEvent}`);
