@@ -13,8 +13,7 @@ const isPresentedService = {
                 }
             });
         } catch (error) {
-            console.error(`Error adding presentation: ${error}`);
-            return null;
+            throw new Error(`Error adding presentation: ${error}`);
         }
     },
 
@@ -34,8 +33,7 @@ const isPresentedService = {
                 }
             });
         } catch (error) {
-            console.error(`Error retrieving presentation: ${error}`);
-            return null;
+           throw new Error(`Error retrieving presentation: ${error}`);
         }
     },
 
@@ -56,8 +54,7 @@ const isPresentedService = {
                 data: updateData
             });
         } catch (error) {
-            console.error(`Error updating presentation: ${error}`);
-            return null;
+            throw new Error(`Error updating presentation: ${error}`);
         }
     },
 
@@ -73,8 +70,7 @@ const isPresentedService = {
                 }
             });
         } catch (error) {
-            console.error(`Error deleting presentation: ${error}`);
-            return null;
+            throw new Error(`Error deleting presentation: ${error}`);
         }
     },
 
