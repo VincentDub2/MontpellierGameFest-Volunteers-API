@@ -580,8 +580,18 @@ NODE_ENV='development'
 ## 🌐 Fournisseur d'Authentification
 - Google
 
-## 🧪 Tests Unitaires
-Effectués avec Jest. Exécutez avec :
+## 🧪 Tests des routes
+Une base de données de test est créée pour les tests. 
+Cette base de donnée est crée via docker.
+Il suffit de lancer la commande suivante pour créer et lancer la base de donnée de test :
+```
+docker-compose up -d
+```
+Il faut aussi créer un fichier `.env.test` avec les informations suivantes :
+DATABASE_URL='mysql://prisma:prisma@localhost:3306/tests'
+ect... (voir le fichier .env)
+
+Les tests sont éffectués avec Jest. Exécutez avec :
 ```
 npm test
 ```
@@ -595,3 +605,5 @@ npm test
 
 ## 📊 Gestion des Logs
 L'application possède une gestion des logs enregistrés dans le dossier `logs`. Les logs sont enregistrés dans un fichier par jour.
+Si l'application est herbégée sur un service serverless, les logs sont envoyés sur la console.
+Il faut donc importer le logger via le fichier loggers.vercel et non logger.file.
