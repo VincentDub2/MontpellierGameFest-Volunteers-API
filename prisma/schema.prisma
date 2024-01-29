@@ -224,9 +224,9 @@ model Event {
   postalCode  String
   country     String
   name        String
-  idManager   String
+  idManager   String?
   description String?       @db.Text
-  manager     User          @relation("manager", fields: [idManager], references: [id])
+  manager     User?         @relation("manager", fields: [idManager], references: [id], onDelete: SetNull)
   isPresented IsPresented[]
 
   @@index([idManager])
