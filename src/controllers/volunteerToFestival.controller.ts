@@ -167,8 +167,8 @@ const volunteerToFestivalController = {
 
             const result = await volunteerToFestivalService.getFestivalsByVolunteer(
                 volunteerId, 
-                parseInt(page as string), 
-                parseInt(pageSize as string),
+                parseInt(page as string) ?? 1,
+                parseInt(pageSize as string) ?? 20,
                 role as Role,
                 parsedEndDate,
                 parsedStartDate
