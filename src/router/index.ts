@@ -10,7 +10,7 @@ import userAssociation from "./userAssociation";
 import poste from "./poste";
 import creneau from "./creneau";
 import event from "./event";
-import espace from "./posteEspace";
+import espace from "./espace";
 import posteEspace from "./posteEspace";
 import referent from "./referent";
 import creneauEspace from "./creneauEspace";

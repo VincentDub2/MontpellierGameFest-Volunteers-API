@@ -8,12 +8,8 @@ const posteEspaceService = {
         try {
             return await prisma.posteEspace.create({
                 data: {
-                    poste: {
-                        connect: { idPoste }
-                    },
-                    espace: {
-                        connect: { idEspace }
-                    }
+                    idPoste,
+                    idEspace
                 },
             });
         } catch (error) {
