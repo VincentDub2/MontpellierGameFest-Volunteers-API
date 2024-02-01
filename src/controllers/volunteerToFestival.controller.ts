@@ -73,8 +73,8 @@ const volunteerToFestivalController = {
             const { festivalId } = req.params;
             const {role, name } = req.query;
 
-            const page = req.query.page || 1;
-            const pageSize = req.query.pageSize || 20;
+            const page = parseInt(req.query.page as string) || 1;
+            const pageSize = parseInt(req.query.pageSize as string) || 20;
             
             if (!festivalId) {
                 logger.warn(`Erreur lors de la récupération des volontaires au festival: Veuillez renseigner l'identifiant du festival`);
@@ -89,8 +89,8 @@ const volunteerToFestivalController = {
 
             const result = await volunteerToFestivalService.getVolunteersToFestival(
                 parseInt(festivalId), 
-                parseInt(page as string), 
-                parseInt(pageSize as string), 
+                page,
+                pageSize,
                 role as Role, 
                 name as string
             );
@@ -142,7 +142,11 @@ const volunteerToFestivalController = {
     getFestivalsByVolunteer: async (req: Request, res: Response) => {
         try {
             const { volunteerId } = req.params;
-            const { page, pageSize, role,startDate, endDate } = req.query;
+            const page = parseInt(req.query.page as string) || 1;
+            const pageSize = parseInt(req.query.pageSize as string) || 20;
+            const role = req.query.role as string | undefined;
+            const startDate = req.query.startDate as string | undefined;
+            const endDate = req.query.endDate as string | undefined;
             
             if (!volunteerId) {
                 logger.warn(`Erreur lors de la récupération des festivals au quel un volontaire est inscrit ou a participé: Veuillez renseigner l'identifiant du volontaire`);
@@ -167,8 +171,8 @@ const volunteerToFestivalController = {
 
             const result = await volunteerToFestivalService.getFestivalsByVolunteer(
                 volunteerId, 
-                parseInt(page as string), 
-                parseInt(pageSize as string),
+                page ,
+                pageSize,
                 role as Role,
                 parsedEndDate,
                 parsedStartDate

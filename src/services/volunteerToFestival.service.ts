@@ -131,6 +131,9 @@ const volunteerToFestivalService = {
         }
     },
     getFestivalsByVolunteer: async (volunteerId: string, page: number, pageSize: number, role?: Role, startDate?: Date, endDate?: Date) => {
+        if (page < 1) {
+            throw new Error(`Erreur lors de la récupération des festivals par volontaire: La page doit être supérieur à 0`);
+        }
         const skip = (page - 1) * pageSize;
         let whereClause: { idUser: string; role?: Role; festival?: { dateDebut?: any; dateFin?: any; } } = { idUser: volunteerId };
     

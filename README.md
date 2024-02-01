@@ -48,6 +48,10 @@ Après l'authentification avec le fournisseur, cette route gère la réponse et 
 
 #### 3. Connexion (`/login`)
 Permet à un utilisateur de se connecter en utilisant ses identifiants de l'application.
+- **route**: `POST /login` 
+- **Corps de la requête**: 
+  - `email`: Nom d'utilisateur de l'utilisateur.
+  - `password`: Mot de passe de l'utilisateur.
 - **Exemple**: `POST /login` avec le corps de la requête contenant le nom d'utilisateur et le mot de passe.
 
 #### 4. Enregistrement (`/register`)
