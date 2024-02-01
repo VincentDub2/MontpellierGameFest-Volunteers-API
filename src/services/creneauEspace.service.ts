@@ -36,6 +36,22 @@ const creneauEspaceService = {
         }
     },
 
+    // Obtenir un CreneauEspace par l'ID du creneau associé
+    getCreneauEspaceByCreneauId: async (idCreneau: number): Promise<CreneauEspace[] | null> => {
+        try {
+            return await prisma.creneauEspace.findMany({
+                where: { idCreneau },
+                include: {
+                    creneau: true,
+                    espace: true,
+                    inscriptions: true
+                }
+            });
+        } catch (error) {
+            throw new Error(`Erreur lors de la récupération du CreneauEspace: ${error}`);
+        }
+    },
+
     // Obtenir tous les CreneauEspaces
     getAllCreneauEspaces: async (): Promise<CreneauEspace[] | null> => {
         try {

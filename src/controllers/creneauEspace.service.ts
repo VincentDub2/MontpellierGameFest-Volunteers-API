@@ -27,6 +27,18 @@ const creneauEspaceController = {
         }
     },
 
+    // Obtenir un CreneauEspace par l'ID du creneau associé
+    getCreneauEspaceByCreneauId: async (req: Request, res: Response) => {
+        const { idCreneau } = req.params;
+        try {
+            const creneauEspace = await creneauEspaceService.getCreneauEspaceByCreneauId(parseInt(idCreneau));
+            res.json(creneauEspace);
+        } catch (error) {
+            logger.error(`Error retrieving CreneauEspace: ${error}`);
+            res.status(500).json({ message: 'Error retrieving CreneauEspace' });
+        }
+    },
+
     // Obtenir tous les CreneauEspaces
     getAllCreneauEspaces: async (req: Request, res: Response) => {
         try {

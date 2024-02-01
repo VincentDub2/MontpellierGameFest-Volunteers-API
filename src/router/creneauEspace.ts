@@ -8,6 +8,9 @@ export default (router: express.Router) => {
     // Route pour obtenir un CreneauEspace par son ID
     router.get('/creneauEspaces/:idCreneauEspace', creneauEspaceController.getCreneauEspaceById);
 
+    // Route pour obtenir un CreneauEspace par l'ID du creneau associé
+    router.get('/creneauEspaces/creneau/:idCreneau', creneauEspaceController.getCreneauEspaceByCreneauId);
+
     // Route pour obtenir tous les CreneauEspaces
     router.get('/creneauEspaces', creneauEspaceController.getAllCreneauEspaces);
 
