@@ -9,9 +9,13 @@ const volunteerToFestivalService = {
      */
     addVolunteerToFestival: async ( volunteer :IsVolunteer)=> {
         try {
-            const {idUser, idFestival, isVege, sizeTeeShirt, role} = volunteer;
+            let {idUser, idFestival, isVege, sizeTeeShirt, role} = volunteer;
 
-            if (isVege === undefined || sizeTeeShirt === undefined || role === undefined) {
+            if(role === undefined){
+                role = Role.basic;
+            }
+
+            if (isVege === undefined || sizeTeeShirt === undefined) {
                 throw new Error(`Erreur lors de l'ajout du volontaire au festival: Veuillez renseigner l'identifiant du volontaire, du festival, le role, la taille du t-shirt et si il est végétarien`);
             }
 
