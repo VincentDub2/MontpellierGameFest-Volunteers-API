@@ -172,13 +172,14 @@ model IsReferent {
 }
 
 model CreneauEspace {
-  idCreneauEspace Int           @id @default(autoincrement())
-  idCreneau       Int
-  idEspace        Int
-  capacityEspace  Int           @default(2)
-  creneau         Creneau       @relation(fields: [idCreneau], references: [idCreneau], onDelete: Cascade)
-  espace          Espace        @relation(fields: [idEspace], references: [idEspace], onDelete: Cascade)
-  inscriptions    Inscription[]
+  idCreneauEspace             Int           @id @default(autoincrement())
+  idCreneau                   Int
+  idEspace                    Int
+  currentCapacity             Int           @default(0)
+  capacityEspaceAnimationJeux Int           @default(2)
+  creneau                     Creneau       @relation(fields: [idCreneau], references: [idCreneau], onDelete: Cascade)
+  espace                      Espace        @relation(fields: [idEspace], references: [idEspace], onDelete: Cascade)
+  inscriptions                Inscription[]
 
   @@index([idCreneau])
   @@index([idEspace])

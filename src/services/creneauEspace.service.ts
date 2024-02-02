@@ -4,13 +4,14 @@ const prisma = new PrismaClient();
 
 const creneauEspaceService = {
     // Ajouter un nouveau CreneauEspace
-    addCreneauEspace: async (idCreneau: number, idEspace: number, capacityEspace: number): Promise<CreneauEspace | null> => {
+    addCreneauEspace: async (idCreneau: number, idEspace: number, capacityEspaceAnimationJeux?: number,currentCapacity? :number): Promise<CreneauEspace | null> => {
         try {
             return await prisma.creneauEspace.create({
                 data: {
                     idCreneau,
                     idEspace,
-                    capacityEspace
+                    capacityEspaceAnimationJeux,
+                    currentCapacity
                 },
             });
         } catch (error) {
@@ -69,11 +70,14 @@ const creneauEspaceService = {
     },
 
     // Mettre à jour un CreneauEspace
-    updateCreneauEspace: async (idCreneauEspace: number, capacityEspace: number): Promise<CreneauEspace | null> => {
+    updateCreneauEspace: async (idCreneauEspace: number, capacityEspaceAnimationJeux?: number,currentCapacity? : number): Promise<CreneauEspace | null> => {
         try {
             return await prisma.creneauEspace.update({
                 where: { idCreneauEspace },
-                data: { capacityEspace }
+                data: {
+                    capacityEspaceAnimationJeux,
+                    currentCapacity
+                }
             });
         } catch (error) {
             console.error(`Error updating CreneauEspace: ${error}`);

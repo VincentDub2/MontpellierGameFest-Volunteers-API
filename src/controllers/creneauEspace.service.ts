@@ -5,9 +5,9 @@ import { logger } from '../helpers/loggers.vercel';
 const creneauEspaceController = {
     // Ajouter un nouveau CreneauEspace
     addCreneauEspace: async (req: Request, res: Response) => {
-        const { idCreneau, idEspace, capacityEspace } = req.body;
+        const { idCreneau, idEspace, currentCapacity, capacityEspaceAnimationJeux} = req.body;
         try {
-            const newCreneauEspace = await creneauEspaceService.addCreneauEspace(idCreneau, idEspace, capacityEspace);
+            const newCreneauEspace = await creneauEspaceService.addCreneauEspace(idCreneau, idEspace,capacityEspaceAnimationJeux,currentCapacity);
             res.status(201).json(newCreneauEspace);
         } catch (error) {
             logger.error(`Error adding CreneauEspace: ${error}`);
@@ -53,9 +53,11 @@ const creneauEspaceController = {
     // Mettre à jour un CreneauEspace
     updateCreneauEspace: async (req: Request, res: Response) => {
         const { idCreneauEspace } = req.params;
-        const { capacityEspace } = req.body;
+        const {
+            currentCapacity, capacityEspaceAnimationJeux
+        } = req.body;
         try {
-            const updatedCreneauEspace = await creneauEspaceService.updateCreneauEspace(parseInt(idCreneauEspace), capacityEspace);
+            const updatedCreneauEspace = await creneauEspaceService.updateCreneauEspace(parseInt(idCreneauEspace),capacityEspaceAnimationJeux,currentCapacity);
             res.json(updatedCreneauEspace);
         } catch (error) {
             logger.error(`Error updating CreneauEspace: ${error}`);

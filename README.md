@@ -389,8 +389,9 @@ Gestion des events pour le festival, y compris l'ajout, la récupération et la 
 - **Corps de la requête**:
   - `idCreneau`: Identifiant du créneau.
   - `idEspace`: Identifiant de l'espace.
-  - `capacityEspace`: Capacité de l'espace (nombre).
-- **Exemple**: `POST /creneauEspaces` avec le corps de la requête contenant `{"idCreneau": 1, "idEspace": 1, "capacityEspace": 30}` pour créer un nouveau CreneauEspace.
+  - `currentCapacity`: (Optionnel défaut 0) Capacité actuelle de l'espace (nombre).
+  - `capacityEspaceAnimationJeux`: (Optionnel défaut 2) Capacité de l'espace pour les animations de jeux (nombre).
+- **Exemple**: `POST /creneauEspaces` avec le corps de la requête contenant `{"idCreneau": 1, "idEspace": 1, "capacityEspaceAnimationJeux": 30}` pour créer un nouveau CreneauEspace.
 
 #### Obtenir un CreneauEspace par ID (`/creneauEspaces/:idCreneauEspace`)
 - **Route**: `GET /creneauEspaces/:idCreneauEspace`
@@ -407,8 +408,9 @@ Gestion des events pour le festival, y compris l'ajout, la récupération et la 
 - **Paramètres URL**:
   - `idCreneauEspace`: Identifiant unique du CreneauEspace.
 - **Corps de la requête**:
-  - `capacityEspace`: Nouvelle capacité de l'espace.
-- **Exemple**: `PUT /creneauEspaces/1` avec le corps de la requête contenant `{"capacityEspace": 50}` pour mettre à jour la capacité de l'espace.
+    - `capacityEspace`: (Optionnel) Nouvelle capacité de l'espace.
+    - `capacityEspaceAnimationJeux`: (Optionnel) Nouvelle capacité de l'espace pour les animations de jeux.
+- **Exemple**: `PUT /creneauEspaces/1` avec le corps de la requête contenant `{"capacityEspaceAnimationJeux": 50}` pour mettre à jour la capacité de l'espace.
 
 #### Supprimer un CreneauEspace (`/creneauEspaces/:idCreneauEspace`)
 - **Route**: `DELETE /creneauEspaces/:idCreneauEspace`
