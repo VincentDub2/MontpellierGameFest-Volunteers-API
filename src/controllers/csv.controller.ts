@@ -5,7 +5,7 @@ import csvService from "../services/csv.service";
 const csvController = {
     uploadCsv: async (req: Request, res: Response) => {
         try {
-            const file = req.body.file;
+            const file = req.file;
 
             if (!file) {
                 return res.status(400).json("Aucun fichier n'a été upload.");
