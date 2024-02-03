@@ -149,7 +149,7 @@ const authLocalController = {
 
             res.status(200).json({ message: "Email de réinitialisation envoyé" });
         } catch (error) {
-            res.status(500).json({ message: "Erreur lors de la demande de réinitialisation du mot de passe" });
+            res.status(500).json({ message: "Erreur lors de l'envoi de l'email de réinitialisation" });
         }
     },
     updatePasswordWithToken: async (req: Request, res: Response) => {
@@ -184,7 +184,7 @@ const authLocalController = {
             logger.info(`Mot de passe réinitialisé avec succès pour l'utilisateur: ${passwordResetToken.user.id}`);
             return res.status(200).json({ message: "Mot de passe réinitialisé avec succès" });
         } catch (error) {
-            res.status(500).json({ message: "Erreur lors de la réinitialisation du mot de passe" });
+            res.status(500).json({ message:`Erreur lors de la mise a jours: ${error}`});
         }
     }
 
