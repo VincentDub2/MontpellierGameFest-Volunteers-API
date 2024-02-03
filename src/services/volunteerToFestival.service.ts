@@ -90,6 +90,9 @@ const volunteerToFestivalService = {
             const volunteersToFestival = await prisma.isVolunteer.findMany(
                 {
                 where: whereClause,
+                    include: {
+                        user: true
+                    },
                 skip: skip,
                 take: pageSize,
             });
