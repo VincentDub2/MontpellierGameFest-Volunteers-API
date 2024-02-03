@@ -17,6 +17,7 @@ import creneauEspace from "./creneauEspace";
 import isPresent from "./isPresent";
 import isPlay from "./IsPlay";
 import isPresented from "./isPresented";
+import inscription from './inscription';
 
 const router = express.Router();
 
@@ -39,5 +40,6 @@ export default (): express.Router => {
       isPresent(router)
       isPlay(router)
       isPresented(router)
+      inscription(router)
     return router;
   };
