@@ -33,7 +33,7 @@ const oauthController = {
             // Générer un token JWT
             const token = jwt.sign({ userId: user.id, email: user.email }, process.env.JWT_SECRET, { expiresIn: '1h' });
             logger.info(`Utilisateur authentifié avec succès avec le fournisseur OAuth: ${provider}`);
-            res.json({ token });
+            res.redirect(`${process.env.FRONTEND_URL}/oauth2/callback?token=${token}`);
         } catch (error) {
             logger.error(`Erreur lors de la gestion de la réponse du fournisseur OAuth: ${error}`);
             res.redirect('/some-redirect-uri-on-failure');
