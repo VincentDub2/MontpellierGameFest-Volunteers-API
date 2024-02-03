@@ -42,32 +42,36 @@ const csvService = {
     async processAndSaveGameData2(csvData : any[]) {
         console.time('TraitementTotal');
         const existingGames = new Set((await prisma.jeux.findMany()).map(game => game.idGame));
-
+    
         const batchSize = 500; // Taille de chaque groupe
-        // Par exemple, si csvData contient 1000 éléments et batchSize = 100, alors nous aurons 10 groupes
+        const createdGames = [];
+    
         for (let i = 0; i < csvData.length; i += batchSize) {
             const batch = csvData.slice(i, i + batchSize);
-            const promises = batch.map(data => this.processGame(transformToGameData(data), existingGames));
-            await Promise.all(promises);
+            const batchResult = await Promise.all(batch.map(data => this.processGame(transformToGameData(data), existingGames)));
+            createdGames.push(...batchResult.flat());
         }
-
         console.timeEnd('TraitementTotal');
+        return createdGames.flat();
     },
     async processGame(data : GameData, existingGames : Set<number>) {
         try {
             const idGame = data.idGame;
             if (existingGames.has(idGame)) {
-                await prisma.jeux.update({
+                const createdGame = await prisma.jeux.update({
                     where: { idGame },
                     data: data
                 });
+                return createdGame.idGame; // Return the updated idGame
             } else {
-                await prisma.jeux.create({
+                const createdGame = await prisma.jeux.create({
                     data: data
                 });
+                return createdGame.idGame; // Return the created idGame
             }
         } catch (error) {
             logger.error(`Erreur lors de l'enregistrement du jeu ${data.name}:`, error);
+            return null; // Return null for failed creations
         }
     },
 

@@ -18,8 +18,8 @@ const csvController = {
                 header: true,
                 complete: async (results) => {
                     try {
-                        await csvService.processAndSaveGameData2(results.data);
-                        res.status(200).send("Données des utilisateurs enregistrées avec succès.");
+                        const createdGames = await csvService.processAndSaveGameData2(results.data);
+                        res.status(200).json({ message: "Fichier CSV traité avec succès.", createdGames });
                     } catch (error) {
                         console.error("Erreur lors de l'enregistrement en base de données : ", error);
                         res.status(500).send("Erreur lors de l'enregistrement des données.");
