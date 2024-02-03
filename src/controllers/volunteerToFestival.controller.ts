@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import volunteerToFestivalService from "../services/volunteerToFestival.service";
 import { VolunteerInterface } from "../types/types";
 import { logger } from "../helpers/loggers.vercel";
-import {IsVolunteer, Role} from '@prisma/client';
+import {IsVolunteer, Role, Status} from '@prisma/client';
 
 const volunteerToFestivalController = {
     /**
@@ -109,7 +109,7 @@ const volunteerToFestivalController = {
     updateVolunteerToFestival: async (req: Request, res: Response) => {
         try {
             const { festivalId, volunteerId } = req.params; // Assurez-vous que ces paramètres sont correctement définis dans votre route
-            const { isVege, sizeTeeShirt, role } = req.body;
+            const { isVege, sizeTeeShirt, role,status} = req.body;
 
             // Validation des données (ajoutez plus de validations si nécessaire)
             if (!festivalId || !volunteerId) {
@@ -122,12 +122,18 @@ const volunteerToFestivalController = {
                 return res.status(400).json({ message: "Le rôle renseigné n'est pas valide" });
             }
 
+            if (status && !Object.values(Role).includes(status as Role)) {
+                logger.warn(`Erreur lors de la mise à jour du volontaire au festival: Le status renseigné n'est pas valide`);
+                return res.status(400).json({ message: "Le status renseigné n'est pas valide" });
+            }
+
             const volunteerData: VolunteerInterface = {
                 festivalId: parseInt(festivalId),
                 volunteerId,
                 isVege,
                 sizeTeeShirt,
-                role: role as Role
+                role: role as Role,
+                status: status as Status
             };
 
             const result = await volunteerToFestivalService.updateVolunteerToFestival(volunteerData);

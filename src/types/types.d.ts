@@ -1,4 +1,4 @@
-import {User,role} from "@prisma/client"; // Importez votre modèle User
+import {User, Status, Role} from "@prisma/client"; // Importez votre modèle User
 
 import * as express from 'express';
 
@@ -22,6 +22,7 @@ export interface VolunteerInterface {
     isVege? : boolean;
     sizeTeeShirt?: string;
     role?: Role;
+    status?: Status;
 }
 
 export interface UserRequest extends express.Request {

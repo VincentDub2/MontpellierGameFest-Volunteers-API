@@ -1,6 +1,6 @@
 import prisma from "../prisma";
 import {logger} from "../helpers/loggers.vercel";
-import {IsVolunteer, Role} from "@prisma/client";
+import {IsVolunteer, Role, Status} from "@prisma/client";
 import {VolunteerInterface} from "../types/types";
 
 const volunteerToFestivalService = {
@@ -10,9 +10,8 @@ const volunteerToFestivalService = {
     addVolunteerToFestival: async ( volunteer :IsVolunteer)=> {
         try {
             const {idUser, idFestival, isVege, sizeTeeShirt} = volunteer;
-            const role = Role.basic;
 
-            if (isVege === undefined || sizeTeeShirt === undefined || role === undefined || idUser === undefined || idFestival === undefined) {
+            if (isVege === undefined || sizeTeeShirt === undefined  || idUser === undefined || idFestival === undefined) {
                 throw new Error(`Erreur lors de l'ajout du volontaire au festival: Veuillez renseigner l'identifiant du volontaire, du festival, le role, la taille du t-shirt et si il est végétarien`);
             }
 
@@ -21,8 +20,7 @@ const volunteerToFestivalService = {
                     idUser,
                     idFestival,
                     isVege,
-                    sizeTeeShirt,
-                    role,
+                    sizeTeeShirt
                 }
             });
             logger.info(`Ajout du volontaire au festival avec succès`);
@@ -106,12 +104,13 @@ const volunteerToFestivalService = {
      */
     updateVolunteerToFestival: async (volunteer: VolunteerInterface) => {
         try {
-            const { volunteerId, festivalId, isVege, sizeTeeShirt, role } = volunteer;
+            const { volunteerId, festivalId, isVege, sizeTeeShirt, role ,status} = volunteer;
 
-            let updateData: { isVege?: boolean; sizeTeeShirt?: string; role?: Role } = {};
+            let updateData: { isVege?: boolean; sizeTeeShirt?: string; role?: Role,status?: Status} = {};
             if (isVege !== undefined) updateData.isVege = isVege;
             if (sizeTeeShirt !== undefined) updateData.sizeTeeShirt = sizeTeeShirt;
             if (role !== undefined) updateData.role = role;
+            if (status !== undefined) updateData.status = status;
 
             const volunteerToFestival = await prisma.isVolunteer.updateMany({
                 where: {

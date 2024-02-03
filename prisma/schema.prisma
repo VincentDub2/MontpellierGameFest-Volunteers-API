@@ -96,7 +96,8 @@ model IsVolunteer {
   idUser       String
   isVege       Boolean
   sizeTeeShirt String
-  role         Role?
+  role         Role?    @default(basic)
+  status       Status?  @default(notAccepted)
   festival     Festival @relation(fields: [idFestival], references: [idFestival], onDelete: Cascade)
   user         User     @relation(fields: [idUser], references: [id], onDelete: Cascade)
   Jeux         Jeux?    @relation(fields: [jeuxIdGame], references: [idGame])
@@ -106,6 +107,13 @@ model IsVolunteer {
   @@index([idUser])
   @@index([idFestival])
   @@index([jeuxIdGame])
+}
+
+enum Status {
+  notAccepted
+  step2Todo
+  waitStep2
+  accepted
 }
 
 enum Role {

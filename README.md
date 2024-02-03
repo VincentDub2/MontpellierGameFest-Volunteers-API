@@ -134,7 +134,8 @@ Corps de la requête :
     - il n'est pas nécessaire d'inclure tous les champs dans le corps de la requête. Seuls les champs à mettre à jour doivent être inclus.
     - isVege - indique si le volontaire suit un régime végétarien.
     - sizeTeeShirt - la taille de tee-shirt du volontaire.
-    - role - le rôle du volontaire dans le festival. Comme pour la route getVolunteersToFestival, une validation est effectuée pour s'assurer que le rôle fourni est valide.
+    - role - le rôle du volontaire dans le festival. Comme pour la route getVolunteersToFestival, une validation est effectuée pour s'assurer que le rôle fourni est valide
+    - status - le statut du volontaire dans le festival. Comme pour la route getVolunteersToFestival, une validation est effectuée pour s'assurer que le statut fourni est valide
 
 #### Obtenir tous les Postes d'un Festival (`/festivals/:idFestival/postes`)
 - **Exemple**: `GET /festivals/:idFestival/postes` permet de récupérer tous les postes associés à un festival spécifique.
