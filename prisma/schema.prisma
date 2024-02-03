@@ -96,7 +96,7 @@ model IsVolunteer {
   idUser       String
   isVege       Boolean
   sizeTeeShirt String
-  role         Role
+  role         Role?
   festival     Festival @relation(fields: [idFestival], references: [idFestival], onDelete: Cascade)
   user         User     @relation(fields: [idUser], references: [id], onDelete: Cascade)
   Jeux         Jeux?    @relation(fields: [jeuxIdGame], references: [idGame])
