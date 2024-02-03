@@ -1,4 +1,5 @@
 import { PrismaClient, IsPlay } from '@prisma/client';
+import { Prisma } from '@prisma/client'
 
 const prisma = new PrismaClient();
 
@@ -15,6 +16,20 @@ const isPlayService = {
         } catch (error) {
             console.error(`Error adding play: ${error}`);
             return null;
+        }
+    },
+
+    // Ajouter plusieurs jeux joués à un festival
+    addMultiplePlays: async (playsData: Prisma.IsPlayCreateManyInput[]): Promise<Prisma.BatchPayload> => {
+        try {
+            // Handle duplicates by ingore existing entries
+            return await prisma.isPlay.createMany({
+                data: playsData,
+                skipDuplicates: true
+            });
+        } catch (error) {
+            console.error(`Error adding multiple isPlay: ${error}`);
+            throw new Error(`Error adding multiple isPlay: ${error}`);
         }
     },
 

@@ -6,6 +6,9 @@ export default (router: express.Router) => {
     // Route pour ajouter un jeu joué à un festival
     router.post('/isPlay', isPlayController.addPlay);
 
+    // Route pour ajouter plusieurs jeux joués à un festival
+    router.post('/isPlay/multiple', isPlayController.addMultiplePlays);
+
 // Route pour obtenir un jeu joué par ses identifiants
     router.get('/isPlay/:idGame/:idFestival', isPlayController.getPlayById);
 
