@@ -121,7 +121,16 @@ Permet de récupérer la liste des jeux.
 Gestion des Volontaires dans les Festivals (`/festivals/:festivalId/volunteers`)
 Cette section couvre les opérations liées aux volontaires dans les festivals.
 
-- **Exemple**: `POST /festivals/:festivalId/volunteers` permet d'ajouter un volontaire à un festival spécifique.
+#### Ajouter un Volontaire à un Festival (`/festivals/:festivalId/volunteers`)
+- **Route**: `POST /festivals/:festivalId/volunteers`
+- **Paramètres URL**:
+  - `festivalId`: Identifiant unique du festival auquel le volontaire doit être ajouté.
+- **Corps de la requête**:
+  - `userId`: Identifiant unique de l'utilisateur à ajouter.
+  - `isVege`: Indique si le volontaire suit un régime végétarien (booléen).
+  - `sizeTeeShirt`: Taille du tee-shirt du volontaire.
+- **Exemple**: `POST /festivals/:festivalId/volunteers` avec le corps de la requête contenant `{"userId": 123, "isVege": true, "sizeTeeShirt": "M"}` pour ajouter un nouveau volontaire à un festival.
+    
 - **Exemple**: `DELETE /festivals/:festivalId/volunteers/:volunteerId` permet de supprimer un volontaire d'un festival spécifique.
 - **Exemple**: `GET /festivals/:festivalId/volunteers/:volunteerId` renvoie les informations d'un volontaire spécifique dans un festival.
 - **Exemple**: `GET /festivals/:festivalId/volunteers` renvoie la liste de tous les volontaires pour un festival spécifique.
@@ -217,7 +226,7 @@ Gestion des postes pour le festival, y compris l'ajout, la récupération et la 
 - **Route**: `POST /postes`
 - **Corps de la requête**:
   - `name`: Nom du poste.
-  - `capacity`: Capacité du poste (nombre).
+  - `capacityPoste`: Capacité du poste (nombre).
   - `idFestival`: Identifiant du festival.
   - `description`: Description du poste.
 - **Exemple**: `POST /postes` avec le corps de la requête contenant `{"name": "Poste 1", "capacity": 30, "idFestival": 1, "description": "Description du poste 1"}` pour créer un nouveau poste.

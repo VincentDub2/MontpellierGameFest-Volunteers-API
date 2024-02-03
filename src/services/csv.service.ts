@@ -75,6 +75,41 @@ const csvService = {
         }
     },
 
+    async processGame2(data: GameData) {
+        return prisma.jeux.upsert({
+            where: { idGame: data.idGame },
+            update: data,
+            create: data,
+        });
+    },
+    async processAndSaveGameData3(csvData: any[]) {
+        console.time('TraitementTotal');
+        let createdGames = [];
+        const batchSize = 100;
+
+        for (let i = 0; i < csvData.length; i += batchSize) {
+            const batch = csvData.slice(i, i + batchSize);
+            const operations = batch.map(data => {
+                // Transformez les données ici
+                const gameData = transformToGameData(data);
+                // Retournez l'opération upsert directement sans l'utiliser avec `await`
+                return prisma.jeux.upsert({
+                    where: { idGame: gameData.idGame },
+                    update: gameData,
+                    create: gameData,
+                });
+            });
+
+            // Exécutez toutes les opérations de ce lot dans une seule transaction
+            const batchResult = await prisma.$transaction(operations);
+            createdGames.push(...batchResult);
+        }
+        console.timeEnd('TraitementTotal');
+        return createdGames; // Ce sera un tableau des résultats de toutes les opérations upsert
+    },
+
+
+
     /**
      * Process and save game data from CSV file
      * Cette methode est plus lente que la methode processAndSaveGameData2

@@ -199,7 +199,7 @@ model Inscription {
   isAccepted      Boolean
   isFlexible      Boolean // Pas obligatoire?
   user            User          @relation(fields: [idUser], references: [id])
-  creneauEspace   CreneauEspace @relation(fields: [idCreneauEspace], references: [idCreneauEspace])
+  creneauEspace   CreneauEspace @relation(fields: [idCreneauEspace], references: [idCreneauEspace], onDelete: Cascade)
   Jeux            Jeux?         @relation(fields: [jeuxIdGame], references: [idGame])
   jeuxIdGame      Int?
 

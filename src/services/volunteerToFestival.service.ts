@@ -12,6 +12,7 @@ const volunteerToFestivalService = {
             const {idUser, idFestival, isVege, sizeTeeShirt} = volunteer;
 
             if (isVege === undefined || sizeTeeShirt === undefined  || idUser === undefined || idFestival === undefined) {
+                console.log(volunteer);
                 throw new Error(`Erreur lors de l'ajout du volontaire au festival: Veuillez renseigner l'identifiant du volontaire, du festival, le role, la taille du t-shirt et si il est végétarien`);
             }
 

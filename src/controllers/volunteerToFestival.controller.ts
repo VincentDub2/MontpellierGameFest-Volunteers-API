@@ -10,7 +10,8 @@ const volunteerToFestivalController = {
      */
     addVolunteerToFestival: async (req: Request, res: Response) => {
         try {
-            const volunteer: IsVolunteer = req.body;
+            let volunteer: IsVolunteer = req.body;
+            volunteer.idFestival = parseInt(req.params.festivalId);
             if (!volunteer) {
                 logger.warn(`Erreur lors de l'ajout du volontaire au festival: données du volontaire manquantes`);
                 return res.status(400).json({ message: "Données du volontaire manquantes" });

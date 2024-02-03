@@ -25,8 +25,7 @@ const inscriptionService = {
 
             return await prisma.inscription.create({ data });
         } catch (error) {
-            console.error(`Error adding Inscription: ${error}`);
-            return null;
+           throw new Error(`Error adding Inscription: ${error}`);
         }
     },
 
@@ -48,8 +47,7 @@ const inscriptionService = {
                 }
             });
         } catch (error) {
-            console.error(`Error retrieving Inscription: ${error}`);
-            return null;
+            throw new Error(`Error retrieving Inscription: ${error}`);
         }
     },
 
@@ -74,8 +72,7 @@ const inscriptionService = {
                 }
             });
         } catch (error) {
-            console.error(`Error updating Inscription: ${error}`);
-            return null;
+          throw new Error(`Error updating Inscription: ${error}`);
         }
     },
 
@@ -91,8 +88,7 @@ const inscriptionService = {
                 }
             });
         } catch (error) {
-            console.error(`Error deleting Inscription: ${error}`);
-            return null;
+            throw new Error(`Error deleting Inscription: ${error}`);
         }
     },
     //Obtenir toutes les inscriptions d'un utilisateur a un festival
