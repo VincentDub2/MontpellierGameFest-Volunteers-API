@@ -21,7 +21,7 @@ app.use(bodyParser.json());
 app.use(morganMiddleware);
 app.use(middleware.limiter)
 app.use(express.json({limit: '50mb'}));
-app.use(express.urlencoded({limit: '50mb'}));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 
 const server = http.createServer(app);
@@ -30,7 +30,6 @@ server.listen(8080, () => {
     console.log('Server running on http://localhost:8080/');
 });
 
-server.timeout = 1000 * 60 * 10;
 
 
 app.use('/', router());
