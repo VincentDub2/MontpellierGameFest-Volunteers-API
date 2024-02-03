@@ -89,8 +89,12 @@ const authLocalController = {
 
     register: async (req: Request, res: Response) => {
         try {
-            const { firstName,lastName,address, email, password } = req.body;
+            console.log(req.body)
+            console.log(req.file)
             const picture = req.file;
+            const parsedData = JSON.parse(req.body.data);
+            const { firstName, lastName, address, email, password } = parsedData;
+
             if (!firstName|| !email || !password || !lastName || !address) {
                 logger.warn("Tentative de création d'un utilisateur sans nom, email ou mot de passe");
                 return res.status(400).json({ message: "Nom, email et mot de passe requis" });
