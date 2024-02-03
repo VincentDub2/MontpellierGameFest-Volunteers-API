@@ -5,10 +5,13 @@ export default (router: express.Router) => {
     // Route pour ajouter une nouvelle relation PosteEspace
     router.post('/posteEspaces', posteEspaceController.addPosteEspace);
 
-// Route pour obtenir une relation PosteEspace par les IDs de Poste et Espace
+    // Route pour obtenir une relation PosteEspace par l'ID de Poste
+    router.get('/posteEspaces/poste/:idPoste', posteEspaceController.getPosteEspaceByPosteId);
+    
+    // Route pour obtenir une relation PosteEspace par les IDs de Poste et Espace
     router.get('/posteEspaces/:idPoste/:idEspace', posteEspaceController.getPosteEspaceById);
 
-// Route pour supprimer une relation PosteEspace
+    // Route pour supprimer une relation PosteEspace
     router.delete('/posteEspaces/:idPoste/:idEspace', posteEspaceController.deletePosteEspace);
 
 };

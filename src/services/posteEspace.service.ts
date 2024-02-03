@@ -39,6 +39,24 @@ const posteEspaceService = {
         }
     },
 
+    // Obtenir un PosteEspace par l'ID de Poste
+    getPosteEspaceByPosteId: async (idPoste: number): Promise<PosteEspace[] | null> => {
+        try {
+            return await prisma.posteEspace.findMany({
+                where: {
+                    idPoste
+                },
+                include: {
+                    poste: true,
+                    espace: true
+                }
+            });
+        } catch (error) {
+            console.error(`Error retrieving posteEspace: ${error}`);
+            return null;
+        }
+    },
+
     // Supprimer un PosteEspace
     deletePosteEspace: async (idPoste: number, idEspace: number): Promise<PosteEspace | null> => {
         try {

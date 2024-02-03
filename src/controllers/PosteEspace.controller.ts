@@ -25,6 +25,17 @@ const posteEspaceController = {
         }
     },
 
+    getPosteEspaceByPosteId: async (req: Request, res: Response) => {
+        const { idPoste } = req.params;
+        try {
+            const posteEspace = await posteEspaceService.getPosteEspaceByPosteId(parseInt(idPoste));
+            res.json(posteEspace);
+        } catch (error) {
+            logger.error(`Error retrieving posteEspace: ${error}`);
+            res.status(500).json({ message: 'Error retrieving posteEspace' });
+        }
+    },
+
     deletePosteEspace: async (req: Request, res: Response) => {
         const { idPoste, idEspace } = req.params;
         try {
