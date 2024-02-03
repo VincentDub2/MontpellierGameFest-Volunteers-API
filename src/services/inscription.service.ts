@@ -95,8 +95,47 @@ const inscriptionService = {
             return null;
         }
     },
+    //Obtenir toutes les inscriptions d'un utilisateur a un festival
+    getAllInscriptionsByUser: async (idUser: string, idFestival: number): Promise<Inscription[] | null> => {
+        try {
+            // Étape 1: Récupérer les ID CreneauEspace pour un idFestival donné
+            const creneauEspaces = await prisma.creneauEspace.findMany({
+                where: {
+                    creneau: {
+                        idFestival: idFestival,
+                    }
+                },
+                select: {
+                    idCreneauEspace: true, // Sélectionnez seulement les idCreneauEspace
+                }
+            });
+            const creneauEspaceIds = creneauEspaces.map(ce => ce.idCreneauEspace);
 
-    // Autres méthodes selon les besoins...
+            // Étape 2: Utiliser les ID CreneauEspace récupérés pour filtrer les inscriptions de l'utilisateur
+            const inscriptions = await prisma.inscription.findMany({
+                where: {
+                    idUser: idUser,
+                    idCreneauEspace: {
+                        in: creneauEspaceIds, // Filtre par les ID CreneauEspace
+                    },
+                },
+                include: {
+                    creneauEspace: {
+                        include: {
+                            creneau: true, // Incluez les détails du créneau si nécessaire
+                            espace: true, // Incluez les détails de l'espace si nécessaire
+                        }
+                    },
+                }
+            });
+
+            return inscriptions;
+        } catch (error) {
+            throw new Error(`Error retrieving all Inscriptions: ${error}`);
+        }
+    }
+
+
 };
 
 export default inscriptionService;

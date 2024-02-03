@@ -50,6 +50,17 @@ const inscriptionController = {
             logger.error(`Error deleting Inscription: ${error}`);
             res.status(500).json({ message: 'Error deleting Inscription' });
         }
+    },
+    //Obtenir toutes les inscriptions d'un utilisateur a un festival
+    getInscriptionsByUserAndFestival: async (req: Request, res: Response) => {
+        const { idUser, idFestival } = req.params;
+        try {
+            const inscriptions = await inscriptionService.getAllInscriptionsByUser(idUser, parseInt(idFestival));
+            res.json(inscriptions);
+        } catch (error) {
+            logger.error(`Error retrieving Inscriptions: ${error}`);
+            res.status(500).json({ message: `Error retrieving Inscriptions: ${error}`});
+        }
     }
 };
 

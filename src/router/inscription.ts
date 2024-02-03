@@ -14,4 +14,7 @@ export default (router: express.Router) => {
     // Route pour supprimer une inscription
     router.delete('/inscriptions/:idUser/:idCreneauEspace', inscriptionController.deleteInscription);
 
+    //Obtenir toutes les inscriptions d'un utilisateur a un festival
+    router.get('/inscriptions/:idUser/:idFestival', inscriptionController.getInscriptionsByUserAndFestival);
+
 }

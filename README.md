@@ -437,6 +437,13 @@ Gestion des events pour le festival, y compris l'ajout, la récupération et la 
   - `idCreneauEspace`: Identifiant unique du créneau espace.
 - **Exemple**: `GET /inscriptions/user123/1` pour obtenir les détails de l'inscription avec l'identifiant utilisateur `user123` et l'identifiant créneau espace `1`.
 
+#### Obtenir toutes les Inscriptions d'un user a un festival (`/inscriptions/:idUser/:idFestival`)
+- **Route**: `GET /inscriptions/:idUser/:idFestival`
+- **Paramètres URL**:
+  - `idUser`: Identifiant unique de l'utilisateur.
+  - `idFestival`: Identifiant unique du festival.
+- **Exemple**: `GET /inscriptions/user123/1` pour obtenir les détails de l'inscription avec l'identifiant utilisateur `user123` et l'identifiant créneau espace `1`.
+
 #### Mettre à jour une Inscription (`/inscriptions/:idUser/:idCreneauEspace`)
 - **Route**: `PUT /inscriptions/:idUser/:idCreneauEspace`
 - **Paramètres URL**:
