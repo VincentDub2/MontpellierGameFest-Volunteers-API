@@ -5,7 +5,14 @@ import { logger } from '../helpers/loggers.vercel';
 const inscriptionController = {
     // Ajouter une nouvelle inscription
     addInscription: async (req: Request, res: Response) => {
-        const { idUser, idCreneauEspace, isAccepted, isFlexible, jeuxIdGame } = req.body;
+        const { idUser, idCreneauEspace, jeuxIdGame } = req.body;
+        const isAccepted = false;
+        let isFlexible = req.body.isFlexible;
+        
+        if(isFlexible !== true) {
+            isFlexible = false;
+        }
+
         try {
             const newInscription = await inscriptionService.addInscription(idUser, idCreneauEspace, isAccepted, isFlexible, jeuxIdGame);
             res.status(201).json(newInscription);

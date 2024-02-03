@@ -53,6 +53,21 @@ const userController = {
             res.status(500).json({ message: "Erreur lors de la récupération de l'utilisateur" });
         }
     },
+    getUser: async (req: Request, res: Response) => {
+        const {id} = req.params;
+        try {
+            const user = await userService.findUserById(id);
+            if (!user) {
+                logger.warn(`Tentative de récupération de l'utilisateur avec l'ID: ${id} qui n'existe pas`);
+                return res.status(404).json({ message: "Utilisateur non trouvé" });
+            }
+            logger.info(`Récupération de l'utilisateur avec l'ID: ${user.id}`);
+            res.json(user);
+        } catch (error) {
+            logger.error(`Erreur lors de la récupération de l'utilisateur: ${error}`);
+            res.status(500).json({ message: "Erreur lors de la récupération de l'utilisateur" });
+        }
+    },
     updateUserPicture: async (req: Request, res: Response) => {
         try {
             const userReq = req as UserRequest;

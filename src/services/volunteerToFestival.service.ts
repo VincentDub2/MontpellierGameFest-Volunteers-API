@@ -9,18 +9,11 @@ const volunteerToFestivalService = {
      */
     addVolunteerToFestival: async ( volunteer :IsVolunteer)=> {
         try {
-            let {idUser, idFestival, isVege, sizeTeeShirt, role} = volunteer;
+            const {idUser, idFestival, isVege, sizeTeeShirt} = volunteer;
+            const role = Role.basic;
 
-            if(role === undefined){
-                role = Role.basic;
-            }
-
-            if (isVege === undefined || sizeTeeShirt === undefined) {
+            if (isVege === undefined || sizeTeeShirt === undefined || role === undefined || idUser === undefined || idFestival === undefined) {
                 throw new Error(`Erreur lors de l'ajout du volontaire au festival: Veuillez renseigner l'identifiant du volontaire, du festival, le role, la taille du t-shirt et si il est végétarien`);
-            }
-
-            if (idUser === undefined || idFestival === undefined) {
-                throw new Error(`Erreur lors de l'ajout du volontaire au festival: Veuillez renseigner l'identifiant du volontaire et du festival`);
             }
 
             const volunteerToFestival = await prisma.isVolunteer.create({
