@@ -15,6 +15,18 @@ const isPlayController = {
         }
     },
 
+    // Ajouter plusieurs jeux joués à un festival
+    addMultiplePlays: async (req: Request, res: Response) => {
+        const playsData = req.body;
+        try {
+            const newPlays = await isPlayService.addMultiplePlays(playsData);
+            res.status(201).json(newPlays);
+        } catch (error) {
+            logger.error(`Error adding plays: ${error}`);
+            res.status(500).json({ message: 'Error adding plays' });
+        }
+    },
+
     // Obtenir un jeu joué par ses identifiants
     getPlayById: async (req: Request, res: Response) => {
         const { idGame, idFestival } = req.params;
