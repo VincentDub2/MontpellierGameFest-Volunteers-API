@@ -130,6 +130,18 @@ const creneauController = {
             logger.error(`Erreur serveur: ${error}`);
         }
     },
+    // Avoir les creneaux d'un user d'un festival
+    getCreneauxByUser: async (req: Request, res: Response) => {
+        const { idUser, idFestival } = req.params;
+        try {
+            const creneaux = await creneauService.getCreneauxByUser(idUser, parseInt(idFestival));
+            res.json(creneaux);
+            logger.info(`Créneaux récupérés avec succès pour l'utilisateur ${idUser} au festival ${idFestival}`);
+        } catch (error) {
+            res.status(500).json({ message: `Erreur serveur: ${error}` });
+            logger.error(`Erreur serveur: ${error}`);
+        }
+    },
 };
 
 export default creneauController;

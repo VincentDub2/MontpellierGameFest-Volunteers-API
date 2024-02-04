@@ -138,6 +138,7 @@ Paramètres de requête :
     - page et pageSize - (optionnel) permettent la pagination des résultats. page indique la page actuelle, et pageSize le nombre de résultats par page.
     - role - (optionnel) filtre les volontaires par leur rôle (par exemple, administrateur, manager de réception, etc.). La validation s'assure que le rôle fourni correspond aux valeurs définies dans l'énumération Role.
     - name - (optionnel) permet de filtrer les volontaires par leur nom.
+    - getTeeShirt - (optionnel) indique si le volontaire a besoin d'un tee-shirt pour le festival.
 - **Exemple**: `PUT /festivals/:festivalId/volunteers/:volunteerId` permet de mettre à jour les informations d'un volontaire dans un festival.
 Corps de la requête :
     - il n'est pas nécessaire d'inclure tous les champs dans le corps de la requête. Seuls les champs à mettre à jour doivent être inclus.
@@ -145,6 +146,7 @@ Corps de la requête :
     - sizeTeeShirt - la taille de tee-shirt du volontaire.
     - role - le rôle du volontaire dans le festival. Comme pour la route getVolunteersToFestival, une validation est effectuée pour s'assurer que le rôle fourni est valide
     - status - le statut du volontaire dans le festival. Comme pour la route getVolunteersToFestival, une validation est effectuée pour s'assurer que le statut fourni est valide
+    - getTeeShirt - indique si le volontaire a besoin d'un tee-shirt pour le festival.
 
 #### Obtenir tous les Postes d'un Festival (`/festivals/:idFestival/postes`)
 - **Exemple**: `GET /festivals/:idFestival/postes` permet de récupérer tous les postes associés à un festival spécifique.
@@ -200,6 +202,13 @@ Gestion des créneaux pour les festivals, y compris l'ajout, la consultation, la
 - **Paramètres URL**:
   - `idCreneau`: Identifiant unique du créneau.
 - **Exemple**: `DELETE /creneaux/123` pour supprimer le créneau avec l'ID `123`.
+
+#### Obtenir les créneaux d'un user a un festival (`'/creneaux/user/:idUser/festival/:idFestival'`)
+- **Route**: `GET /creneaux/user/:idUser/festival/:idFestival`
+- **Paramètres URL**:
+  - `idUser`: Identifiant unique de l'utilisateur.
+  - `idFestival`: Identifiant unique du festival.
+- **Exemple**: `GET /creneaux/user/123/festival/1` pour obtenir les créneaux de l'utilisateur avec l'ID `123` pour le festival avec l'ID `1`.
 
 
 ### 12 . Association (`/associations`)

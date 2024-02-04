@@ -3,6 +3,7 @@ import volunteerToFestivalService from "../services/volunteerToFestival.service"
 import { VolunteerInterface } from "../types/types";
 import { logger } from "../helpers/loggers.vercel";
 import {IsVolunteer, Role, Status} from '@prisma/client';
+import {isBoolean} from "lodash";
 
 const volunteerToFestivalController = {
     /**
@@ -72,7 +73,7 @@ const volunteerToFestivalController = {
     getVolunteersToFestival: async (req: Request, res: Response) => {
         try {
             const { festivalId } = req.params;
-            const {role, name } = req.query;
+            const {role, name,getTeeShirt } = req.query;
 
             const page = parseInt(req.query.page as string) || 1;
             const pageSize = parseInt(req.query.pageSize as string) || 20;
@@ -93,7 +94,8 @@ const volunteerToFestivalController = {
                 page,
                 pageSize,
                 role as Role, 
-                name as string
+                name as string,
+                isBoolean(getTeeShirt) ? getTeeShirt : undefined
             );
             res.json(result);
         } catch (error) {

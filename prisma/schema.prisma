@@ -96,6 +96,7 @@ model IsVolunteer {
   idUser       String
   isVege       Boolean
   sizeTeeShirt String
+  getTeeShirt  Boolean  @default(false)
   role         Role?    @default(basic)
   status       Status?  @default(notAccepted)
   festival     Festival @relation(fields: [idFestival], references: [idFestival], onDelete: Cascade)
