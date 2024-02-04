@@ -23,6 +23,7 @@ export interface VolunteerInterface {
     sizeTeeShirt?: string;
     role?: Role;
     status?: Status;
+    getTeeShirt?: boolean;
 }
 
 export interface UserRequest extends express.Request {

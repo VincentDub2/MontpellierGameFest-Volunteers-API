@@ -75,9 +75,9 @@ const volunteerToFestivalService = {
      * @param role
      * @param name
      */
-    getVolunteersToFestival: async (festivalId: number, page: number, pageSize: number, role?: Role,name? : string) => {
+    getVolunteersToFestival: async (festivalId: number, page: number, pageSize: number, role?: Role,name? : string,getTeeShirt?:boolean) => {
         const skip = (page - 1) * pageSize;
-        let whereClause: { idFestival: number; role?: Role ;name?: String} = { idFestival: festivalId };
+        let whereClause: { idFestival: number; role?: Role ;name?: String,getTeeShirt?: boolean} = { idFestival: festivalId,getTeeShirt:getTeeShirt};
 
         if (role) {
             whereClause.role = role;
@@ -108,13 +108,14 @@ const volunteerToFestivalService = {
      */
     updateVolunteerToFestival: async (volunteer: VolunteerInterface) => {
         try {
-            const { volunteerId, festivalId, isVege, sizeTeeShirt, role ,status} = volunteer;
+            const { volunteerId, festivalId, isVege, sizeTeeShirt, role ,status,getTeeShirt} = volunteer;
 
-            let updateData: { isVege?: boolean; sizeTeeShirt?: string; role?: Role,status?: Status} = {};
+            let updateData: { isVege?: boolean; sizeTeeShirt?: string; role?: Role,status?: Status, getTeeShirt?: boolean} = {};
             if (isVege !== undefined) updateData.isVege = isVege;
             if (sizeTeeShirt !== undefined) updateData.sizeTeeShirt = sizeTeeShirt;
             if (role !== undefined) updateData.role = role;
             if (status !== undefined) updateData.status = status;
+            if (getTeeShirt !== undefined) updateData.getTeeShirt = getTeeShirt;
 
             const volunteerToFestival = await prisma.isVolunteer.updateMany({
                 where: {
