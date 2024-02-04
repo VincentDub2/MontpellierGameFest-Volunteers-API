@@ -123,6 +123,39 @@ const creneauService = {
             throw new Error(`Error deleting creneau: ${error}`);
         }
     },
+    // Avoir les creneaux d'un user d'un festival
+    getCreneauxByUser: async (idUser: string, idFestival: number): Promise<Creneau[] | null> => {
+        try {
+            // Supposons que chaque 'Inscription' relie un 'User' à un 'CreneauEspace', et indirectement à un 'Creneau'
+            // Cela nécessite que votre logique métier établisse cette connexion.
+            const inscriptions = await prisma.inscription.findMany({
+                where: {
+                    user: {
+                        id: idUser
+                    },
+                    creneauEspace: {
+                        creneau: {
+                            idFestival: idFestival
+                        }
+                    }
+                },
+                include: {
+                    creneauEspace: {
+                        include: {
+                            creneau: true // Inclut les détails du créneau
+                        }
+                    }
+                }
+            });
+
+            // Extraire les créneaux à partir des inscriptions
+            const creneaux = inscriptions.map(inscription => inscription.creneauEspace.creneau);
+
+            return creneaux;
+        } catch (error) {
+            throw new Error(`Error retrieving creneaux: ${error}`);
+        }
+    }
 };
 
 export default creneauService;

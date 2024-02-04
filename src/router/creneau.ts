@@ -11,6 +11,8 @@ export default (router: express.Router) => {
     router.put('/creneaux/:idCreneau', creneauController.updateCreneau);
     // Route pour supprimer un créneau
     router.delete('/creneaux/:idCreneau', creneauController.deleteCreneau);
-    // Route pour obtenir tous les créneaux
+    // Avoir les creneaux d'un user d'un festival
+    router.get('/creneaux/user/:idUser/festival/:idFestival', creneauController.getCreneauxByUser);
+
     return router;
 };
