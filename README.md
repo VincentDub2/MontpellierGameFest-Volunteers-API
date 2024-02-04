@@ -633,7 +633,10 @@ npm test
 - Blocage des requêtes non authentifiées
 - Blocage de compte après plusieurs tentatives de connexion échouées
 - Vérification de l'email
+- Envoie d'email de réinitialisation de mot de passe
 - Limitation du nombre de requêtes pour prévenir les attaques DDoS
+- Utilisation de Bcrypt pour le hachage des mots de passe
+- Utilisation d'un salt pour le hachage des mots de passe
 
 ## 📊 Gestion des Logs
 L'application possède une gestion des logs enregistrés dans le dossier `logs`. Les logs sont enregistrés dans un fichier par jour.

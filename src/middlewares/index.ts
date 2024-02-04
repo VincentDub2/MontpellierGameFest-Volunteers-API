@@ -76,7 +76,7 @@ const middleware = {
     // Créez une instance de limite de taux
      limiter : rateLimit({
         windowMs: 15 * 60 * 1000, // 15 minutes
-        limit: 100, // Limite chaque IP à 100 requêtes par `window` (ici, par 15 minutes)
+        limit: 1000, // Limite chaque IP à 100 requêtes par `window` (ici, par 15 minutes)
         standardHeaders: true, // Retourne les informations de limite de taux dans les headers `RateLimit-*`
         legacyHeaders: false, // Désactive les headers `X-RateLimit-*`
          handler: (req, res) => {
