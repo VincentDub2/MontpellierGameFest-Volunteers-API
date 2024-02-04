@@ -152,6 +152,7 @@ model Espace {
   posteEspaces   PosteEspace[]
   creneauEspaces CreneauEspace[]
   isReferent     IsReferent[]
+  isPlay      IsPlay[]
 }
 
 model PosteEspace {
@@ -304,10 +305,13 @@ model Jeux {
 model IsPlay {
   idGame     Int
   idFestival Int
+  idEspace Int
   game       Jeux     @relation(fields: [idGame], references: [idGame], onDelete: Cascade)
   festival   Festival @relation(fields: [idFestival], references: [idFestival], onDelete: Cascade)
+  espace     Espace   @relation(fields: [idEspace], references: [idEspace], onDelete: Cascade)
 
-  @@id([idGame, idFestival])
+  @@id([idGame, idFestival, idEspace])
   @@index([idGame])
   @@index([idFestival])
+  @@index([idEspace])
 }

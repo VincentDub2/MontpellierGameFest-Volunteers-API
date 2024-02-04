@@ -5,12 +5,13 @@ const prisma = new PrismaClient();
 
 const isPlayService = {
     // Ajouter un jeu joué à un festival
-    addPlay: async (idGame: number, idFestival: number): Promise<IsPlay | null> => {
+    addPlay: async (idGame: number, idFestival: number, idEspace: number): Promise<IsPlay | null> => {
         try {
             return await prisma.isPlay.create({
                 data: {
                     idGame,
-                    idFestival
+                    idFestival,
+                    idEspace
                 }
             });
         } catch (error) {
@@ -33,19 +34,13 @@ const isPlayService = {
         }
     },
 
-    // Obtenir un jeu joué par ses identifiants
-    getPlayById: async (idGame: number, idFestival: number): Promise<IsPlay | null> => {
+    // Obtenir tous les jeux joués d'un espace à un festival
+    getPlaysById: async (idEspace: number, idFestival: number): Promise<IsPlay[] | null> => {
         try {
-            return await prisma.isPlay.findUnique({
+            return await prisma.isPlay.findMany({
                 where: {
-                    idGame_idFestival: {
-                        idGame,
-                        idFestival
-                    }
-                },
-                include: {
-                    game: true,
-                    festival: true
+                    idEspace,
+                    idFestival
                 }
             });
         } catch (error) {
@@ -55,13 +50,14 @@ const isPlayService = {
     },
 
     // Supprimer un jeu joué
-    deletePlay: async (idGame: number, idFestival: number): Promise<IsPlay | null> => {
+    deletePlay: async (idGame: number, idFestival: number, idEspace: number): Promise<IsPlay | null> => {
         try {
             return await prisma.isPlay.delete({
                 where: {
-                    idGame_idFestival: {
+                    idGame_idFestival_idEspace: {
                         idGame,
-                        idFestival
+                        idFestival,
+                        idEspace
                     }
                 }
             });

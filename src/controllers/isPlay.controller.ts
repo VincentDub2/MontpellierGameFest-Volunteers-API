@@ -5,9 +5,9 @@ import { logger } from '../helpers/loggers.vercel';
 const isPlayController = {
     // Ajouter un jeu joué à un festival
     addPlay: async (req: Request, res: Response) => {
-        const { idGame, idFestival } = req.body;
+        const { idGame, idFestival, idEspace } = req.body;
         try {
-            const newPlay = await isPlayService.addPlay(idGame, idFestival);
+            const newPlay = await isPlayService.addPlay(idGame, idFestival, idEspace);
             res.status(201).json(newPlay);
         } catch (error) {
             logger.error(`Error adding play: ${error}`);
@@ -18,6 +18,7 @@ const isPlayController = {
     // Ajouter plusieurs jeux joués à un festival
     addMultiplePlays: async (req: Request, res: Response) => {
         const playsData = req.body;
+        console.log(playsData)
         try {
             const newPlays = await isPlayService.addMultiplePlays(playsData);
             res.status(201).json(newPlays);
@@ -27,11 +28,11 @@ const isPlayController = {
         }
     },
 
-    // Obtenir un jeu joué par ses identifiants
+    // Obtenir tous les jeux joués d'un espace à un festival
     getPlayById: async (req: Request, res: Response) => {
-        const { idGame, idFestival } = req.params;
+        const { idEspace, idFestival } = req.params;
         try {
-            const play = await isPlayService.getPlayById(parseInt(idGame), parseInt(idFestival));
+            const play = await isPlayService.getPlaysById(parseInt(idEspace), parseInt(idFestival));
             if (play) {
                 res.json(play);
             } else {
@@ -45,9 +46,9 @@ const isPlayController = {
 
     // Supprimer un jeu joué
     deletePlay: async (req: Request, res: Response) => {
-        const { idGame, idFestival } = req.params;
+        const { idGame, idFestival, idEspace } = req.params;
         try {
-            await isPlayService.deletePlay(parseInt(idGame), parseInt(idFestival));
+            await isPlayService.deletePlay(parseInt(idGame), parseInt(idFestival), parseInt(idEspace));
             res.status(200).json({ message: 'Play deleted' });
         } catch (error) {
             logger.error(`Error deleting play: ${error}`);
