@@ -450,20 +450,20 @@ Gestion des events pour le festival, y compris l'ajout, la récupération et la 
 - **Exemple**: `POST /inscriptions` avec le corps de la requête contenant `{"idUser": "user123", "idCreneauEspace": 1, "isAccepted": true, "isFlexible": false}` pour créer une nouvelle inscription.
 
 #### Obtenir une Inscription par ID (`/inscriptions/:idUser/:idCreneauEspace`)
-- **Route**: `GET /inscriptions/:idUser/:idCreneauEspace`
+- **Route**: `GET /inscriptions/:idUser/creneauEspaces/:idCreneauEspace`
 - **Paramètres URL**:
   - `idUser`: Identifiant unique de l'utilisateur.
   - `idCreneauEspace`: Identifiant unique du créneau espace.
-- **Exemple**: `GET /inscriptions/user123/1` pour obtenir les détails de l'inscription avec l'identifiant utilisateur `user123` et l'identifiant créneau espace `1`.
+- **Exemple**: `GET /inscriptions/user123/creneauEspaces/1` pour obtenir les détails de l'inscription avec l'identifiant utilisateur `user123` et l'identifiant créneau espace `1`.
 
-#### Obtenir toutes les Inscriptions d'un user a un festival (`/inscriptions/:idUser/:idFestival`)
+#### Obtenir toutes les Inscriptions d'un user a un festival (`/inscriptions/:idUser/festivals/:idFestival`)
 - **Route**: `GET /inscriptions/:idUser/:idFestival`
 - **Paramètres URL**:
   - `idUser`: Identifiant unique de l'utilisateur.
   - `idFestival`: Identifiant unique du festival.
 - **Exemple**: `GET /inscriptions/user123/1` pour obtenir les détails de l'inscription avec l'identifiant utilisateur `user123` et l'identifiant créneau espace `1`.
 
-#### Mettre à jour une Inscription (`/inscriptions/:idUser/:idCreneauEspace`)
+#### Mettre à jour une Inscription (`/inscriptions/:idUser/creneauEspace/:idCreneauEspace`)
 - **Route**: `PUT /inscriptions/:idUser/:idCreneauEspace`
 - **Paramètres URL**:
   - `idUser`: Identifiant unique de l'utilisateur.
@@ -474,7 +474,7 @@ Gestion des events pour le festival, y compris l'ajout, la récupération et la 
   - `jeuxIdGame`: (Optionnel) Identifiant du jeu.
 - **Exemple**: `PUT /inscriptions/user123/1` avec le corps de la requête contenant `{"isAccepted": false}` pour mettre à jour l'inscription.
 
-#### Supprimer une Inscription (`/inscriptions/:idUser/:idCreneauEspace`)
+#### Supprimer une Inscription (`/inscriptions/:idUser/creneauEspace/:idCreneauEspace`)
 - **Route**: `DELETE /inscriptions/:idUser/:idCreneauEspace`
 - **Paramètres URL**:
   - `idUser`: Identifiant unique de l'utilisateur.
