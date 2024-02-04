@@ -77,6 +77,7 @@ const volunteerToFestivalController = {
 
             const page = parseInt(req.query.page as string) || 1;
             const pageSize = parseInt(req.query.pageSize as string) || 20;
+
             
             if (!festivalId) {
                 logger.warn(`Erreur lors de la récupération des volontaires au festival: Veuillez renseigner l'identifiant du festival`);
@@ -112,8 +113,9 @@ const volunteerToFestivalController = {
     updateVolunteerToFestival: async (req: Request, res: Response) => {
         try {
             const { festivalId, volunteerId } = req.params; // Assurez-vous que ces paramètres sont correctement définis dans votre route
-            const { isVege, sizeTeeShirt, role,status} = req.body;
+            const { isVege, sizeTeeShirt, role,status,getTeeShirt} = req.body;
 
+            console.log("getTeeShirt",getTeeShirt);
             // Validation des données (ajoutez plus de validations si nécessaire)
             if (!festivalId || !volunteerId) {
                 logger.warn(`Erreur lors de la mise à jour du volontaire au festival: L'identifiant du festival et du volontaire sont requis`);
@@ -136,7 +138,8 @@ const volunteerToFestivalController = {
                 isVege,
                 sizeTeeShirt,
                 role: role as Role,
-                status: status as Status
+                status: status as Status,
+                getTeeShirt: getTeeShirt
             };
 
             const result = await volunteerToFestivalService.updateVolunteerToFestival(volunteerData);
