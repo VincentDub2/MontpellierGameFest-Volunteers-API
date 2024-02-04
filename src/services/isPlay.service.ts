@@ -40,8 +40,11 @@ const isPlayService = {
             return await prisma.isPlay.findMany({
                 where: {
                     idEspace,
-                    idFestival
-                }
+                    idFestival,
+                },
+                include: {
+                    game: true,
+                },
             });
         } catch (error) {
             console.error(`Error retrieving play: ${error}`);
