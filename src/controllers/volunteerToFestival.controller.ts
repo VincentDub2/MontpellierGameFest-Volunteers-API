@@ -127,7 +127,7 @@ const volunteerToFestivalController = {
                 return res.status(400).json({ message: "Le rôle renseigné n'est pas valide" });
             }
 
-            if (status && !Object.values(Role).includes(status as Role)) {
+            if (status && !Object.values(Status).includes(status as Status)) {
                 logger.warn(`Erreur lors de la mise à jour du volontaire au festival: Le status renseigné n'est pas valide`);
                 return res.status(400).json({ message: "Le status renseigné n'est pas valide" });
             }
