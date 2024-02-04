@@ -129,7 +129,16 @@ const inscriptionService = {
         } catch (error) {
             throw new Error(`Error retrieving all Inscriptions: ${error}`);
         }
-    }
+    },
+    //Obtenir toutes les inscriptions
+    getAllInscriptions: async (): Promise<Inscription[] | null> => {
+        try {
+            return await prisma.inscription.findMany();
+        } catch (error) {
+            throw new Error(`Error retrieving all Inscriptions: ${error}`);
+        }
+    },
+
 
 
 };

@@ -68,6 +68,16 @@ const inscriptionController = {
             logger.error(`Error retrieving Inscriptions: ${error}`);
             res.status(500).json({ message: `Error retrieving Inscriptions: ${error}`});
         }
+    },
+    //Obtenir toutes les inscriptions
+    getAllInscriptions: async (req: Request, res: Response) => {
+        try {
+            const inscriptions = await inscriptionService.getAllInscriptions();
+            res.json(inscriptions);
+        } catch (error) {
+            logger.error(`Error retrieving Inscriptions: ${error}`);
+            res.status(500).json({ message: `Error retrieving Inscriptions: ${error}`});
+        }
     }
 };
 

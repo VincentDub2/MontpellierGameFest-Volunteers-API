@@ -17,4 +17,7 @@ export default (router: express.Router) => {
     //Obtenir toutes les inscriptions d'un utilisateur a un festival
     router.get('/inscriptions/:idUser/:idFestival', inscriptionController.getInscriptionsByUserAndFestival);
 
+    //Obtenir toutes les inscriptions
+    router.get('/inscriptions', inscriptionController.getAllInscriptions);
+
 }
