@@ -154,7 +154,13 @@ const authLocalController = {
     },
     updatePasswordWithToken: async (req: Request, res: Response) => {
         try {
-            const { token, newPassword } = req.body;
+            const newPassword = req.body.newPassword as string;
+            const token = req.body.token as string;
+
+            if (!token || !newPassword) {
+                logger.warn("Tentative de réinitialisation du mot de passe sans token ou nouveau mot de passe");
+                return res.status(400).json({ message: "Token et nouveau mot de passe requis" });
+            }
 
             const passwordResetToken = await authLocalService.verifyPasswordResetToken(token);
 
@@ -184,6 +190,7 @@ const authLocalController = {
             logger.info(`Mot de passe réinitialisé avec succès pour l'utilisateur: ${passwordResetToken.user.id}`);
             return res.status(200).json({ message: "Mot de passe réinitialisé avec succès" });
         } catch (error) {
+            logger.error(`Erreur lors de la réinitialisation du mot de passe: ${error}`);
             res.status(500).json({ message:`Erreur lors de la mise a jours: ${error}`});
         }
     }
