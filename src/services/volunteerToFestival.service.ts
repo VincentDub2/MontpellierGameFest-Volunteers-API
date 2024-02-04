@@ -77,13 +77,16 @@ const volunteerToFestivalService = {
      */
     getVolunteersToFestival: async (festivalId: number, page: number, pageSize: number, role?: Role,name? : string,getTeeShirt?:boolean) => {
         const skip = (page - 1) * pageSize;
-        let whereClause: { idFestival: number; role?: Role ;name?: String,getTeeShirt?: boolean} = { idFestival: festivalId,getTeeShirt:getTeeShirt};
+        let whereClause: { idFestival: number; role?: Role ;name?: String,getTeeShirt?: boolean} = { idFestival: festivalId};
 
         if (role) {
             whereClause.role = role;
         }
         if(name){
             whereClause.name = name;
+        }
+        if (getTeeShirt) {
+            whereClause.getTeeShirt = getTeeShirt;
         }
 
         try {
