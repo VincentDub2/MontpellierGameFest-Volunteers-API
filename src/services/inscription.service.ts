@@ -105,6 +105,9 @@ const inscriptionService = {
                     idCreneauEspace: true, // Sélectionnez seulement les idCreneauEspace
                 }
             });
+
+            console.log("creaneauEspace",creneauEspaces);
+
             const creneauEspaceIds = creneauEspaces.map(ce => ce.idCreneauEspace);
 
             // Étape 2: Utiliser les ID CreneauEspace récupérés pour filtrer les inscriptions de l'utilisateur
