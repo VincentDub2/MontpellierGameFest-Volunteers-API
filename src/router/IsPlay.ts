@@ -13,5 +13,5 @@ export default (router: express.Router) => {
     router.get('/isPlay/:idEspace/:idFestival', isPlayController.getPlayById);
 
     // Route pour supprimer un jeu joué
-    router.delete('/isPlay/:idGame/:idFestival', isPlayController.deletePlay);
+    router.delete('/isPlay/:idGame/:idFestival/:idEspace', isPlayController.deletePlay);
 };
