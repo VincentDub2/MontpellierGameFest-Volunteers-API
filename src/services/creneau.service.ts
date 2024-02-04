@@ -142,7 +142,8 @@ const creneauService = {
                 include: {
                     creneauEspace: {
                         include: {
-                            creneau: true // Inclut les détails du créneau
+                            creneau: true, // Inclut les détails du créneau
+                            espace: true, // Inclut les détails de l'espace
                         }
                     }
                 }
