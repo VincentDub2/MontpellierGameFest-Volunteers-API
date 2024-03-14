@@ -13,7 +13,7 @@ const middleware = {
     }
     try {
         if (!process.env.JWT_SECRET) {
-            throw new Error('JWT_SECRET manquant dans le fichier .env');
+            throw new Error('JWT_SECRET manquant dans le fichier ..env');
         }
 
         const decoded = jwt.verify(token, process.env.JWT_SECRET);

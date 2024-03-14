@@ -27,7 +27,7 @@ const oauthController = {
             const user = await oauthService.authenticateUser(provider, code as string);
 
             if (!process.env.JWT_SECRET) {
-                throw new Error('JWT_SECRET manquant dans le fichier .env');
+                throw new Error('JWT_SECRET manquant dans le fichier ..env');
             }
 
             // Générer un token JWT

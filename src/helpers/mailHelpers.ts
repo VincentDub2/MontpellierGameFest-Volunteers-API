@@ -18,7 +18,7 @@ class MailService {
 
     constructor() {
         if (!process.env.GMAIL_USER || !process.env.GMAIL_PASSWORD) {
-            throw new Error('GMAIL_USER ou GMAIL_PASSWORD manquant dans le fichier .env');
+            throw new Error('GMAIL_USER ou GMAIL_PASSWORD manquant dans le fichier ..env');
         }
         this.transporter = nodemailer.createTransport({
             service: 'gmail',

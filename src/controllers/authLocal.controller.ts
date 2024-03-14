@@ -69,7 +69,7 @@ const authLocalController = {
 
             // Vérifie si les variables d'environnement sont bien présentes
             if (!process.env.JWT_SECRET) {
-                throw new Error('JWT_SECRET manquant dans le fichier .env');
+                throw new Error('JWT_SECRET manquant dans le fichier ..env');
             }
             // Générer un token JWT
             const token = jwt.sign({ userId: user.id, email: user.email }, process.env.JWT_SECRET, { expiresIn: '1h' });
@@ -140,7 +140,7 @@ const authLocalController = {
             await authLocalService.createPasswordResetToken(user.id, token, expiresAt);
 
             if (!process.env.FRONTEND_URL) {
-                throw new Error('CLIENT_URL manquant dans le fichier .env');
+                throw new Error('CLIENT_URL manquant dans le fichier ..env');
             }
 
             const link = `${process.env.FRONTEND_URL}/reset-password?token=${token}`;
