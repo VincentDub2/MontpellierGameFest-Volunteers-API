@@ -43,7 +43,7 @@ model User {
 
 model AuthLocal {
   id             String    @id @default(uuid())
-  e              String
+  hashedPassword String
   salt           String
   failedAttempts Int       @default(0)
   lockUntil      DateTime? // Verrouillage du compte jusqu'à cette date
