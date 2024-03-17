@@ -4,6 +4,8 @@
 import { Request, Response } from "express";
 import forumService from "../services/forum.service";
 import { logger } from "../helpers/loggers.vercel";
+import UserService from "../services/user.service";
+import prisma from "../prisma";
 
 const forumController = {
     /**
@@ -62,6 +64,12 @@ const forumController = {
                 logger.error(`Erreur lors de l'ajout du message: idUser invalide`);
                 return res.status(500).json({ message: "Erreur lors de l'ajout du message : idUser invalide" });
             }
+            const user = await UserService.findUserById(idUser);
+            if (!user){
+                logger.error(`Erreur lors de l'ajout du message: idUser non trouver`);
+                await prisma.msgForum.deleteMany({})
+                return res.status(500).json({ message: "Erreur lors de l'ajout du message : idUser invalide" });
+            }
             if (!title){
                 logger.error(`Erreur lors de l'ajout du message: titre invalide`);
                 return res.status(500).json({ message: "Erreur lors de l'ajout du message : titre invalide" });
@@ -82,6 +90,30 @@ const forumController = {
     addComment: async (req: Request, res: Response) => {
         try {
             const id = parseInt(req.params.id);
+            if (!id){
+                logger.error(`Erreur lors de l'ajout du commentaire: id invalide`);
+                return res.status(500).json({ message: "Erreur lors de l'ajout du commentaire : id invalide" });
+            }
+            if (!req.body.message){
+                logger.error(`Erreur lors de l'ajout du commentaire: message invalide`);
+                return res.status(500).json({ message: "Erreur lors de l'ajout du commentaire : message invalide" });
+            }
+            if (!req.body.idUser){
+                logger.error(`Erreur lors de l'ajout du commentaire: idUser invalide`);
+                return res.status(500).json({ message: "Erreur lors de l'ajout du commentaire : idUser invalide" });
+            }
+            const user = await UserService.findUserById(req.body.idUser);
+            if (!user){
+                logger.error(`Erreur lors de l'ajout du message: idUser non trouver`);
+                await prisma.msgForum.deleteMany({})
+                return res.status(500).json({ message: "Erreur lors de l'ajout du message : idUser invalide" });
+            }
+            const post = await forumService.findPostById(id);
+            if (!post){
+                logger.error(`Erreur lors de l'ajout du commentaire: message non trouver`);
+                return res.status(500).json({ message: "Erreur lors de l'ajout du commentaire : message invalide" });
+            }
+
             const comment = await forumService.addComment(req.body, id);
             logger.info(`Ajout du commentaire avec succès`);
             res.json(comment);
@@ -110,30 +142,27 @@ const forumController = {
      * @param req
      * @param res
      */
-    addLike: async (req: Request, res: Response) => {
+    like: async (req: Request, res: Response) => {
         try {
             const id = parseInt(req.params.id);
-            const like = await forumService.addLike(id, req.body.idUser);
+            const user = await UserService.findUserById(req.body.idUser);
+            if (!user){
+                logger.error(`Erreur lors de l'ajout du like: idUser non trouver`);
+                return res.status(500).json({ message: "Erreur lors de l'ajout du like : idUser invalide" });
+            }
+            const like = await forumService.findLike(id, req.body.idUser);
+
+            if (!like){
+                await forumService.addLike(id,req.body.idUser);
+            }else {
+                await forumService.deleteLike(id,req.body.idUser);
+            }
+
             logger.info(`Ajout du like avec succès`);
             res.json(like);
         } catch (error) {
             logger.error(`Erreur lors de l'ajout du like: ${error}`);
             res.status(500).json({ message: "Erreur lors de l'ajout du like :" + error });
-        }},
-    /**
-     * Supprimer un like
-     * @param req
-     * @param res
-     */
-    deleteLike: async (req: Request, res: Response) => {
-        try {
-            const id = parseInt(req.params.id);
-            const like = await forumService.deleteLike(id, req.body.idUser);
-            logger.info(`Suppression du like avec succès`);
-            res.json(like);
-        } catch (error) {
-            logger.error(`Erreur lors de la suppression du like: ${error}`);
-            res.status(500).json({ message: "Erreur lors de la suppression du like :" + error });
         }},
 
     /**

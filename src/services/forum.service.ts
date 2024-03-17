@@ -43,7 +43,7 @@ const forumService = {
                 data: {
                     message: msg,
                     idUser: idUser,
-                    title: title
+                    title: title,
                 }
             });
         } catch (error) {
@@ -74,6 +74,18 @@ const forumService = {
             throw new Error(`Erreur lors de l'ajout du like: ${error}`);
         }
     },
+    findLike: async (idMsgForum : number,idUser : string) => {
+        try {
+            return await prisma.like.findFirst({
+                where: {
+                    idMsgForum: idMsgForum,
+                    idUser: idUser
+                }
+            });
+        } catch (error) {
+            throw new Error(`Erreur lors de la récupération du like: ${error}`);
+        }
+    },
     deleteLike: async (idMsgForum : number,idUser : string) => {
         try {
             return await prisma.like.deleteMany({
@@ -95,6 +107,17 @@ const forumService = {
             });
         } catch (error) {
             throw new Error(`Erreur lors de la suppression du message: ${error}`);
+        }
+    },
+    findPostById: async (idMsgForum: number) => {
+        try {
+            return await prisma.msgForum.findUnique({
+                where: {
+                    idMsgForum
+                }
+            });
+        } catch (error) {
+            throw new Error(`Erreur lors de la récupération du post: ${error}`);
         }
     },
     deleteComment: async (idComment: number) => {

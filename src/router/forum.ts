@@ -8,8 +8,7 @@ export default (router: express.Router) => {
     router.get('/forum/:id', forumController.getMessageById);
     router.delete('/forum/:id', forumController.deleteMessageById);
     router.post('/forum/:id/comment', forumController.addComment);
-    router.post('/forum/:id/like', forumController.addLike);
-    router.delete('/forum/:id/like', forumController.deleteLike);
+    router.post('/forum/:id/like', forumController.like);
     router.delete('/forum/comment/:id', forumController.deleteComment);
     return router;
 };
