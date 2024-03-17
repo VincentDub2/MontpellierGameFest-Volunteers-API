@@ -11,7 +11,11 @@ const forumService = {
                     include: {
                         user: true,
                         like: true,
-                        comments: true
+                        comments: {
+                            include: {
+                                user: true
+                            }
+                        }
                     }
                 }
             );
