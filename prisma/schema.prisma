@@ -29,7 +29,10 @@ model User {
   authLocal              AuthLocal?
   authOAuth              AuthOAuth[]
   passwordResetTokens    PasswordResetToken[]
+  comments               Comment[]
+  like                   Like[]
 
+  msgForums        MsgForum[]
   isVolunteer      IsVolunteer[]
   isPresent        IsPresent[]
   isReferent       IsReferent[]
@@ -153,7 +156,7 @@ model Espace {
   posteEspaces   PosteEspace[]
   creneauEspaces CreneauEspace[]
   isReferent     IsReferent[]
-  isPlay      IsPlay[]
+  isPlay         IsPlay[]
 }
 
 model PosteEspace {
@@ -306,7 +309,7 @@ model Jeux {
 model IsPlay {
   idGame     Int
   idFestival Int
-  idEspace Int
+  idEspace   Int
   game       Jeux     @relation(fields: [idGame], references: [idGame], onDelete: Cascade)
   festival   Festival @relation(fields: [idFestival], references: [idFestival], onDelete: Cascade)
   espace     Espace   @relation(fields: [idEspace], references: [idEspace], onDelete: Cascade)
@@ -315,4 +318,40 @@ model IsPlay {
   @@index([idGame])
   @@index([idFestival])
   @@index([idEspace])
+}
+
+model MsgForum {
+  idMsgForum Int       @id @default(autoincrement())
+  idUser     String
+  message    String    @db.Text
+  user       User      @relation(fields: [idUser], references: [id], onDelete: Cascade)
+  createdAt  DateTime  @default(now())
+  like       Like[]
+  comments   Comment[]
+
+  @@index([idUser])
+}
+
+model Comment {
+  idComment  Int      @id @default(autoincrement())
+  idUser     String
+  idMsgForum Int
+  message    String   @db.Text
+  user       User     @relation(fields: [idUser], references: [id], onDelete: Cascade)
+  msgForum   MsgForum @relation(fields: [idMsgForum], references: [idMsgForum], onDelete: Cascade)
+  createdAt  DateTime @default(now())
+
+  @@index([idUser])
+  @@index([idMsgForum])
+}
+
+model Like {
+  idLike     Int      @id @default(autoincrement())
+  idUser     String
+  idMsgForum Int
+  user       User     @relation(fields: [idUser], references: [id], onDelete: Cascade)
+  msgForum   MsgForum @relation(fields: [idMsgForum], references: [idMsgForum], onDelete: Cascade)
+
+  @@index([idUser])
+  @@index([idMsgForum])
 }
