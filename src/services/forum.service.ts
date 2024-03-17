@@ -37,12 +37,13 @@ const forumService = {
             throw new Error(`Erreur lors de la récupération du message: ${error}`);
         }
     },
-    addMsgForum: async (msg:string,idUser:string) => {
+    addMsgForum: async (msg:string,idUser:string,title:string) => {
         try {
             return await prisma.msgForum.create({
                 data: {
                     message: msg,
-                    idUser: idUser
+                    idUser: idUser,
+                    title: title
                 }
             });
         } catch (error) {

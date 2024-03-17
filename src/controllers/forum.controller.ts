@@ -52,6 +52,7 @@ const forumController = {
 
             const idUser = req.body.idUser;
             const messageReq = req.body.message;
+            const title = req.body.title;
 
             if (!messageReq ){
                 logger.error(`Erreur lors de l'ajout du message: message invalide`);
@@ -61,7 +62,11 @@ const forumController = {
                 logger.error(`Erreur lors de l'ajout du message: idUser invalide`);
                 return res.status(500).json({ message: "Erreur lors de l'ajout du message : idUser invalide" });
             }
-            const message = await forumService.addMsgForum(messageReq, idUser);
+            if (!title){
+                logger.error(`Erreur lors de l'ajout du message: titre invalide`);
+                return res.status(500).json({ message: "Erreur lors de l'ajout du message : titre invalide" });
+            }
+            const message = await forumService.addMsgForum(messageReq, idUser,title);
             logger.info(`Ajout du message avec succès`);
             res.json(message);
         } catch (error) {

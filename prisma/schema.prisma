@@ -323,6 +323,7 @@ model IsPlay {
 model MsgForum {
   idMsgForum Int       @id @default(autoincrement())
   idUser     String
+  title      String
   message    String    @db.Text
   user       User      @relation(fields: [idUser], references: [id], onDelete: Cascade)
   createdAt  DateTime  @default(now())
