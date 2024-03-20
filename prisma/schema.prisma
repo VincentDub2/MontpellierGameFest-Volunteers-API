@@ -359,14 +359,15 @@ model Like {
 }
 
 model Housing {
-  idHousing    Int    @id @default(autoincrement())
+  idHousing    Int     @id @default(autoincrement())
   idUser       String
   availibility String
-  description  String @db.LongText
+  description  String  @db.LongText
   city         String
   postalCode   String
+  isOffering   Boolean @default(true)
   country      String
-  user         User   @relation(fields: [idUser], references: [id], onDelete: Cascade)
+  user         User    @relation(fields: [idUser], references: [id], onDelete: Cascade)
 
   @@index([idUser])
 }

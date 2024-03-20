@@ -11,8 +11,8 @@ const housingController = {
      */
     addHousing: async (req: Request, res: Response) => {
         try {
-            const {availibility, description, city, postalCode, idUser} = req.body;
-            if (!availibility || !description || !city || !postalCode || !idUser) {
+            const {availibility, description, city, postalCode, idUser,isOffering} = req.body;
+            if (!availibility || !description || !city || !postalCode || !idUser || !isOffering) {
                 logger.error(`Erreur lors de l'ajout du logement: données manquantes`);
                 return res.status(500).json({message: "Erreur lors de l'ajout du logement : données manquantes"});
             }
@@ -22,7 +22,7 @@ const housingController = {
                 return res.status(500).json({message: "Erreur lors de l'ajout du logement : utilisateur non trouvé"});
             }
 
-            const housing = await housingService.addHousing(availibility, description, city, postalCode, idUser);
+            const housing = await housingService.addHousing(availibility, description, city, postalCode, idUser,isOffering);
             logger.info(`Ajout du logement avec succès`);
             res.json(housing);
         } catch (error) {
@@ -88,3 +88,5 @@ const housingController = {
     }
 
 }
+
+export default housingController;

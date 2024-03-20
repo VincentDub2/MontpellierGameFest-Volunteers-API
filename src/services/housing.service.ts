@@ -8,8 +8,9 @@ const housingService = {
      * @param city
      * @param postalCode
      * @param idUser
+     * @param isOffering
      */
-    addHousing: async (availibility : string,description : string,city: string,postalCode:string, idUser: string) => {
+    addHousing: async (availibility : string,description : string,city: string,postalCode:string, idUser: string,isOffering:Boolean) => {
         try {
             return await prisma.housing.create({
                 data: {
@@ -18,6 +19,7 @@ const housingService = {
                     city,
                     idUser,
                     postalCode,
+                    isOffering,
                     country: "France",
                 }
             });

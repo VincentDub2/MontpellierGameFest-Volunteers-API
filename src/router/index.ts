@@ -20,6 +20,7 @@ import isPresented from "./isPresented";
 import inscription from './inscription';
 import planing from "./planing";
 import forum from "./forum";
+import housing from "./housing";
 
 const router = express.Router();
 
@@ -45,5 +46,6 @@ export default (): express.Router => {
       inscription(router)
       planing(router)
       forum(router);
+      housing(router)
     return router;
   };
