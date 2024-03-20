@@ -38,6 +38,7 @@ model User {
   isReferent       IsReferent[]
   inscriptions     Inscription[]
   userAssociations UserAssociation[]
+  housing          Housing[]
   managedEvents    Event[]           @relation("manager")
 }
 
@@ -355,4 +356,17 @@ model Like {
 
   @@index([idUser])
   @@index([idMsgForum])
+}
+
+model Housing {
+  idHousing    Int    @id @default(autoincrement())
+  idUser       String
+  availibility String
+  description  String @db.LongText
+  city         String
+  postalCode   String
+  country      String
+  user         User   @relation(fields: [idUser], references: [id], onDelete: Cascade)
+
+  @@index([idUser])
 }
