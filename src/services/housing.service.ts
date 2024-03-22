@@ -10,7 +10,7 @@ const housingService = {
      * @param idUser
      * @param isOffering
      */
-    addHousing: async (availibility : string,description : string,city: string,postalCode:string, idUser: string,isOffering:Boolean) => {
+    addHousing: async (availibility : string,description : string,city: string,postalCode:string, idUser: string,isOffering: boolean) => {
         try {
             return await prisma.housing.create({
                 data: {
