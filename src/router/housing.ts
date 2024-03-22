@@ -3,9 +3,9 @@ import housingController from "../controllers/housing.controller";
 
 
 export default (router: express.Router) => {
-    router.post('/housing',housingController.addHousing);
-    router.get('/housing',housingController.getAllHousing);
-    router.get('/housing/:id',housingController.getHousingById);
-    router.delete('/housing/:id',housingController.deleteHousingById);
+    router.post('/housings',housingController.addHousing);
+    router.get('/housings',housingController.getAllHousing);
+    router.get('/housings/:id',housingController.getHousingById);
+    router.delete('/housings/:id',housingController.deleteHousingById);
     return router;
 };
