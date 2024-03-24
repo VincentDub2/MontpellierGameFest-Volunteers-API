@@ -3,18 +3,18 @@ import prisma from "../prisma";
 const housingService = {
     /**
      * Ajouter un logement a proposé
-     * @param availibility
+     * @param availability
      * @param description
      * @param city
      * @param postalCode
      * @param idUser
      * @param isOffering
      */
-    addHousing: async (availibility : string,description : string,city: string,postalCode:string, idUser: string,isOffering: boolean) => {
+    addHousing: async (availability : number,description : string,city: string,postalCode:string, idUser: string,isOffering: boolean) => {
         try {
             return await prisma.housing.create({
                 data: {
-                    availibility,
+                    availability,
                     description,
                     city,
                     idUser,
@@ -32,7 +32,16 @@ const housingService = {
      */
     getAllHousing: async () => {
         try {
-            return await prisma.housing.findMany();
+            // Récupérer tous les logements et les renvoyer par ordre décroissant
+            return await prisma.housing.findMany(
+                {
+                    orderBy: [
+                        {
+                            idHousing: 'desc'
+                        }
+                    ]
+                }
+            );
         } catch (error) {
             throw new Error(`Erreur lors de la récupération des logements: ${error}`);
         }

@@ -361,7 +361,7 @@ model Like {
 model Housing {
   idHousing    Int     @id @default(autoincrement())
   idUser       String
-  availibility String
+  availability Int
   description  String  @db.LongText
   city         String
   postalCode   String
