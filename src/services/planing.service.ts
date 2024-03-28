@@ -48,6 +48,7 @@ const planingService = {
                     idFestival: inscription.creneauEspace.creneau.idFestival,
                     Jeux: inscription.Jeux?.name || null,
                     name: inscription.creneauEspace.espace.name,
+                    postId:inscription.creneauEspace.espace.posteEspaces.map(posteEspace => posteEspace.poste.idPoste).join(", "),
                     description: inscription.creneauEspace.espace.posteEspaces.map(posteEspace => posteEspace.poste.description).join(", "),
                     isReferent: isReferent?.includes(inscription.creneauEspace.idEspace)
                 })),
