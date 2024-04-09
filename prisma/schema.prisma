@@ -1,5 +1,5 @@
 datasource db {
-  provider     = "mysql"
+  provider     = "postgresql"
   url          = env("DATABASE_URL")
   relationMode = "prisma"
 }
@@ -362,7 +362,7 @@ model Housing {
   idHousing    Int     @id @default(autoincrement())
   idUser       String
   availability Int
-  description  String  @db.LongText
+  description  String  @db.Text
   city         String
   postalCode   String
   isOffering   Boolean @default(true)
